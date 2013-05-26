@@ -5,13 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Blog Archive - Arun Agrawal's Blog</title>
+  <title>Using git revert - Arun Agrawal's Blog</title>
   <meta name="author" content="Arun Agrawal">
 
   
-  <meta name="description" content="Blog Archive 2012 Slides (When Ruby Meets Java - The Power of Torquebox)
-Apr 01 2012 2011 Working as a Rails Contributor
-Aug 03 2011 Working With &hellip;">
+  <meta name="description" content="Hi, We are doing revert our code in different different ways. The basic way of doing this using git revert command. The git revert commit command is &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +18,7 @@ Aug 03 2011 Working With &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://arun.im/blog/archives">
+  <link rel="canonical" href="http://arun.im/blog/2010/10/05/using-git-revert">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Arun Agrawal's Blog" type="application/atom+xml">
@@ -67,127 +65,119 @@ Aug 03 2011 Working With &hellip;">
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Blog Archive</h1>
+    
+      <h1 class="entry-title">Using Git Revert</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-05T00:00:00+02:00" pubdate data-updated="true">Oct 5<span>th</span>, 2010</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives">
 
 
+<div class="entry-content"><div class="entry">
 
-  
-  <h2>2012</h2>
+  <p>Hi,</p>
 
-<article>
-  
-<h1><a href="/blog/2012/04/01/slides-when-ruby-meets-java-the-power-of-torquebox/">Slides (When Ruby Meets Java - The Power of Torquebox)</a></h1>
-<time datetime="2012-04-01T00:00:00+02:00" pubdate><span class='month'>Apr</span> <span class='day'>01</span> <span class='year'>2012</span></time>
+  <p>We are doing revert our code in different different ways.</p>
 
+  <p style="text-align: left;">The basic way of doing this using <em>git revert</em> command.</p>
 
-</article>
+  <p>
+    <span class="Apple-style-span" style="border-collapse: separate; color: #000000; font-family: Times; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; font-size: medium;"><span class="Apple-style-span" style="font-family: verdana,sans-serif; font-size: 11px; text-align: left;"></span></span>
+  </p>
 
+  <p>The
+    <em>git revert commit </em>command is substantially similar to the command <em>git cherry-pic commit </em>with one
+    important difference: it applies the <em>inverse </em>of the given <em>commit. </em>Thus, this command is used to
+    introduce a new commit that reverses the effects of a given commit.</p>
 
+  <p>My Current master status</p>
 
-  
-  <h2>2011</h2>
+  <pre>
+    <code>A => B => C => D => E</code>
+  </pre>
 
-<article>
-  
-<h1><a href="/blog/2011/08/03/working-as-a-rails-contributor/">Working as a Rails Contributor</a></h1>
-<time datetime="2011-08-03T00:00:00+02:00" pubdate><span class='month'>Aug</span> <span class='day'>03</span> <span class='year'>2011</span></time>
+  <p>If we are reverting commit D</p>
 
+  <p>Then it will become</p>
 
-</article>
+  <pre>
+    <code>
+      A => B => C => D => E => D”
+    </code>
+    <code>Here D” is the commit reverse of D</code>
+  </pre>
 
-
-
-<article>
-  
-<h1><a href="/blog/2011/07/03/working-with-mongoid-team/">Working With Mongoid Team</a></h1>
-<time datetime="2011-07-03T00:00:00+02:00" pubdate><span class='month'>Jul</span> <span class='day'>03</span> <span class='year'>2011</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2011/01/14/certified-scrum-master/">Certified Scrum Master</a></h1>
-<time datetime="2011-01-14T00:00:00+01:00" pubdate><span class='month'>Jan</span> <span class='day'>14</span> <span class='year'>2011</span></time>
-
-
-</article>
-
-
-
-  
-  <h2>2010</h2>
-
-<article>
-  
-<h1><a href="/blog/2010/11/22/creating-documents-mongodb/">Creating Documents, MongoDB — 2</a></h1>
-<time datetime="2010-11-22T00:00:00+01:00" pubdate><span class='month'>Nov</span> <span class='day'>22</span> <span class='year'>2010</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2010/11/19/mongodb-1/">MongoDB — 1</a></h1>
-<time datetime="2010-11-19T00:00:00+01:00" pubdate><span class='month'>Nov</span> <span class='day'>19</span> <span class='year'>2010</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2010/11/18/using-dreamhost-now-for-blogs-and-hosting/">Using DreamHost now for blogs and hosting</a></h1>
-<time datetime="2010-11-18T00:00:00+01:00" pubdate><span class='month'>Nov</span> <span class='day'>18</span> <span class='year'>2010</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2010/10/25/method-visibility-public-protected-private.html/">Method Visibility Public, Protected, Private</a></h1>
-<time datetime="2010-10-25T00:00:00+02:00" pubdate><span class='month'>Oct</span> <span class='day'>25</span> <span class='year'>2010</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2010/10/05/using-git-revert/">Using git revert</a></h1>
-<time datetime="2010-10-05T00:00:00+02:00" pubdate><span class='month'>Oct</span> <span class='day'>05</span> <span class='year'>2010</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2010/10/01/rake-migration.html/">Rake Migration</a></h1>
-<time datetime="2010-10-01T00:00:00+02:00" pubdate><span class='month'>Oct</span> <span class='day'>01</span> <span class='year'>2010</span></time>
-
-
-</article>
+  <p>Arun</p>
 
 </div>
 
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Arun Agrawal</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-05T00:00:00+02:00" pubdate data-updated="true">Oct 5<span>th</span>, 2010</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://arun.im/blog/2010/10/05/using-git-revert/" data-via="arunagw" data-counturl="http://arun.im/blog/2010/10/05/using-git-revert/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/10/01/rake-migration.html/" title="Previous Post: Rake Migration">&laquo; Rake Migration</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/10/25/method-visibility-public-protected-private.html/" title="Next Post: Method Visibility Public, Protected, Private">Method Visibility Public, Protected, Private &raquo;</a>
+      
+    </p>
+  </footer>
 </article>
 
 </div>
