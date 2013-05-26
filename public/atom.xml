@@ -4,7 +4,7 @@
   <title><![CDATA[Arun Agrawal's Blog]]></title>
   <link href="http://arun.im/atom.xml" rel="self"/>
   <link href="http://arun.im/"/>
-  <updated>2013-05-26T16:41:50+02:00</updated>
+  <updated>2013-05-26T18:19:58+02:00</updated>
   <id>http://arun.im/</id>
   <author>
     <name><![CDATA[Arun Agrawal]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Slides (When Ruby Meets Java - The Power of Torquebox)]]></title>
-    <link href="http://arun.im/blog/2012/04/01/slides-when-ruby-meets-java-the-power-of-torquebox/"/>
+    <link href="http://arun.im/2012/slides-when-ruby-meets-java-the-power-of-torquebox/"/>
     <updated>2012-04-01T00:00:00+02:00</updated>
-    <id>http://arun.im/blog/2012/04/01/slides-when-ruby-meets-java-the-power-of-torquebox</id>
+    <id>http://arun.im/2012/slides-when-ruby-meets-java-the-power-of-torquebox</id>
     <content type="html"><![CDATA[<div class="entry">
 
   <p>
@@ -44,9 +44,9 @@
   
   <entry>
     <title type="html"><![CDATA[Working as a Rails Contributor]]></title>
-    <link href="http://arun.im/blog/2011/08/03/working-as-a-rails-contributor/"/>
+    <link href="http://arun.im/2011/working-as-a-rails-contributor/"/>
     <updated>2011-08-03T00:00:00+02:00</updated>
-    <id>http://arun.im/blog/2011/08/03/working-as-a-rails-contributor</id>
+    <id>http://arun.im/2011/working-as-a-rails-contributor</id>
     <content type="html"><![CDATA[<div class="entry">
 
   <p>Finally, I got the time to write something about my
@@ -94,9 +94,9 @@
   
   <entry>
     <title type="html"><![CDATA[Working With Mongoid Team]]></title>
-    <link href="http://arun.im/blog/2011/07/03/working-with-mongoid-team/"/>
+    <link href="http://arun.im/2011/working-with-mongoid-team/"/>
     <updated>2011-07-03T00:00:00+02:00</updated>
-    <id>http://arun.im/blog/2011/07/03/working-with-mongoid-team</id>
+    <id>http://arun.im/2011/working-with-mongoid-team</id>
     <content type="html"><![CDATA[<div class="entry">
 
   <p>It’s long time i am writing again Blog. I am very happy that i have started working with Mongoid dev team.</p>
@@ -126,9 +126,9 @@
   
   <entry>
     <title type="html"><![CDATA[Certified Scrum Master]]></title>
-    <link href="http://arun.im/blog/2011/01/14/certified-scrum-master/"/>
+    <link href="http://arun.im/2011/certified-scrum-master/"/>
     <updated>2011-01-14T00:00:00+01:00</updated>
-    <id>http://arun.im/blog/2011/01/14/certified-scrum-master</id>
+    <id>http://arun.im/2011/certified-scrum-master</id>
     <content type="html"><![CDATA[<div class="entry">
 
   <p>I have completed my certificate in Scrum Master. Completed&nbsp;training and&nbsp;evaluation.</p>
@@ -155,9 +155,9 @@
   
   <entry>
     <title type="html"><![CDATA[Creating Documents, MongoDB — 2]]></title>
-    <link href="http://arun.im/blog/2010/11/22/creating-documents-mongodb/"/>
+    <link href="http://arun.im/2010/creating-documents-mongodb/"/>
     <updated>2010-11-22T00:00:00+01:00</updated>
-    <id>http://arun.im/blog/2010/11/22/creating-documents-mongodb</id>
+    <id>http://arun.im/2010/creating-documents-mongodb</id>
     <content type="html"><![CDATA[<div class="entry">
 
   <h3 id="-100000">
@@ -178,9 +178,9 @@
   
   <entry>
     <title type="html"><![CDATA[MongoDB — 1]]></title>
-    <link href="http://arun.im/blog/2010/11/19/mongodb-1/"/>
+    <link href="http://arun.im/2010/mongodb-1/"/>
     <updated>2010-11-19T00:00:00+01:00</updated>
-    <id>http://arun.im/blog/2010/11/19/mongodb-1</id>
+    <id>http://arun.im/2010/mongodb-1</id>
     <content type="html"><![CDATA[<div class="entry">
 
   <p>Hi,</p>
@@ -198,9 +198,9 @@
   
   <entry>
     <title type="html"><![CDATA[Using DreamHost now for blogs and hosting]]></title>
-    <link href="http://arun.im/blog/2010/11/18/using-dreamhost-now-for-blogs-and-hosting/"/>
+    <link href="http://arun.im/2010/using-dreamhost-now-for-blogs-and-hosting/"/>
     <updated>2010-11-18T00:00:00+01:00</updated>
-    <id>http://arun.im/blog/2010/11/18/using-dreamhost-now-for-blogs-and-hosting</id>
+    <id>http://arun.im/2010/using-dreamhost-now-for-blogs-and-hosting</id>
     <content type="html"><![CDATA[<div class="entry">
 
   <p>Hi,</p>
@@ -227,9 +227,9 @@
   
   <entry>
     <title type="html"><![CDATA[Method Visibility Public, Protected, Private]]></title>
-    <link href="http://arun.im/blog/2010/10/25/method-visibility-public-protected-private.html/"/>
+    <link href="http://arun.im/2010/method-visibility-public-protected-private.html/"/>
     <updated>2010-10-25T00:00:00+02:00</updated>
-    <id>http://arun.im/blog/2010/10/25/method-visibility-public-protected-private.html</id>
+    <id>http://arun.im/2010/method-visibility-public-protected-private.html</id>
     <content type="html"><![CDATA[<div class="entry">
 
   <p class="docText"><strong>Instance<a name="ch07-methodsvisibility"></a><a name="I_indexterm7_d1e24327"></a>
@@ -277,9 +277,9 @@
   
   <entry>
     <title type="html"><![CDATA[Using git revert]]></title>
-    <link href="http://arun.im/blog/2010/10/05/using-git-revert/"/>
+    <link href="http://arun.im/2010/using-git-revert/"/>
     <updated>2010-10-05T00:00:00+02:00</updated>
-    <id>http://arun.im/blog/2010/10/05/using-git-revert</id>
+    <id>http://arun.im/2010/using-git-revert</id>
     <content type="html"><![CDATA[<div class="entry">
 
   <p>Hi,</p>
@@ -323,9 +323,9 @@
   
   <entry>
     <title type="html"><![CDATA[Rake Migration]]></title>
-    <link href="http://arun.im/blog/2010/10/01/rake-migration.html/"/>
+    <link href="http://arun.im/2010/rake-migration.html/"/>
     <updated>2010-10-01T00:00:00+02:00</updated>
-    <id>http://arun.im/blog/2010/10/01/rake-migration.html</id>
+    <id>http://arun.im/2010/rake-migration.html</id>
     <content type="html"><![CDATA[<div class="entry">
 
   <p>Hi,</p>
