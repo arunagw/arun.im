@@ -9,7 +9,7 @@
   <meta name="author" content="Arun Agrawal">
 
   
-  <meta name="description" content="Hi, I have started using MongoDB for my projects. MongoDB is a powerful, flexible, and scalable data store. It combines the ability to scale out &hellip;">
+  <meta name="description" content="Inserts are the basic method for adding data to MongoDB. To insert a document into a collection, use the collection’s&nbsp;insert method: > db.foo. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,56 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/creating-documents-mongodb/">Creating Documents, MongoDB — 2</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-11-22T00:00:00+01:00" pubdate data-updated="true">Nov 22<span>nd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class="entry">
+
+  <h3 id="-100000">
+    <span style="font-weight: normal; font-size: 13px;">Inserts are the basic method for adding data to MongoDB. To insert a document into a collection, use the collection’s&nbsp;<tt>insert</tt> method:</span>
+  </h3>
+
+  <p><a name="I_indexterm3_d1e2289"></a></p>
+  <pre><code> > db.foo.insert({"bar" : "baz"})</code></pre>
+
+
+  <p>Tags: <a href="http://agrawalarun.com/blog/tag/mongodb/" rel="tag">mongodb</a></p>
+
+
+</div>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -332,80 +382,9 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/rake-migration.html/">Rake Migration</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-01T00:00:00+02:00" pubdate data-updated="true">Oct 1<span>st</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class="entry">
-
-  <p>Hi,</p>
-
-  <p>I have started working on a plugin which helps rails projects to maintain the list of rake tasks.</p>
-
-  <p>Here what i am doing is we are maintaining files using version numbers.</p>
-
-  <p>As one rake command will tell us what is left to be run in a team environment.</p>
-
-  <p>Suppose i have written a rake task or some ruby code to be execute on the db in a order.</p>
-
-  <p>Other team member also want’s to run that task on their DB and as well as on production environments.</p>
-
-  <p>What this plugin is doing is, when you want to add some ruby code or want’s to run some ruby code in a
-    sequence.</p>
-
-  <p>Just create an empty ruby file using rake migration generator and add ruby stuff there.</p>
-
-  <p>if you have migrate that file into the DB. Which means that you have applied that ruby code into your environments.
-    Other developer can take your changes and just migrate those things in their DB also.</p>
-
-  <p>Idea is same like as DB Migrations are working.</p>
-
-  <p>Here is the URL for plugin</p>
-
-  <p>
-    <a title="http://github.com/arunagw/rake_migration" href="http://github.com/arunagw/rake_migration" target="_blank">http://github.com/arunagw/rake_migration</a>
-  </p>
-
-  <p>This plugin is under development currently.</p>
-
-  <p>Cheers,</p>
-
-  <p>Arun Agrawal</p>
-
-</div>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/3/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -427,6 +406,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2013/swithced-to-heroku-and-octopress/">Swithced to Heroku and Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/2012/slides-when-ruby-meets-java-the-power-of-torquebox/">Slides (When Ruby Meets Java - the Power of Torquebox)</a>
       </li>
     
@@ -440,10 +423,6 @@
     
       <li class="post">
         <a href="/2011/certified-scrum-master/">Certified Scrum Master</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2010/creating-documents-mongodb/">Creating Documents, MongoDB — 2</a>
       </li>
     
   </ul>
