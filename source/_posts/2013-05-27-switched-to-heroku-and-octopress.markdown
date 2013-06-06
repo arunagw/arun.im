@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Swithced to Heroku and Octopress"
+title: "Switched to Heroku and Octopress"
 date: 2013-05-27 23:05
 comments: true
 categories: 
