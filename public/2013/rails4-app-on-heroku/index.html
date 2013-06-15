@@ -5,11 +5,30 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Using git revert - Arun Agrawal's Blog</title>
+  <title>Rails4 app on heroku - Arun Agrawal's Blog</title>
   <meta name="author" content="Arun Agrawal">
 
   
-  <meta name="description" content="Hi, We are doing revert our code in different different ways. The basic way of doing this using git revert command. The git revert commit command is &hellip;">
+  <meta name="description" content="If you are deploying a new rails4 app on heroku that might fail. And you will get following error. 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +37,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://arun.im/2010/using-git-revert">
+  <link rel="canonical" href="http://arun.im/2013/rails4-app-on-heroku">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Arun Agrawal's Blog" type="application/atom+xml">
@@ -81,7 +100,7 @@
   
   <header>
     
-      <h1 class="entry-title">Using Git Revert</h1>
+      <h1 class="entry-title">Rails4 App on Heroku</h1>
     
     
       <p class="meta">
@@ -97,51 +116,94 @@
   
 
 
-<time datetime="2010-10-05T00:00:00+02:00" pubdate data-updated="true">Oct 5<span>th</span>, 2010</time>
+<time datetime="2013-06-15T21:43:00+02:00" pubdate data-updated="true">Jun 15<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><div class="entry">
+<div class="entry-content"><p>If you are deploying a new rails4 app on heroku that might fail. And you will get following error.</p>
 
-  <p>Hi,</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>----&gt; Ruby/Rails app detected
+</span><span class='line'>-----&gt; Installing dependencies using Bundler version 1.3.2
+</span><span class='line'>       Running: bundle install --without development:test --path vendor/bundle --binstubs vendor/bundle/bin --deployment
+</span><span class='line'>       Fetching gem metadata from https://rubygems.org/..........
+</span><span class='line'>       Fetching gem metadata from https://rubygems.org/..
+</span><span class='line'>       Installing rake (10.0.4)
+</span><span class='line'>       Installing i18n (0.6.4)
+</span><span class='line'>       Installing minitest (4.7.4)
+</span><span class='line'>       Installing multi_json (1.7.7)
+</span><span class='line'>       Installing atomic (1.1.9)
+</span><span class='line'>       Installing thread_safe (0.1.0)
+</span><span class='line'>       Installing tzinfo (0.3.37)
+</span><span class='line'>       Installing activesupport (4.0.0.rc1)
+</span><span class='line'>       Gem::InstallError: activesupport requires Ruby version &gt;= 1.9.3.
+</span><span class='line'>       An error occurred while installing activesupport (4.0.0.rc1), and Bundler cannot
+</span><span class='line'>       continue.
+</span><span class='line'>       Make sure that `gem install activesupport -v '4.0.0.rc1'` succeeds before
+</span><span class='line'>       bundling.
+</span><span class='line'> !
+</span><span class='line'> !     Failed to install gems via Bundler.
+</span><span class='line'> !
+</span><span class='line'>
+</span><span class='line'> !     Push rejected, failed to compile Ruby/Rails app</span></code></pre></td></tr></table></div></figure>
 
-  <p>We are doing revert our code in different different ways.</p>
 
-  <p style="text-align: left;">The basic way of doing this using <em>git revert</em> command.</p>
+<p>In short, it says</p>
 
-  <p>
-    <span class="Apple-style-span" style="border-collapse: separate; color: #000000; font-family: Times; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; font-size: medium;"><span class="Apple-style-span" style="font-family: verdana,sans-serif; font-size: 11px; text-align: left;"></span></span>
-  </p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Gem::InstallError: activesupport requires Ruby version &gt;= 1.9.3.</span></code></pre></td></tr></table></div></figure>
 
-  <p>The
-    <em>git revert commit </em>command is substantially similar to the command <em>git cherry-pic commit </em>with one
-    important difference: it applies the <em>inverse </em>of the given <em>commit. </em>Thus, this command is used to
-    introduce a new commit that reverses the effects of a given commit.</p>
 
-  <p>My Current master status</p>
+<p>Problem is that heroku uses ruby 1.9.2 by default</p>
 
-  <pre>
-    <code>A => B => C => D => E</code>
-  </pre>
+<p>To check this run this command from your app</p>
 
-  <p>If we are reverting commit D</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>heroku run ruby -v</span></code></pre></td></tr></table></div></figure>
 
-  <p>Then it will become</p>
 
-  <pre>
-    <code>
-      A => B => C => D => E => D”
-    </code>
-    <code>Here D” is the commit reverse of D</code>
-  </pre>
+<p>The output will be</p>
 
-  <p>Arun</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ruby 1.9.2p290 (2011-07-09 revision 32553) [x86_64-linux]</span></code></pre></td></tr></table></div></figure>
 
-</div>
 
+<p>Solution is simple, we need to attach ruby-version with app to tell heroku to use ruby 1.9.3 or higher because rails4 works with ruby-1.9.3 or higher.</p>
+
+<p>Now add this following in your app Gemfile</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ruby '1.9.3'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This will force heroku to use your desired ruby. Here we are using 1.9.3</p>
+
+<p>This solution will work for your rails4 versions(4.0.0.beta1, 4.0.0.rc1, 4.0.0.rc2) apps.</p>
 </div>
 
 
@@ -164,7 +226,7 @@
   
 
 
-<time datetime="2010-10-05T00:00:00+02:00" pubdate data-updated="true">Oct 5<span>th</span>, 2010</time>
+<time datetime="2013-06-15T21:43:00+02:00" pubdate data-updated="true">Jun 15<span>th</span>, 2013</time>
       
 
 
@@ -172,7 +234,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://arun.im/2010/using-git-revert/" data-via="arunagw" data-counturl="http://arun.im/2010/using-git-revert/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://arun.im/2013/rails4-app-on-heroku/" data-via="arunagw" data-counturl="http://arun.im/2013/rails4-app-on-heroku/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -183,10 +245,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/2010/rake-migration.html/" title="Previous Post: Rake Migration">&laquo; Rake Migration</a>
+        <a class="basic-alignment left" href="/2013/switched-to-heroku-and-octopress/" title="Previous Post: Switched to Heroku and Octopress">&laquo; Switched to Heroku and Octopress</a>
       
-      
-        <a class="basic-alignment right" href="/2010/method-visibility-public-protected-private.html/" title="Next Post: Method Visibility Public, Protected, Private">Method Visibility Public, Protected, Private &raquo;</a>
       
     </p>
   </footer>
