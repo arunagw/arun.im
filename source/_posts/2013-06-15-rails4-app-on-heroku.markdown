@@ -3,7 +3,7 @@ layout: post
 title: "Rails4 app on heroku"
 date: 2013-06-15 21:43
 comments: true
-categories: 
+categories: fix heroku rails ruby
 ---
 
 If you are deploying a new rails4 app on heroku that might fail. And you will get following error.
