@@ -6,6 +6,8 @@ comments: true
 categories: fix heroku rails ruby
 ---
 
+Updated : [Heroku](https://blog.heroku.com/archives/2013/6/17/ruby-2-default-new-aps) has updated to use ruby2.0. by default.
+
 If you are deploying a new rails4 app on heroku that might fail. And you will get following error.
 
 ```
@@ -64,6 +66,3 @@ ruby '1.9.3'
 This will force heroku to use your desired ruby. Here we are using 1.9.3
 
 This solution will work for your rails4 versions(4.0.0.beta1, 4.0.0.rc1, 4.0.0.rc2) apps.
-
-
-

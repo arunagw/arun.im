@@ -4,7 +4,7 @@
   <title><![CDATA[Category: rails | Arun Agrawal's Blog]]></title>
   <link href="http://arun.im/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://arun.im/"/>
-  <updated>2013-06-15T22:06:45+02:00</updated>
+  <updated>2013-06-21T16:24:04+02:00</updated>
   <id>http://arun.im/</id>
   <author>
     <name><![CDATA[Arun Agrawal]]></name>
@@ -18,7 +18,9 @@
     <link href="http://arun.im/2013/rails4-app-on-heroku/"/>
     <updated>2013-06-15T21:43:00+02:00</updated>
     <id>http://arun.im/2013/rails4-app-on-heroku</id>
-    <content type="html"><![CDATA[<p>If you are deploying a new rails4 app on heroku that might fail. And you will get following error.</p>
+    <content type="html"><![CDATA[<p>Updated : <a href="https://blog.heroku.com/archives/2013/6/17/ruby-2-default-new-aps">Heroku</a> has updated to use ruby2.0. by default.</p>
+
+<p>If you are deploying a new rails4 app on heroku that might fail. And you will get following error.</p>
 
 <p>```
 &mdash;&mdash;> Ruby/Rails app detected
