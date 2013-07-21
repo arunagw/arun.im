@@ -3,6 +3,7 @@ layout: post
 title: Working as a Rails Contributor
 tags: Ruby, Rails
 date: 03/08/2011
+categories: rails ruby
 ---
 
 <div class="entry">

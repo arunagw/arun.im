@@ -1,12 +1,24 @@
----
-layout: post
-title: Rake Migration
-tags: Rake
-date: 01/10/2010
-categories: rake
----
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<div class="entry">
+  <title><![CDATA[Category: rake | Arun Agrawal's Blog]]></title>
+  <link href="http://arun.im/blog/categories/rake/atom.xml" rel="self"/>
+  <link href="http://arun.im/"/>
+  <updated>2013-07-21T22:42:38+02:00</updated>
+  <id>http://arun.im/</id>
+  <author>
+    <name><![CDATA[Arun Agrawal]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Rake Migration]]></title>
+    <link href="http://arun.im/2010/rake-migration.html/"/>
+    <updated>2010-10-01T00:00:00+02:00</updated>
+    <id>http://arun.im/2010/rake-migration.html</id>
+    <content type="html"><![CDATA[<div class="entry">
 
   <p>Hi,</p>
 
@@ -43,3 +55,8 @@ categories: rake
   <p>Arun Agrawal</p>
 
 </div>
+
+]]></content>
+  </entry>
+  
+</feed>

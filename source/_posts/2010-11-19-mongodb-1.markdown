@@ -3,6 +3,7 @@ layout: post
 title: MongoDB — 1
 tags: Mongo
 date: 19/11/2010
+categories: mongodb
 ---
 
 <div class="entry">

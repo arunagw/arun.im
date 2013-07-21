@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ruby | Arun Agrawal's Blog]]></title>
   <link href="http://arun.im/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://arun.im/"/>
-  <updated>2013-07-21T21:39:06+02:00</updated>
+  <updated>2013-07-21T22:42:38+02:00</updated>
   <id>http://arun.im/</id>
   <author>
     <name><![CDATA[Arun Agrawal]]></name>
@@ -81,6 +81,106 @@ ruby '1.9.3'
 <p>This will force heroku to use your desired ruby. Here we are using 1.9.3</p>
 
 <p>This solution will work for your rails4 versions(4.0.0.beta1, 4.0.0.rc1, 4.0.0.rc2) apps.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Working as a Rails Contributor]]></title>
+    <link href="http://arun.im/2011/working-as-a-rails-contributor/"/>
+    <updated>2011-08-03T00:00:00+02:00</updated>
+    <id>http://arun.im/2011/working-as-a-rails-contributor</id>
+    <content type="html"><![CDATA[<div class="entry">
+
+  <p>Finally, I got the time to write something about my
+    <a href="http://contributors.rubyonrails.org/contributors/arun-agrawal/commits" target="_blank">Rails
+      Contributions</a>. I have started contributing in April 2011. In start i usually do some test cases fixes and some
+    updates.</p>
+
+  <p>After sometime i found that if you are using JRuby as a platform then you need to customize your template after
+    generation. Or you need to use some custom template with -m option to customize your application.</p>
+
+  <p>I started digging into the Rails code base and i found that it can be added easily. Then… I just added and my
+    <a href="https://github.com/rails/rails/pull/300" target="_blank">pull request</a> got accepted. wOOOttt!!</p>
+
+  <p>But that for master that means the feature will come in Rails 3.1 so after that i done some commits into 3-0-stable
+    branch and yeah.. that feature is coming in Rails 3.0.10.</p>
+
+  <p>It’s really great to talking those guys on github. Specially when they ask you to change something which you have
+    written wrong.</p>
+
+  <p>After that i started contributing in Rails more and more. It helps me to understand internal code and the basics of
+    Ruby.</p>
+
+  <p>In recent we organized two bugmashs and we were the part of global
+    <a href="http://weblog.rubyonrails.org/2011/7/14/rails-3-1-hackfest" target="_blank">Rails Hackfest</a>. It was
+    really very good. Enjoyed. Learnt a lot.</p>
+
+  <p>I am a part of <a href="http://bangaloreruby.org" target="_blank">BangaloreRubyUserGroup</a>&nbsp;which helps a
+    lot.</p>
+
+  <p>&nbsp;</p>
+
+  <p>Cheers,</p>
+
+  <p>Arun</p>
+
+  <p><a href="http://twitter.com/arunagw">@arunagw</a></p>
+
+
+</div>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Method Visibility Public, Protected, Private]]></title>
+    <link href="http://arun.im/2010/method-visibility-public-protected-private.html/"/>
+    <updated>2010-10-25T00:00:00+02:00</updated>
+    <id>http://arun.im/2010/method-visibility-public-protected-private.html</id>
+    <content type="html"><![CDATA[<div class="entry">
+
+  <p class="docText"><strong>Instance<a name="ch07-methodsvisibility"></a><a name="I_indexterm7_d1e24327"></a>
+    methods<a name="ch07-publicmethod"></a><a name="ch07-private"></a><a name="ch07-protected"></a><a name="may be"></a>
+    may be&nbsp;<span class="docEmphasis">public</span>,&nbsp;<span class="docEmphasis">private</span>,
+    or&nbsp;<span class="docEmphasis">protected</span></strong><a name="other object"></a>.</p>
+
+  <p class="docText">
+  </p>
+
+  <p class="docText"><a name="public unless"></a>Methods are normally <strong>public</strong> unless they are explicitly
+    declared to be private or protected. One exception is the&nbsp;<tt>initialize</tt>
+    method<a name="I_indexterm7_d1e24354"></a><a name="any "></a>, which is always implicitly private. Another exception
+    is any “global” method<a name="I_indexterm7_d1e24360"></a><a name="class definition"></a> declared outside of a
+    class definition—those methods are defined as private instance methods
+    of&nbsp;<tt>Object</tt><a name="be invoked"></a>. A public method can be invoked from anywhere—there are no
+    restrictions on its use.</p>
+
+  <p class="docText"><a name="of a"></a>A <strong>private</strong> method is internal to the implementation of a class,
+    and it can only be called by other instance methods of the class (or, as we’ll see later, its subclasses). Private
+    methods are implicitly invoked on&nbsp;<tt>self</tt><a name="an object"></a>, and may not be explicitly invoked on
+    an object. If&nbsp;<tt>m</tt> is a private method, then you must invoke it in<a name="I_indexterm7_d1e24377"></a>
+    <span class="docEmphasis">functional style</span> as&nbsp;<tt>m</tt>. You cannot write&nbsp;<tt>o.m</tt> or even&nbsp;<tt>self.m</tt>.
+  </p>
+
+  <p class="docText"><a name="in that"></a>A <strong>protected</strong> method is like a private method in that it can
+    only be invoked from within the implementation of a class or its subclasses. It differs from a private method in
+    that it may be explicitly invoked on any instance of the class, and it is not restricted to implicit invocation&nbsp;<a name="I_indexterm7_d1e24396"></a>on&nbsp;<tt>self</tt><a name="to define"></a>.
+    A protected method can be used, for example, to define an accessor that allows instances of a class to share
+    internal state with each other, but does not allow users of the class to access that state.</p>
+
+  <p class="docText">
+  </p>
+
+  <p class="docText">
+
+
+  </p>
+
+
+</div>
+
 ]]></content>
   </entry>
   

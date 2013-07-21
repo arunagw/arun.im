@@ -3,6 +3,7 @@ layout: post
 title: Working With Mongoid Team
 tags: Mongoid, Team
 date: 03/07/2011
+categories: mongodb
 ---
 <div class="entry">
 

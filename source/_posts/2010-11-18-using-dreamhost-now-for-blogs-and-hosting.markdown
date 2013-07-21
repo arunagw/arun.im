@@ -3,6 +3,7 @@ layout: post
 title: Using DreamHost now for blogs and hosting
 tags: Blogs
 date: 18/11/2010
+categories: hosting
 ---
 
 <div class="entry">

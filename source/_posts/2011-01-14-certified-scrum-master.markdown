@@ -3,6 +3,7 @@ layout: post
 title: Certified Scrum Master
 tags: Scrum
 date: 14/01/2011
+categories: scrum
 ---
 
 <div class="entry">

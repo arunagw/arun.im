@@ -3,6 +3,7 @@ layout: post
 title: Creating Documents, MongoDB — 2
 tags: MongoDB
 date: 22/11/2010
+categories: mongodb
 ---
 
 <div class="entry">

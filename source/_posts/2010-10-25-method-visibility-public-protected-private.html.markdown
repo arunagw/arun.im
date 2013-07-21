@@ -3,6 +3,7 @@ layout: post
 title: Method Visibility Public, Protected, Private
 tags: Ruby
 date: 25/10/2010
+categories: ruby
 ---
 
 <div class="entry">

@@ -1,12 +1,24 @@
----
-layout: post
-title: Using git revert
-tags: Git
-date: 05/10/2010
-categories: git
----
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<div class="entry">
+  <title><![CDATA[Category: git | Arun Agrawal's Blog]]></title>
+  <link href="http://arun.im/blog/categories/git/atom.xml" rel="self"/>
+  <link href="http://arun.im/"/>
+  <updated>2013-07-21T22:42:38+02:00</updated>
+  <id>http://arun.im/</id>
+  <author>
+    <name><![CDATA[Arun Agrawal]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Using git revert]]></title>
+    <link href="http://arun.im/2010/using-git-revert/"/>
+    <updated>2010-10-05T00:00:00+02:00</updated>
+    <id>http://arun.im/2010/using-git-revert</id>
+    <content type="html"><![CDATA[<div class="entry">
 
   <p>Hi,</p>
 
@@ -43,3 +55,8 @@ categories: git
   <p>Arun</p>
 
 </div>
+
+]]></content>
+  </entry>
+  
+</feed>

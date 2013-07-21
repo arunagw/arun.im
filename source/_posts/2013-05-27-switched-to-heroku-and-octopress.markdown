@@ -3,7 +3,7 @@ layout: post
 title: "Switched to Heroku and Octopress"
 date: 2013-05-27 23:05
 comments: true
-categories: 
+categories: heroku blog
 ---
 
 I started posting blogs using self hosted <a href="http://wordpress.org/">Wordpress</a> solution. After few years I realize that I should use Ruby/Rack framework. And drop this old way of doing blog post.
