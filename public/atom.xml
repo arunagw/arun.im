@@ -4,7 +4,7 @@
   <title><![CDATA[Arun Agrawal's Blog]]></title>
   <link href="http://arun.im/atom.xml" rel="self"/>
   <link href="http://arun.im/"/>
-  <updated>2013-08-10T13:01:07+02:00</updated>
+  <updated>2013-08-10T18:48:02+02:00</updated>
   <id>http://arun.im/</id>
   <author>
     <name><![CDATA[Arun Agrawal]]></name>
@@ -175,7 +175,7 @@ Be sure to put the callback URL in the application. Callback URL is the URL wher
 
 Showing an image here how to register an Application with Twitter.
 
-<img class="aligncenter size-full wp-image-319" title="twitter_omnauth" src="http://blog.rubyrockers.com/wp-content/uploads/2011/11/twitter_omnauth.jpg" alt="" width="805" height="741" />
+<img class="aligncenter size-full wp-image-319" title="twitter_omnauth" src="http://arun.im/assets/images/twitter_omnauth.jpg" alt="" width="805" height="741" />
 
 &nbsp;
 
@@ -370,14 +370,14 @@ And some people who are good in Rails will do it in more easy manner. And easy t
 
 I am writing some steps to use Github&#8217;s fork and edit feature to open pull request.
 <p style="text-align: center;"><strong>Open up your project on Github open up file where you want to change</strong></p>
-<p style="text-align: center;"><a href="http://blog.rubyrockers.com/wp-content/uploads/2011/09/fork_and_edit.jpg"><img class="aligncenter size-full wp-image-239" title="fork_and_edit" src="http://blog.rubyrockers.com/wp-content/uploads/2011/09/fork_and_edit.jpg" alt="" width="975" height="270" /></a></p>
+<p style="text-align: center;"><a href="http://arun.im/assets/images/fork_and_edit.jpg"><img class="aligncenter size-full wp-image-239" title="fork_and_edit" src="http://arun.im/assets/images/fork_and_edit.jpg" alt="" width="975" height="270" /></a></p>
 <p style="text-align: center;"><strong>Change your desired things into the file. You can only change one file in one commit</strong></p>
-<p style="text-align: center;"><a href="http://blog.rubyrockers.com/wp-content/uploads/2011/09/make_changes.jpg"><img class="aligncenter size-full wp-image-240" title="make_changes" src="http://blog.rubyrockers.com/wp-content/uploads/2011/09/make_changes.jpg" alt="" width="972" height="781" /></a></p>
+<p style="text-align: center;"><a href="http://arun.im/assets/images/make_changes.jpg"><img class="aligncenter size-full wp-image-240" title="make_changes" src="http://arun.im/assets/images/make_changes.jpg" alt="" width="972" height="781" /></a></p>
 <p style="text-align: center;"><strong>Propese your file changes! Here you can write about your changes. Give some references about issue. Can see the file changed. Can see the commits which you have made.</strong></p>
-<p style="text-align: center;"><a href="http://blog.rubyrockers.com/wp-content/uploads/2011/09/pr_discussion.jpg"><img class="aligncenter size-full wp-image-243" title="pr_discussion" src="http://blog.rubyrockers.com/wp-content/uploads/2011/09/pr_discussion.jpg" alt="" width="953" height="533" /></a></p>
+<p style="text-align: center;"><a href="http://arun.im/assets/images/pr_discussion.jpg"><img class="aligncenter size-full wp-image-243" title="pr_discussion" src="http://arun.im/assets/images/pr_discussion.jpg" alt="" width="953" height="533" /></a></p>
 <p style="text-align: center;"><strong>Change commit is the most important part. The reason is when people are doing changes in specific branch. Let&#8217;s take a example of Rails. If you are going to submit a patch against Rails 3.0.X version then you must have to choose 3-0-stable branch instead of master in Base branch.</strong></p>
 <p style="text-align: center;"><strong>After updating the commit range you can submit the Pull Request and also must see the File Changed.</strong></p>
-<p style="text-align: left;"><a href="http://blog.rubyrockers.com/wp-content/uploads/2011/09/pr_change_commits.jpg"><img class="aligncenter size-full wp-image-241" title="pr_change_commits" src="http://blog.rubyrockers.com/wp-content/uploads/2011/09/pr_change_commits.jpg" alt="" width="956" height="397" /></a><strong></strong></p>
+<p style="text-align: left;"><a href="http://arun.im/assets/images/pr_change_commits.jpg"><img class="aligncenter size-full wp-image-241" title="pr_change_commits" src="http://arun.im/assets/images/pr_change_commits.jpg" alt="" width="956" height="397" /></a><strong></strong></p>
 <p style="text-align: left;"><em><strong>Use this feature when you are fixing any typos, updating any docs. For submitting any code changes you should be running tests. :-) </strong></em></p>
 <p style="text-align: left;"><strong>Feel free to ask me if you face any problem in doing these things. We want more contributions!</strong></p>
 <p style="text-align: left;"><strong>You can tweet me <a title="Arun Agrawal Twitter" href="http://twitter.com/arunagw" target="_blank">@arunagw</a> or catch me on my email any time.</strong></p>
@@ -655,7 +655,7 @@ Some Useful links related to post:
     <link href="http://arun.im/2011/rails3-application-jruby/"/>
     <updated>2011-03-28T00:00:00+02:00</updated>
     <id>http://arun.im/2011/rails3-application-jruby</id>
-    <content type="html"><![CDATA[<strong>If you are living on edge and you are using Rails3 then you need follow this.<a href="http://blog.rubyrockers.com/2011/08/rails-3-0-10-jruby/"> Rails3 With JRuby</a></strong>
+    <content type="html"><![CDATA[<strong>If you are living on edge and you are using Rails3 then you need follow this.<a href="http://arun.im/2011/rails-3-0-10-jruby/"> Rails3 With JRuby</a></strong>
 
 &nbsp;
 
