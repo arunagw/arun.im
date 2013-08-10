@@ -1,0 +1,385 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Serialized Attributes Rails 3 - Arun Agrawal's Blog</title>
+  <meta name="author" content="Arun Agrawal">
+
+  
+  <meta name="description" content="This post will guide you how to do Serialization for your attributes in Rails. Serialize means you want to save arbitrary Ruby data structure into &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://arun.im/2011/serialized-attributes-rails-3">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="http://feeds.feedburner.com/ArunAgrawal" rel="alternate" title="Arun Agrawal's Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8185166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Arun Agrawal's Blog</a></h1>
+  
+    <h2>Ruby on Rails Developer</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ArunAgrawal" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:arun.im" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Serialized Attributes Rails 3</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-27T00:00:00+02:00" pubdate data-updated="true">Aug 27<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content">This post will guide you how to do Serialization for your attributes in Rails.
+
+Serialize means you want to save arbitrary Ruby data structure into the database.
+
+Let consider we have a User model in which we want to store preferences for user in a Ruby data structure format. Previously it was only YAML.
+
+<pre>
+class User < ActiveRecord::Base
+  serialize :preferences 
+end
+</pre>
+
+<pre>
+user = User.find 1
+user.preferences = {:foo =>  'bar'}
+user.save
+</pre>
+
+So now we can pass a second parameter to serialize method to use that serialization method.
+
+<pre>
+class User < ActiveRecord::Base
+  serialize :preferences, SomeCoolEncoder.new
+end
+</pre>
+
+You need to implement this encoder! It can be a JSON, XML, Base64. Or what every encoding technique you like to use.
+
+A sample encoder look like this.
+
+<pre>
+class Base64Encoder
+  def load(value)
+    return unless value
+    value.unpack('m').last
+  end
+
+  def dump(text)
+    [text].pack('m')
+  end
+end
+</pre>
+
+This new encoder must have these methods in it!
+
+So now you attribute is serialized and you can store data in it in your given format.
+
+Ok so now we talk about ActiveModel::Serialization
+
+ActiveModel::Serialization will give you serialized attribute for your classes.
+
+A very simple example to use ActiveModel::Serialization
+<pre>
+class Post
+
+  include ActiveModel::Serialization
+
+  attr_accessor :title
+
+  def attributes
+    {'title' => title}
+  end
+
+end
+
+# So you can use like 
+
+post = Post.new
+post.serializable_hash   # => {"title"=>nil}
+post.name = "Rails is Cool!!"
+post.serializable_hash   # => {"name"=>"Rails is Cool!!"}
+
+</pre>
+
+Can use two inbuilt Serialization techniques 
+
+<pre>
+include ActiveModel::Serializers::JSON
+include ActiveModel::Serializers::Xml
+</pre>
+
+This is a very short intro for Serialization. Hope i will write more in detail soon!!
+
+I got this from <a href="http://github.com/tenderlove" target="_blank">@tenderlove</a> talk in <a href="http://www.youtube.com/watch?v=kWOAHIpmLAI" target="_blank">RailsConf2011</a>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arun Agrawal</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-27T00:00:00+02:00" pubdate data-updated="true">Aug 27<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://arun.im/2011/serialized-attributes-rails-3/" data-via="arunagw" data-counturl="http://arun.im/2011/serialized-attributes-rails-3/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2011/rails-3-0-10-jruby/" title="Previous Post: Rails 3.0.10 and JRuby">&laquo; Rails 3.0.10 and JRuby</a>
+      
+      
+        <a class="basic-alignment right" href="/2011/submit-patch-rails-github-fork-edit-button/" title="Next Post: Submit a patch for Rails on Github using "fork and edit button"">Submit a patch for Rails on Github using "fork and edit button" &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    
+<section>
+	<span>
+		<img src="http://www.gravatar.com/avatar/ee85853909657f47c8a68e8a9bc7d992?s=150" alt="Gravatar of Arun Agrawal " title="Gravatar of Arun Agrawal" />
+	</span>
+</section>
+
+<ol id="social-media-links">
+  <li class="github"><a href="https://github.com/arunagw?rel=author">Github</a></li>
+  <li class="twitter"><a href="https://twitter.com/arunagw?rel=author">Twitter</a></li>
+  <li class="google-plus"><a href="https://plus.google.com/103610296722452739457?rel=author">Google Plus</a></li>
+  <li class="Campfire"><a href="https://ohmygod.campfirenow.com/e57ab">Campfire</a></li>
+  <li class="rss"><a href="http://feeds.feedburner.com/ArunAgrawal">RSS</a></li>
+</ol>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/rails4-app-on-heroku/">Rails4 App on Heroku</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/switched-to-heroku-and-octopress/">Switched to Heroku and Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/slides-when-ruby-meets-java-the-power-of-torquebox/">Slides (When Ruby Meets Java - the Power of Torquebox)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/oauth-omniauth-twitter/">OAuth With OmniAuth and Twitter</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/respond-custom-formats-rails/">Respond to Custom Formats in Rails</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <p><a class="twitter-timeline" href="https://twitter.com/arunagw" data-widget-id="336944437999566849">Tweets by @arunagw</a></p>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</section>
+
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/arunagw">@arunagw</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'arunagw',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <div id="delicious"></div>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/json/arunagw?count=3&amp;sort=date&amp;callback=renderDeliciousLinks"></script>
+  <p><a href="http://delicious.com/arunagw">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/103610296722452739457?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Arun Agrawal -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

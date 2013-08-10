@@ -1,0 +1,49 @@
+---
+layout: post
+title: Bundler
+tags:
+- rails
+- Technology
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  _su_rich_snippet_type: none
+  dsq_thread_id: '211553192'
+---
+<a href="http://gembundler.com">Bundler</a> is a preferred way to manage your Rails application gem decencies. In Rails3 the bundler comes by default.
+
+Gemfile is the place where we need to tell about our gems.
+
+Example file looks like
+
+<pre>
+<div id="_mcePaste">gem "rails", "~&gt; 3.0.1"</div>
+<div id="_mcePaste">gem "mongo", "1.1.5"</div>
+<div id="_mcePaste">gem "bson", "1.1.5"</div>
+<div id="_mcePaste">gem "bson_ext", "1.1.5"</div>
+<div id="_mcePaste">gem "mongoid", :git =&gt; "http://github.com/mongoid/mongoid.git"</div>
+<div id="_mcePaste">gem "devise"</div>
+<div id="_mcePaste">gem "haml"</div>
+<div>
+<div>group [:test, :development] do</div>
+<div>&nbsp;gem 'ruby-debug'</div>
+<div>end</div>
+<div>group :test do</div>
+<div>&nbsp;gem "rspec", "~&gt; 2.0.0"</div>
+<div>&nbsp;gem "rspec-rails", "~&gt; 2.0.0"</div>
+<div>&nbsp;gem "shoulda"</div>
+<div>&nbsp;gem "factory_girl"</div>
+<div>&nbsp;gem "faker"</div>
+<div>end</div>
+</div>
+</pre>
+
+Here we can define number of groups according to our environments.
+
+As you can see above example 'ruby-debug' will only get loaded when you are in development and test environment.
+
+'rspec', 'faker' will gets loaded in test environment only. So this is a cool way to manage your gem dependencies.
+
+And 'rails', 'mongo', 'bson' all other ungrouped gems gets loaded in all environment.

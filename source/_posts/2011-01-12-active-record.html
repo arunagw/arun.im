@@ -1,0 +1,29 @@
+---
+layout: post
+title: Active Record
+tags:
+- Technology
+status: publish
+type: post
+published: true
+meta:
+  _su_rich_snippet_type: none
+  _edit_last: '1'
+  dsq_thread_id: '211504956'
+---
+An object that wraps a row in a database table or view, encapsulate the database access, and add domain logic on that data called Active Record.
+
+Active record object carries both data and behavior.
+
+The data structure of the Active Record should exactly match that of the database: one field in the class for each column in the table.
+
+In Rails Active record comes by default as in terms of models.
+
+Active Record class contain some method which perform like :
+<ul>
+	<li>Implement some pieces of business logic</li>
+	<li>Construct an instance of the Active Record from a SQL result set row</li>
+	<li>Update the database and insert into it the data in the Active Record</li>
+	<li>Get and set the field values</li>
+</ul>
+Active Record works very well when domain logic is not too complex.

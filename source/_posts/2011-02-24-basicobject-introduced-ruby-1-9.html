@@ -1,0 +1,34 @@
+---
+layout: post
+title: BasicObject introduced in Ruby 1.9
+tags:
+- ruby
+- Technology
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  dsq_thread_id: '239193539'
+  _su_rich_snippet_type: none
+---
+<strong>RUBY_VERSION &lt; 1.9</strong>
+<pre>class Parent
+end
+class Child &lt; Parent
+end
+
+puts Child.superclass   #=&gt; Parent
+puts Parent.superclass  #=&gt; Object
+puts Parent.superclass.superclass  #=&gt; nil</pre>
+<strong>RUBY_VERSION = 1.9</strong>
+<pre>class Parent
+end
+class Child &lt; Parent
+end 
+
+puts Child.superclass   #=&gt; Parent
+puts Parent.superclass  #=&gt; Object
+puts Parent.superclass.superclass  #=&gt; BasicObject
+puts Parent.superclass.superclass.superclass  #=&gt; nil</pre>
+<strong>So now given any class in Ruby, super class will be BasicObject for newer versions</strong>.

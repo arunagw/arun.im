@@ -1,0 +1,52 @@
+---
+layout: post
+title: Redis key-value store
+tags:
+- gem
+- redis
+- ruby
+- store
+- Technology
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  _su_rich_snippet_type: none
+  dsq_thread_id: '256259730'
+---
+<a href="http://redis.io/">Redis</a> is really cool and lightweight key-value store. If you are looking for something in which you can store some string, hashes, lists, sets. The <a href="http://redis.io/">Redis</a> is the best.
+
+If you are a Ruby developer then you must try out this with a <a href="https://github.com/ezmobius/redis-rb">redis-rb</a> gem. Very easy to configure, very easy to store things.
+
+Following is the way of using redis in Ruby way.
+
+To install
+<pre>gem install redis</pre>
+To load
+<pre>require 'redis'</pre>
+Before performing any operation with redis server you need to install <a href="http://redis.io/download">Redis</a> and start the redis server.
+
+After that you can do like
+<pre>redis = Redis.new # Automatically connect with the default port.
+
+# if you have changed the port then you can specify the port in initialize.
+
+&gt;&gt; redis.set "foo", "bar"
+=&gt; "OK"
+
+&gt;&gt; redis.get "foo"
+=&gt; "bar"</pre>
+Storing objects
+<pre>&gt;&gt; redis.set "foo", [1, 2, 3].to_json
+=&gt; OK
+
+&gt;&gt; JSON.parse(redis.get("foo"))
+=&gt; [1, 2, 3]</pre>
+There are lot's more things you can do with the Redis.
+
+Links help you in redis
+
+<a href="http://redis.io">Redis official documentation</a> (<a href="http://redis.io">http://redis.io</a>)
+<a href="https://github.com/antirez/redis">Github redis repository </a>(<a href="https://github.com/antirez/redis">https://github.com/antirez/redis</a>)
+<a href="https://github.com/ezmobius/redis-rb">Github redis rubygem repository </a>(<a href="https://github.com/ezmobius/redis-rb">https://github.com/ezmobius/redis-rb</a>)

@@ -4,7 +4,7 @@
   <title><![CDATA[Arun Agrawal's Blog]]></title>
   <link href="http://arun.im/atom.xml" rel="self"/>
   <link href="http://arun.im/"/>
-  <updated>2013-08-10T01:18:06+02:00</updated>
+  <updated>2013-08-10T13:01:07+02:00</updated>
   <id>http://arun.im/</id>
   <author>
     <name><![CDATA[Arun Agrawal]]></name>
@@ -155,6 +155,420 @@
   </entry>
   
   <entry>
+    <title type="html"><![CDATA[OAuth with OmniAuth and Twitter]]></title>
+    <link href="http://arun.im/2011/oauth-omniauth-twitter/"/>
+    <updated>2011-11-07T00:00:00+01:00</updated>
+    <id>http://arun.im/2011/oauth-omniauth-twitter</id>
+    <content type="html"><![CDATA[Hi Folks,
+
+If you want to have OAuth in your Rails Application with twitter. <a href="https://github.com/intridea/omniauth">OmniAuth</a> is the best gem to use.
+
+OmniAuth provides list of  Strategies to use many OAuth for your application. Here is the<a href="https://github.com/intridea/omniauth/wiki/List-of-Strategies"> List of Strategies</a>.
+
+Showing here a <a href="https://github.com/arunagw/omniauth-twitter">Twitter Strategy</a> for OmniAuth. Twitter uses the OAuth 1.0a flow, you can read about it here: <a href="https://dev.twitter.com/docs/auth/oauth">https://dev.twitter.com/docs/auth/oauth</a>
+
+For using Twitter OAuth you have to register a Application on Twitter (<a href="https://dev.twitter.com/apps/new">https://dev.twitter.com/apps/new</a>)
+
+Once you done with the registration obtain the Consumer Key and Consumer Secret from the Twitter Application.
+
+Be sure to put the callback URL in the application. Callback URL is the URL where user will land after successful authentication.
+
+Showing an image here how to register an Application with Twitter.
+
+<img class="aligncenter size-full wp-image-319" title="twitter_omnauth" src="http://blog.rubyrockers.com/wp-content/uploads/2011/11/twitter_omnauth.jpg" alt="" width="805" height="741" />
+
+&nbsp;
+
+Here showing some of the steps :
+
+Generate a new Rails Application:
+<pre>rails new TwitterAuth</pre>
+Update your gemfile add <a href="https://rubygems.org/gems/omniauth-twitter">omniauth-twitter</a> gem into that
+<pre>gem "omniauth-twitter"</pre>
+Create a <code>config/initializers/omniauth.rb</code> file.
+<strong>Paste your key instead of XXXX, and secret instead of YYYY</strong>
+<pre>Rails.application.config.middleware.use OmniAuth::Builder do
+  provider :twitter, 'XXXX', 'YYYY'
+end</pre>
+All Done!
+
+Just start the server
+<pre>bundle exec rails server</pre>
+And hit the URL
+<pre>http://localhost:3000/auth/twitter</pre>
+And you should be landing on the Twitter Authorize page!
+
+After success your app will redirect to your given callback URL with information and token!
+
+At <a href="http://www.omniauth.org/">OmniAuth.org</a> you can try out different -2 Strategies.
+
+&nbsp;
+
+Useful links :
+<ul>
+	<li><a href="http://www.omniauth.org/">OmniAuth.org</a> One page for all you need.</li>
+	<li><a href="https://rubygems.org/gems/omniauth-twitter">omniauth-twitter</a> gem.</li>
+</ul>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Respond to Custom Formats in Rails]]></title>
+    <link href="http://arun.im/2011/respond-custom-formats-rails/"/>
+    <updated>2011-10-24T00:00:00+02:00</updated>
+    <id>http://arun.im/2011/respond-custom-formats-rails</id>
+    <content type="html"><![CDATA[We usually respond some of the known formats in Rails Application like HTML, XML, JavaScript, RSS and some custom.
+
+Have you tried to use your own custom format for your Rails Application?
+
+Yes you can use your custom format in Rails Application.
+
+Here showing a simple Rails Application with responding custom formats.
+
+Get a new app
+<pre>rails new music_library </pre>
+
+Get a scaffold into App
+
+<pre>rails generate scaffold mp3 title:string url:string description:text </pre>
+
+Ok so you are ready to serve some music on your app with some formats!
+
+Now you have to register MIME types in the Rails Application.
+
+For that open up <code>Rails.root/config/initializers/mime_types.rb</code>
+
+<pre>
+Mime::Type.register 'audio/mpeg' , :mp3
+</pre>
+
+<strong>Now you can serve <code>.mp3</code> and content</strong>
+
+For that your respond block should look like
+<pre>
+def show
+  @mp3 = Mp3.find(params[:id])
+  respond_to do |format|
+    format.mp3 { redirect_to @mp3.url }
+  end
+end
+</pre>
+
+Now if you call this action with <code>.mp3</code>
+<pre>http://localhost:3000/mp3s/1.mp3</pre>
+
+You will redirect_to <code>@mp3</code> url.
+    
+    Happy adding custom formats!!
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[X-Request-Id tracking and TaggedLogging in Rails3.2]]></title>
+    <link href="http://arun.im/2011/x-request-id-tracking-taggedlogging-rails/"/>
+    <updated>2011-10-21T00:00:00+02:00</updated>
+    <id>http://arun.im/2011/x-request-id-tracking-taggedlogging-rails</id>
+    <content type="html"><![CDATA[<strong>Rails 3.2 will come with X-Request-Id tracking and TaggedLogging support!! Recently <a href="http://twitter.com/dhh">DHH</a> added this feature <a href="https://github.com/rails/rails/commit/afde6fdd5ef3e6b0693a7e330777e85ef4cffddb">here</a>!</strong>
+
+This makes it easy to trace requests from end-to-end in the stack and to identify individual requests in mixed logs.
+
+If you have application on SAS model. Where you have logs filled with mixed request for all your customers. May be you need to filter out requests start with some specific subdomain. TaggedLogging will help you in that.
+
+Where as the X-Request-Id feature will help you to track log with the same request. So in mixed logs you can easily find out the unique id logs for a request.
+
+It will tag the log with the unique id for that request in the log. So later you can easily trace them down.
+
+May be later on you can add more tags for your logs. If those methods are supported by the request object!
+
+I am showing here some logs here with X-Request-Id
+<pre>[2011-10-21 19:57:55] INFO  WEBrick 1.3.1
+[2011-10-21 19:57:55] INFO  ruby 2.0.0 (2011-10-19) [x86_64-darwin11.2.0]
+[2011-10-21 19:57:55] INFO  WEBrick::HTTPServer#start: pid=1585 port=3000
+<strong><em>[9fda80066583f52e695a089d8622439c]</em> </strong>
+
+Started GET "/blogs" for 127.0.0.1 at 2011-10-21 19:57:59 +0530
+<strong><em>[9fda80066583f52e695a089d8622439c]</em> </strong> Processing by BlogsController#index as HTML
+<strong><em>[9fda80066583f52e695a089d8622439c]</em> </strong>   Blog Load (0.2ms)  SELECT "blogs".* FROM "blogs"
+<strong><em>[9fda80066583f52e695a089d8622439c]</em> </strong>   Rendered blogs/index.html.erb within layouts/application (8.8ms)
+<strong><em>[9fda80066583f52e695a089d8622439c]</em> </strong> Completed 200 OK in 32ms (Views: 30.4ms | ActiveRecord: 0.3ms)
+[2011-10-21 19:57:59] WARN  Could not determine content-length of response body. Set content-length of the response or set Response#chunked = true
+[0962521e4215d645367b58fa41da9f0d] 
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2011-10-21 19:57:59 +0530
+[0962521e4215d645367b58fa41da9f0d] Served asset /application.css - 304 Not Modified (0ms)
+[2011-10-21 19:57:59] WARN  Could not determine content-length of response body. Set content-length of the response or set Response#chunked = true
+[a7204cec4d2b2e930ac05b41fa1a5c65] 
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-10-21 19:57:59 +0530
+[a7204cec4d2b2e930ac05b41fa1a5c65] Served asset /jquery_ujs.js - 304 Not Modified (1ms)
+[2011-10-21 19:57:59] WARN  Could not determine content-length of response body. Set content-length of the response or set Response#chunked = true
+[202eadd97820dfbf429f87f4725324c3] 
+
+Started GET "/assets/blogs.css?body=1" for 127.0.0.1 at 2011-10-21 19:57:59 +0530
+[202eadd97820dfbf429f87f4725324c3] Served asset /blogs.css - 304 Not Modified (2ms)
+[2011-10-21 19:57:59] WARN  Could not determine content-length of response body. Set content-length of the response or set Response#chunked = true
+[769a2752906bb0c2c5d1eae0a76ac328]</pre>
+Here I showed some logs in strong. They are the same request for the index page tagged with the same unique id.
+The same concept for the subdomain. The subdomain will also come as a tag.
+
+<strong>You can also log some of the custom events in log file with the tags!</strong>
+<pre>Logger.tagged("BCX") { Logger.info "Stuff" }                            # Logs "[BCX] Stuff"
+Logger.tagged("BCX", "Jason") { Logger.info "Stuff" }                   # Logs "[BCX] [Jason] Stuff"
+Logger.tagged("BCX") { Logger.tagged("Jason") { Logger.info "Stuff" } } # Logs "[BCX] [Jason] Stuff"</pre>
+How to configure it ??
+
+Open up your <code>production.rb </code> or your custom environment file, uncomment the line for <code>log_tags</code>
+<pre>config.log_tags = [ :subdomain, :uuid ]</pre>
+And you will get tagged logs with useful information.
+
+Useful links :
+
+Commit URL : <a href="https://github.com/rails/rails/commit/afde6fdd5ef3e6b0693a7e330777e85ef4cffddb">https://github.com/rails/rails/commit/afde6fdd5ef3e6b0693a7e330777e85ef4cffddb</a>
+Feature Branch : 3.2
+
+Cheers,
+<a href="http://twitter.com/arunagw">@arunagw</a>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rails 3.1 and JRuby]]></title>
+    <link href="http://arun.im/2011/rails-3-1-jruby/"/>
+    <updated>2011-10-10T00:00:00+02:00</updated>
+    <id>http://arun.im/2011/rails-3-1-jruby</id>
+    <content type="html"><![CDATA[Hi Folks,
+
+If you are doing any application in which you required JRuby as a platform. You can use Rails3.1 with that. activerecord-jdbc-adapter 1.2.0 is ok with that!
+
+All the steps are same as for the normal Rails Application
+
+You can find more details here <a href="http://blog.jruby.org/2011/09/ar-jdbc-1-2-0-released/">http://blog.jruby.org/2011/09/ar-jdbc-1-2-0-released/</a>
+
+&nbsp;
+
+Cheers,
+Arun
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Submit a patch for Rails on Github using "fork and edit button"]]></title>
+    <link href="http://arun.im/2011/submit-patch-rails-github-fork-edit-button/"/>
+    <updated>2011-09-11T00:00:00+02:00</updated>
+    <id>http://arun.im/2011/submit-patch-rails-github-fork-edit-button</id>
+    <content type="html"><![CDATA[Hi Folks,
+
+I have recently written about my Rails Contributions experience <a title="Arun Agrawal Rails" href="http://agrawalarun.com/2011/08/03/working-as-a-rails-contributor/" target="_blank">here</a>.
+
+I see that now days contribution is Rails is increased. People love to contribute in Open Source projects. And the way should be easy not painful.
+
+I found that some people are struggling in submitting Pull Requests in Rails on Github. So i thought of writing the same to help them.
+
+Some people are new to git and they don&#8217;t know much about git&#8230; or sometime patch is very small and they want to use Github&#8217;s &#8220;fork and edit this file&#8221; feature to submit a patch.
+
+And some people who are good in Rails will do it in more easy manner. And easy to open multiple pull request at a time from the same branch.
+
+I am writing some steps to use Github&#8217;s fork and edit feature to open pull request.
+<p style="text-align: center;"><strong>Open up your project on Github open up file where you want to change</strong></p>
+<p style="text-align: center;"><a href="http://blog.rubyrockers.com/wp-content/uploads/2011/09/fork_and_edit.jpg"><img class="aligncenter size-full wp-image-239" title="fork_and_edit" src="http://blog.rubyrockers.com/wp-content/uploads/2011/09/fork_and_edit.jpg" alt="" width="975" height="270" /></a></p>
+<p style="text-align: center;"><strong>Change your desired things into the file. You can only change one file in one commit</strong></p>
+<p style="text-align: center;"><a href="http://blog.rubyrockers.com/wp-content/uploads/2011/09/make_changes.jpg"><img class="aligncenter size-full wp-image-240" title="make_changes" src="http://blog.rubyrockers.com/wp-content/uploads/2011/09/make_changes.jpg" alt="" width="972" height="781" /></a></p>
+<p style="text-align: center;"><strong>Propese your file changes! Here you can write about your changes. Give some references about issue. Can see the file changed. Can see the commits which you have made.</strong></p>
+<p style="text-align: center;"><a href="http://blog.rubyrockers.com/wp-content/uploads/2011/09/pr_discussion.jpg"><img class="aligncenter size-full wp-image-243" title="pr_discussion" src="http://blog.rubyrockers.com/wp-content/uploads/2011/09/pr_discussion.jpg" alt="" width="953" height="533" /></a></p>
+<p style="text-align: center;"><strong>Change commit is the most important part. The reason is when people are doing changes in specific branch. Let&#8217;s take a example of Rails. If you are going to submit a patch against Rails 3.0.X version then you must have to choose 3-0-stable branch instead of master in Base branch.</strong></p>
+<p style="text-align: center;"><strong>After updating the commit range you can submit the Pull Request and also must see the File Changed.</strong></p>
+<p style="text-align: left;"><a href="http://blog.rubyrockers.com/wp-content/uploads/2011/09/pr_change_commits.jpg"><img class="aligncenter size-full wp-image-241" title="pr_change_commits" src="http://blog.rubyrockers.com/wp-content/uploads/2011/09/pr_change_commits.jpg" alt="" width="956" height="397" /></a><strong></strong></p>
+<p style="text-align: left;"><em><strong>Use this feature when you are fixing any typos, updating any docs. For submitting any code changes you should be running tests. :-) </strong></em></p>
+<p style="text-align: left;"><strong>Feel free to ask me if you face any problem in doing these things. We want more contributions!</strong></p>
+<p style="text-align: left;"><strong>You can tweet me <a title="Arun Agrawal Twitter" href="http://twitter.com/arunagw" target="_blank">@arunagw</a> or catch me on my email any time.</strong></p>
+<p style="text-align: left;"><strong>Cheers!</strong></p>
+<p style="text-align: center;"></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Serialized Attributes Rails 3]]></title>
+    <link href="http://arun.im/2011/serialized-attributes-rails-3/"/>
+    <updated>2011-08-27T00:00:00+02:00</updated>
+    <id>http://arun.im/2011/serialized-attributes-rails-3</id>
+    <content type="html"><![CDATA[This post will guide you how to do Serialization for your attributes in Rails.
+
+Serialize means you want to save arbitrary Ruby data structure into the database.
+
+Let consider we have a User model in which we want to store preferences for user in a Ruby data structure format. Previously it was only YAML.
+
+<pre>
+class User < ActiveRecord::Base
+  serialize :preferences 
+end
+</pre>
+
+<pre>
+user = User.find 1
+user.preferences = {:foo =>  'bar'}
+user.save
+</pre>
+
+So now we can pass a second parameter to serialize method to use that serialization method.
+
+<pre>
+class User < ActiveRecord::Base
+  serialize :preferences, SomeCoolEncoder.new
+end
+</pre>
+
+You need to implement this encoder! It can be a JSON, XML, Base64. Or what every encoding technique you like to use.
+
+A sample encoder look like this.
+
+<pre>
+class Base64Encoder
+  def load(value)
+    return unless value
+    value.unpack('m').last
+  end
+
+  def dump(text)
+    [text].pack('m')
+  end
+end
+</pre>
+
+This new encoder must have these methods in it!
+
+So now you attribute is serialized and you can store data in it in your given format.
+
+Ok so now we talk about ActiveModel::Serialization
+
+ActiveModel::Serialization will give you serialized attribute for your classes.
+
+A very simple example to use ActiveModel::Serialization
+<pre>
+class Post
+
+  include ActiveModel::Serialization
+
+  attr_accessor :title
+
+  def attributes
+    {'title' => title}
+  end
+
+end
+
+# So you can use like 
+
+post = Post.new
+post.serializable_hash   # => {"title"=>nil}
+post.name = "Rails is Cool!!"
+post.serializable_hash   # => {"name"=>"Rails is Cool!!"}
+
+</pre>
+
+Can use two inbuilt Serialization techniques 
+
+<pre>
+include ActiveModel::Serializers::JSON
+include ActiveModel::Serializers::Xml
+</pre>
+
+This is a very short intro for Serialization. Hope i will write more in detail soon!!
+
+I got this from <a href="http://github.com/tenderlove" target="_blank">@tenderlove</a> talk in <a href="http://www.youtube.com/watch?v=kWOAHIpmLAI" target="_blank">RailsConf2011</a>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rails 3.0.10 and JRuby]]></title>
+    <link href="http://arun.im/2011/rails-3-0-10-jruby/"/>
+    <updated>2011-08-05T00:00:00+02:00</updated>
+    <id>http://arun.im/2011/rails-3-0-10-jruby</id>
+    <content type="html"><![CDATA[Finally, The Rails is coming with template support with JRuby platform. We used to use &#8220;-m&#8221; option to generate new Rails Application for JRuby platform. Which is no more need now.
+
+Just set your platform to JRuby and create a new Rails Application as you do normally and it will generate a Application which is ready to go. No more tweaks required..!!
+
+This <a href="https://github.com/rails/rails/pull/1649" target="_blank">pull request</a> which get merged into Rails 3-0-stable branch and it&#8217;s shipped with Rails 3.0.10.rc1 and will come with Rails 3.0.10.
+
+This feature is also coming with Rails 3.1.
+
+Showing here some of the example which will create Rails Application for JRuby platform. I have tested this on JRuby 1.6.3 version.
+<pre>rvm jruby-1.6.3
+# Will set your environment for JRuby 1.6.3 version.</pre>
+Time to create rails app. This will generate a rails app for JRuby platform. Things like database.yml, Gemfile will generated specifically for JRuby platform.
+<pre>rails new myapp</pre>
+database.yml
+<pre># SQLite version 3.x
+#   gem 'activerecord-jdbcsqlite3-adapter'
+
+development:
+  adapter: sqlite3
+  database: db/development.sqlite3
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  adapter: sqlite3
+  database: db/test.sqlite3
+
+production:
+  adapter: sqlite3
+  database: db/production.sqlite3</pre>
+Gemfile
+<pre>source 'http://rubygems.org'
+
+gem 'rails', '3.0.10.rc1'
+
+gem 'jruby-openssl'
+# Bundle edge Rails instead:
+# gem 'rails', :git =&gt; 'git://github.com/rails/rails.git'
+
+gem 'activerecord-jdbcsqlite3-adapter'
+
+# Use unicorn as the web server
+# gem 'unicorn'
+
+# Deploy with Capistrano
+# gem 'capistrano'
+
+# To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
+# gem 'ruby-debug'
+# gem 'ruby-debug19', :require =&gt; 'ruby-debug'
+
+# Bundle the extra gems:
+# gem 'bj'
+# gem 'nokogiri'
+# gem 'sqlite3-ruby', :require =&gt; 'sqlite3'
+# gem 'aws-s3', :require =&gt; 'aws/s3'
+
+# Bundle gems for the local environment. Make sure to
+# put test-only gems in this group so their generators
+# and rake tasks are available in development mode:
+# group :development, :test do
+#   gem 'webrat'
+# end</pre>
+<strong>You can see in Gemfile the changes. It requires <code> gem 'jruby-openssl' </code> gem and <code>gem 'activerecord-jdbcsqlite3-adapter' </code> gem</strong>. Which is required for JRuby platform.
+
+Same work to generate for mysql and postgres.
+<pre>rails new myapp -d mysql</pre>
+And that&#8217;s all.!!
+
+Your Application is ready to run. Just do <code>bundle install</code> and all set. wOOtt..!!
+
+Post comments and discuss things if you guys still facing any issue. You can also post issue on <a href="http://github.com/rails/rails/issues" target="_blank">Rails Issues</a> and ask me to look into that.
+
+Some Useful links related to post:
+<ol>
+	<li><a href="http://github.com/nicksieger/activerecord-jdbc-adapter" target="_blank">Activerecord-jdbc-adapter</a></li>
+	<li><a href="http://www.jruby.org/" target="_blank">Jruby.org</a></li>
+</ol>
+<div>Cheers,</div>
+<div><a href="http://twitter.com/arunagw" target="_blank">@arunagw</a></div>
+<br />
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Working as a Rails Contributor]]></title>
     <link href="http://arun.im/2011/working-as-a-rails-contributor/"/>
     <updated>2011-08-03T00:00:00+02:00</updated>
@@ -237,245 +651,381 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Certified Scrum Master]]></title>
-    <link href="http://arun.im/2011/certified-scrum-master/"/>
-    <updated>2011-01-14T00:00:00+01:00</updated>
-    <id>http://arun.im/2011/certified-scrum-master</id>
-    <content type="html"><![CDATA[<div class="entry">
+    <title type="html"><![CDATA[Rails3 application with Jruby]]></title>
+    <link href="http://arun.im/2011/rails3-application-jruby/"/>
+    <updated>2011-03-28T00:00:00+02:00</updated>
+    <id>http://arun.im/2011/rails3-application-jruby</id>
+    <content type="html"><![CDATA[<strong>If you are living on edge and you are using Rails3 then you need follow this.<a href="http://blog.rubyrockers.com/2011/08/rails-3-0-10-jruby/"> Rails3 With JRuby</a></strong>
 
-  <p>I have completed my certificate in Scrum Master. Completed&nbsp;training and&nbsp;evaluation.</p>
+&nbsp;
 
-  <p>Now i am
-    <strong><a href="http://www.scrumalliance.org/profiles/118197-arun-agrawal">Certified Scrum Master</a></strong>.</p>
+Hi All,
 
-  <p>
-    <a rel="attachment wp-att-259" href="http://www.scrumalliance.org/profiles/118197-arun-agrawal" target="_blank">
-      <img class="alignnone size-medium wp-image-259" title="ScrumMaster" src="http://arun.im/assets/images/ScrumMaster_Logo.png" alt="Scrum Master Arun Agrawal" width="300" height="101">
-    </a>
-  </p>
+Recently i have started a Rails3 application which will use Jruby.
 
-  <p>Cheers,</p>
+I have gone through some of the steps for that application up and running.
 
-  <p>Arun</p>
+If you are using <a href="http://rvm.beginrescueend.com/">RVM</a> then it&#8217;s easy to install Jruby. In the latest <a href="http://rvm.beginrescueend.com/">RVM</a> version Jruby-1.6.0 is the default one. So my recommendation is first update the RVM itself then install Jruby.
 
+To update RVM and get the Jruby-1.6.0 installed
+<pre>rvm update 
+# But if you are already on the latest RVM then you will get message the "rvm update has been removed".
 
+#To install Jruby
 
-</div>
+rvm install jruby</pre>
+After installing Jruby you need to switch your environment to Jruby
+<pre> 
+rvm use jruby
+#Using /Users/arunagw/.rvm/gems/jruby-1.6.0</pre>
+Can check by using
+<pre>~~&gt;jruby -v                                                                                                                                                                          
+jruby 1.6.0 (ruby 1.8.7 patchlevel 330) (2011-03-15 f3b6154) (Java HotSpot(TM) 64-Bit Server VM 1.6.0_22) [darwin-x86_64-java]
+~~&gt;ruby -v                                                                                                                                                                           
+jruby 1.6.0 (ruby 1.8.7 patchlevel 330) (2011-03-15 f3b6154) (Java HotSpot(TM) 64-Bit Server VM 1.6.0_22) [darwin-x86_64-java]</pre>
+Now you are ready to play with Jruby stuff.
 
+You can do some basic stuff like irb to test things
+<pre>irb
+#IRB will also work
+jirb
+# JIRB will also work</pre>
+Time to install Rails in Jruby environment
+<pre>gem install rails 
+
+#Will also work
+
+jruby -S gem install rails</pre>
+All set. Create your Rails application.
+<pre>rails new my_app</pre>
+Above command will create a rails application but not useful for Jruby platform.
+
+For all setting just run
+<pre>rails new my_app -m http://jruby.org/rails3.rb</pre>
+This will do all setup for you for a rails3 app in Jruby.
+
+You may need to change/update your Gemfile for your gems.
+
+Problems i faced.
+
+<code> rake db:create</code> will give you an error if you are using Mysql with Jruby.
+<pre>uninitialized constant Mysql::Error</pre>
+Here is the <a href="https://rails.lighthouseapp.com/projects/8994/tickets/6628-uninitialized-constant-mysqlerror">ticket</a> information about this.
+
+Solution for this problem right now is to create database manually.
+
+After that all will work. No more hurdles i found.
+
+If you got in any problem let me know. We will try to solve that together.
+
+Links may be useful to find stuff
+
+1. <a href="http://jruby-extras.rubyforge.org/activerecord-jdbc-adapter/">Jruby Activerecord adaptor</a>.
+2. <a href="https://github.com/arunagw/my_jruby_sampleapp">My Sample Application</a>
+3. <a href="http://rvm.beginrescueend.com/">RVM</a>
+
+&#8212;&#8211;
+
+Arun
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Creating Documents, MongoDB — 2]]></title>
-    <link href="http://arun.im/2010/creating-documents-mongodb/"/>
-    <updated>2010-11-22T00:00:00+01:00</updated>
-    <id>http://arun.im/2010/creating-documents-mongodb</id>
-    <content type="html"><![CDATA[<div class="entry">
+    <title type="html"><![CDATA[Use selenium as a script]]></title>
+    <link href="http://arun.im/2011/selenium-script/"/>
+    <updated>2011-03-22T00:00:00+01:00</updated>
+    <id>http://arun.im/2011/selenium-script</id>
+    <content type="html"><![CDATA[Hey All,
 
-  <h3 id="-100000">
-    <span style="font-weight: normal; font-size: 13px;">Inserts are the basic method for adding data to MongoDB. To insert a document into a collection, use the collection’s&nbsp;<tt>insert</tt> method:</span>
-  </h3>
+I came with a situation where i need to test things from browser. It nothing to do with the different browsers. It just to check some validations, some messages with some existing data with me.
 
-  <p><a name="I_indexterm3_d1e2289"></a></p>
-  <pre><code> > db.foo.insert({"bar" : "baz"})</code></pre>
+I can&#8217;t touch the code base. It&#8217;s something like QA work.
 
+I am not very much aware about using of selenium IDE which is available in browsers.
 
-  <p>Tags: <a href="http://agrawalarun.com/blog/tag/mongodb/" rel="tag">mongodb</a></p>
+I look into the selenium world with ruby and found some interesting stuff that i can script my test and run for a browser.
 
+To run into the browser i need to setup selenium-rc server running.
 
-</div>
+I have done it in my way. Just small code and using selenium-client gem which allows me to start and stop the selenium-rc server.
 
+Here is my code for selenium-rc server. It also includes the selenium-jar file.
+<a href="https://github.com/arunagw/selenium-server">https://github.com/arunagw/selenium-server</a>
+
+For running selenium-rc server. Just clone it. bundle install and then rake selenium:rc:start
+
+All set. Now you are ready to run selenium script from your local machine.
+
+To test things i am using hitting up google.com and validating stuff. A google example is also given on the selenium-client gems readme.
+
+<pre>
+#!/usr/bin/env ruby
+#
+# Sample Ruby script using the Selenium client API
+#
+require "rubygems"
+gem "selenium-client", ">=1.2.16"
+require "selenium/client"
+
+begin
+  @browser = Selenium::Client::Driver.new \
+      :host => "localhost", 
+      :port => 4444, 
+      :browser => "*firefox", 
+      :url => "http://www.google.com", 
+      :timeout_in_second => 60
+
+  @browser.start_new_browser_session
+    @browser.open "/"
+    @browser.type "q", "Selenium seleniumhq.org"
+    @browser.click "btnG", :wait_for => :page
+    puts @browser.text?("seleniumhq.org")
+ensure
+  @browser.close_current_browser_session    
+end
+</pre>
+
+You can just run above script after start the selenium-rc server and see the result yourself in the browser. 
+
+Some useful links for get up and running selenium with ruby.
+
+Selenium-client for ruby :- <a href="https://github.com/ph7/selenium-client">https://github.com/ph7/selenium-client</a> 
+All about selenium with ruby :- <a href="http://seleniumhq.org/projects/ruby/">http://seleniumhq.org/projects/ruby/</a>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[MongoDB — 1]]></title>
-    <link href="http://arun.im/2010/mongodb-1/"/>
-    <updated>2010-11-19T00:00:00+01:00</updated>
-    <id>http://arun.im/2010/mongodb-1</id>
-    <content type="html"><![CDATA[<div class="entry">
+    <title type="html"><![CDATA[Gem 1.5 with Rails 2.3]]></title>
+    <link href="http://arun.im/2011/gem-1-5-rails-2-3/"/>
+    <updated>2011-03-19T00:00:00+01:00</updated>
+    <id>http://arun.im/2011/gem-1-5-rails-2-3</id>
+    <content type="html"><![CDATA[You may fall down into the situation where you don&#8217;t have RVM and your system gem is upgraded for using latest things.
 
-  <p>Hi,</p>
+And your old application is still running on older version of rails.
 
-  <p>I have started using MongoDB for my projects.</p>
+This is just a workaround of using <code>Gem > 1.3.7</code> in Rails 2.3 Applications.
 
-  <p>MongoDB is a powerful, flexible, and scalable data store. It combines the ability to scale out with many of the
-    most useful features of relational databases, such as secondary indexes, range queries, and sorting. MongoDB has
-    built-in support for MapReduce-style aggregation and geospatial indexes</p>
+I have tested this solution with Rails 2.3.5 and different version of gems.
 
-</div>
+After upgrading gems to 1.6.2 i have got an error 
+<pre>
+/activesupport-2.3.5/lib/active_support/dependencies.rb:55: 
+uninitialized constant ActiveSupport::Dependencies::Mutex (NameError)
+</pre>
 
+To fix this error need to update </code>boot.rb</code> file. Place this at the top of <code>boot.rb</code>
+
+<pre>require 'thread'</pre>
+
+After adding this you should be getting this error 
+<pre> 
+/gem_dependency.rb:119:in
+ `requirement': undefined local variable or method `version_requirements'
+</pre>
+
+To fix this error you need update your <code>environment.rb</code> file.
+Add this code above your <code>Rails::Initializer.run</code> block.
+
+<pre>
+if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.3.7')
+ module Rails
+   class GemDependency
+     def requirement
+       r = super
+       (r == Gem::Requirement.default) ? nil : r
+     end
+   end
+ end
+end
+</pre>
+
+Now your application should start running properly. Have fun ;)
+
+Now you can downgrade or upgrade your system gem version. Your application will still run. 
+
+Above workaround works for me very well. Any other ideas? 
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Using DreamHost now for blogs and hosting]]></title>
-    <link href="http://arun.im/2010/using-dreamhost-now-for-blogs-and-hosting/"/>
-    <updated>2010-11-18T00:00:00+01:00</updated>
-    <id>http://arun.im/2010/using-dreamhost-now-for-blogs-and-hosting</id>
-    <content type="html"><![CDATA[<div class="entry">
+    <title type="html"><![CDATA[Redis key-value store]]></title>
+    <link href="http://arun.im/2011/redis-key-value-store/"/>
+    <updated>2011-03-18T00:00:00+01:00</updated>
+    <id>http://arun.im/2011/redis-key-value-store</id>
+    <content type="html"><![CDATA[<a href="http://redis.io/">Redis</a> is really cool and lightweight key-value store. If you are looking for something in which you can store some string, hashes, lists, sets. The <a href="http://redis.io/">Redis</a> is the best.
 
-  <p>Hi,</p>
+If you are a Ruby developer then you must try out this with a <a href="https://github.com/ezmobius/redis-rb">redis-rb</a> gem. Very easy to configure, very easy to store things.
 
-  <p>Just switch to <a title="Dreamhost" href="http://www.dreamhost.com/r.cgi?550551" target="_blank">Dreamhost</a> for
-    my new hosting provider. These guys are good if you are looking for a good hosting.</p>
+Following is the way of using redis in Ruby way.
 
-  <p><a href="http://www.dreamhost.com/r.cgi?550551">Dreamhost</a> provides me to create unlimited shell accounts so my
-    friends also can use this for their blogs.</p>
+To install
+<pre>gem install redis</pre>
+To load
+<pre>require 'redis'</pre>
+Before performing any operation with redis server you need to install <a href="http://redis.io/download">Redis</a> and start the redis server.
 
-  <p>Check this out..!!!</p>
+After that you can do like
+<pre>redis = Redis.new # Automatically connect with the default port.
 
-  <p>You can use my email address in refer page. it’s arunagw at gmail.com</p>
+# if you have changed the port then you can specify the port in initialize.
 
-  <p>Or you can follow this link
-    <strong><a href="http://www.dreamhost.com/r.cgi?550551">http://www.dreamhost.com/r.cgi?550551</a></strong></p>
+&gt;&gt; redis.set "foo", "bar"
+=&gt; "OK"
 
-</div>
+&gt;&gt; redis.get "foo"
+=&gt; "bar"</pre>
+Storing objects
+<pre>&gt;&gt; redis.set "foo", [1, 2, 3].to_json
+=&gt; OK
 
+&gt;&gt; JSON.parse(redis.get("foo"))
+=&gt; [1, 2, 3]</pre>
+There are lot&#8217;s more things you can do with the Redis.
 
+Links help you in redis
 
+<a href="http://redis.io">Redis official documentation</a> (<a href="http://redis.io">http://redis.io</a>)
+<a href="https://github.com/antirez/redis">Github redis repository </a>(<a href="https://github.com/antirez/redis">https://github.com/antirez/redis</a>)
+<a href="https://github.com/ezmobius/redis-rb">Github redis rubygem repository </a>(<a href="https://github.com/ezmobius/redis-rb">https://github.com/ezmobius/redis-rb</a>)
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Method Visibility Public, Protected, Private]]></title>
-    <link href="http://arun.im/2010/method-visibility-public-protected-private.html/"/>
-    <updated>2010-10-25T00:00:00+02:00</updated>
-    <id>http://arun.im/2010/method-visibility-public-protected-private.html</id>
-    <content type="html"><![CDATA[<div class="entry">
+    <title type="html"><![CDATA[Bundler Usage -- Installing Gems]]></title>
+    <link href="http://arun.im/2011/bundler-usage-installing-gems/"/>
+    <updated>2011-03-18T00:00:00+01:00</updated>
+    <id>http://arun.im/2011/bundler-usage-installing-gems</id>
+    <content type="html"><![CDATA[Every time you change your Gemfile then you might adding/removing any dependancies in your application.
 
-  <p class="docText"><strong>Instance<a name="ch07-methodsvisibility"></a><a name="I_indexterm7_d1e24327"></a>
-    methods<a name="ch07-publicmethod"></a><a name="ch07-private"></a><a name="ch07-protected"></a><a name="may be"></a>
-    may be&nbsp;<span class="docEmphasis">public</span>,&nbsp;<span class="docEmphasis">private</span>,
-    or&nbsp;<span class="docEmphasis">protected</span></strong><a name="other object"></a>.</p>
+Just <code> bundle install </code> will install gems for you. 
 
-  <p class="docText">
-  </p>
+The output may look like 
 
-  <p class="docText"><a name="public unless"></a>Methods are normally <strong>public</strong> unless they are explicitly
-    declared to be private or protected. One exception is the&nbsp;<tt>initialize</tt>
-    method<a name="I_indexterm7_d1e24354"></a><a name="any "></a>, which is always implicitly private. Another exception
-    is any “global” method<a name="I_indexterm7_d1e24360"></a><a name="class definition"></a> declared outside of a
-    class definition—those methods are defined as private instance methods
-    of&nbsp;<tt>Object</tt><a name="be invoked"></a>. A public method can be invoked from anywhere—there are no
-    restrictions on its use.</p>
+<pre>
+$ bundle install 
+Fetching git://github.com/rails/rails.git
+Fetching source index for http://rubygems.org/ 
+Using rake (0.8.7) 
+Installing abstract (1.0.0)
+Your bundle is complete! Use `bundle show [gemname]` to see where a
+bundled gem is installed.
+</pre>
 
-  <p class="docText"><a name="of a"></a>A <strong>private</strong> method is internal to the implementation of a class,
-    and it can only be called by other instance methods of the class (or, as we’ll see later, its subclasses). Private
-    methods are implicitly invoked on&nbsp;<tt>self</tt><a name="an object"></a>, and may not be explicitly invoked on
-    an object. If&nbsp;<tt>m</tt> is a private method, then you must invoke it in<a name="I_indexterm7_d1e24377"></a>
-    <span class="docEmphasis">functional style</span> as&nbsp;<tt>m</tt>. You cannot write&nbsp;<tt>o.m</tt> or even&nbsp;<tt>self.m</tt>.
-  </p>
+You can specify groups for special environments 
 
-  <p class="docText"><a name="in that"></a>A <strong>protected</strong> method is like a private method in that it can
-    only be invoked from within the implementation of a class or its subclasses. It differs from a private method in
-    that it may be explicitly invoked on any instance of the class, and it is not restricted to implicit invocation&nbsp;<a name="I_indexterm7_d1e24396"></a>on&nbsp;<tt>self</tt><a name="to define"></a>.
-    A protected method can be used, for example, to define an accessor that allows instances of a class to share
-    internal state with each other, but does not allow users of the class to access that state.</p>
+<pre> 
+$ bundle install --without development test
+</pre>
+<pre>
+$ bundle install --without test
+</pre>
 
-  <p class="docText">
-  </p>
+You can specify installation directory for your gems. 
+This will install all the gems into tmp/bundle folder
+<pre>
+$ bundle install --path tmp/bundle
+</pre>
 
-  <p class="docText">
+You can check your applications bundler config. 
 
+<pre> 
+$ bundle config 
 
-  </p>
+Settings are listed in order of priority. The top value will be used.
 
+disable_shared_gems
+  Set for your local app (/Users/arunagw/foobar/.bundle/config): "1"
 
-</div>
+path
+  Set for your local app (/Users/arunagw/foobar/.bundle/config): "tmp/bundle"
+</pre>
 
+For more details about bundler you can checkout <a href="http://gembundler.com/">http://gembundler.com/</a>
+And also <a href="http://railscasts.com/episodes/201-bundler"> http://railscasts.com/episodes/201-bundler</a>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Using git revert]]></title>
-    <link href="http://arun.im/2010/using-git-revert/"/>
-    <updated>2010-10-05T00:00:00+02:00</updated>
-    <id>http://arun.im/2010/using-git-revert</id>
-    <content type="html"><![CDATA[<div class="entry">
+    <title type="html"><![CDATA[Bundler Usage -- Manage Gemfile]]></title>
+    <link href="http://arun.im/2011/bundler-usage-manage-gemfile/"/>
+    <updated>2011-03-17T00:00:00+01:00</updated>
+    <id>http://arun.im/2011/bundler-usage-manage-gemfile</id>
+    <content type="html"><![CDATA[In the previous post we posted about basic <a href="http://gembundler.com/">Bundler</a> usage. Here i am posting about some advance way of managing Gemfile.
 
-  <p>Hi,</p>
+<a href="http://gembundler.com/">Bundler</a> requires a Gemfile. If you are creating a Rails application which is above to version 3, the Gemfile automatic gets created.
 
-  <p>We are doing revert our code in different different ways.</p>
+Gemfile contains all your dependent gems.
+<pre>gem "rails", "~&gt; 3.0.5"
 
-  <p style="text-align: left;">The basic way of doing this using <em>git revert</em> command.</p>
+gem "mysql2"</pre>
+The above Gemfile explains that we need Rails 3.0.5 and Mysql2 gems for our application.
 
-  <p>
-    <span class="Apple-style-span" style="border-collapse: separate; color: #000000; font-family: Times; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; font-size: medium;"><span class="Apple-style-span" style="font-family: verdana,sans-serif; font-size: 11px; text-align: left;"></span></span>
-  </p>
+Gemfile can be manage in different ways.
 
-  <p>The
-    <em>git revert commit </em>command is substantially similar to the command <em>git cherry-pic commit </em>with one
-    important difference: it applies the <em>inverse </em>of the given <em>commit. </em>Thus, this command is used to
-    introduce a new commit that reverses the effects of a given commit.</p>
+We can group things together which is only used in specific environment.
+<pre>group :test do 
+  gem "faker
+end
+group :development, :test do
+  gem 'ruby-debug'
+end</pre>
+We can specify the gem version as a second argument in gem. If there is no version then it will fetch the latest one.
 
-  <p>My Current master status</p>
+Some time gem name is different and the library needs to be loaded may be different. Then we need to specify specifically the lib name.
+<pre>gem 'sqlite3-ruby', :require =&gt; 'sqlite3'</pre>
+Loading gem from a git repository directly
 
-  <pre>
-    <code>A => B => C => D => E</code>
-  </pre>
-
-  <p>If we are reverting commit D</p>
-
-  <p>Then it will become</p>
-
-  <pre>
-    <code>
-      A => B => C => D => E => D”
-    </code>
-    <code>Here D” is the commit reverse of D</code>
-  </pre>
-
-  <p>Arun</p>
-
-</div>
-
+If our library or gem is hosted somewhere else then we can add more source at the top of Gemfile. But if we want to fetch Gem from a git repository then we need to something like below. But that library must contain a .gemspec file to consider as a Gem.
+<pre>gem 'nokogiri', :git =&gt; 'git://github.com/tenderlove/nokogiri.git'</pre>
+We can also specify a branch/tag/ref of git repository.
+<pre>gem 'nokogiri', :git =&gt; 'git://github.com/tenderlove/nokogiri.git',
+                                   :branch =&gt; 'stable-2'</pre>
+<pre>gem 'nokogiri', :git =&gt; 'git://github.com/tenderlove/nokogiri.git', 
+                                   :tag =&gt; 'tag-2'</pre>
+<pre>gem 'nokogiri', :git =&gt; 'git://github.com/tenderlove/nokogiri.git', 
+                                   :ref =&gt; '23456'</pre>
+We can load gems from our local path also.
+<pre>gem 'nokogiri', :path =&gt; '~/code/nokogiri'</pre>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Rake Migration]]></title>
-    <link href="http://arun.im/2010/rake-migration.html/"/>
-    <updated>2010-10-01T00:00:00+02:00</updated>
-    <id>http://arun.im/2010/rake-migration.html</id>
-    <content type="html"><![CDATA[<div class="entry">
+    <title type="html"><![CDATA[Query cache in Rails]]></title>
+    <link href="http://arun.im/2011/query-cache-rails/"/>
+    <updated>2011-02-27T00:00:00+01:00</updated>
+    <id>http://arun.im/2011/query-cache-rails</id>
+    <content type="html"><![CDATA[By default Rails do Query cache. Whenever it execute <code>find</code> it enables the query cache.
+You can enable manually by wrapping up in <code>cache</code> block.
+<pre>Post.cache do
+  puts Post.first
+  puts Post.first
+  puts Post.first
+end
+</pre>
 
-  <p>Hi,</p>
+Your development.log looks like:
+<pre>
+Post Load (1.0ms) SELECT * FROM posts LIMIT 1
+CACHE (0.0ms) SELECT * FROM posts LIMIT 1
+CACHE (0.0ms) SELECT * FROM posts LIMIT 1
+</pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Refactoring Environment]]></title>
+    <link href="http://arun.im/2011/refactoring-environment/"/>
+    <updated>2011-02-24T00:00:00+01:00</updated>
+    <id>http://arun.im/2011/refactoring-environment</id>
+    <content type="html"><![CDATA[Just writing about refactoring environment which can be best when you are doing refactoring in your code base.
 
-  <p>I have started working on a plugin which helps rails projects to maintain the list of rake tasks.</p>
-
-  <p>Here what i am doing is we are maintaining files using version numbers.</p>
-
-  <p>As one rake command will tell us what is left to be run in a team environment.</p>
-
-  <p>Suppose i have written a rake task or some ruby code to be execute on the db in a order.</p>
-
-  <p>Other team member also want’s to run that task on their DB and as well as on production environments.</p>
-
-  <p>What this plugin is doing is, when you want to add some ruby code or want’s to run some ruby code in a
-    sequence.</p>
-
-  <p>Just create an empty ruby file using rake migration generator and add ruby stuff there.</p>
-
-  <p>if you have migrate that file into the DB. Which means that you have applied that ruby code into your environments.
-    Other developer can take your changes and just migrate those things in their DB also.</p>
-
-  <p>Idea is same like as DB Migrations are working.</p>
-
-  <p>Here is the URL for plugin</p>
-
-  <p>
-    <a title="http://github.com/arunagw/rake_migration" href="http://github.com/arunagw/rake_migration" target="_blank">http://github.com/arunagw/rake_migration</a>
-  </p>
-
-  <p>This plugin is under development currently.</p>
-
-  <p>Cheers,</p>
-
-  <p>Arun Agrawal</p>
-
-</div>
-
+Refactoring can be done at any time of your code. When you are refactoring code you can see follow things is a benefit for you.
+<ol>
+	<li>Have some good tests for which code you are going to refactor.</li>
+	<li>Let&#8217;s pair when you start refactoring. Having a pair while doing refactoring is a great idea.</li>
+	<li>Code must be under version control. GIT/SVN</li>
+</ol>
+&nbsp;
 ]]></content>
   </entry>
   

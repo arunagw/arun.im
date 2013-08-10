@@ -1,0 +1,75 @@
+---
+layout: post
+title: X-Request-Id tracking and TaggedLogging in Rails3.2
+tags:
+- rails
+- ruby
+- Technology
+status: publish
+type: post
+published: true
+meta:
+_edit_last: '1'
+_su_rich_snippet_type: none
+dsq_thread_id: '449667922'
+---
+<strong>Rails 3.2 will come with X-Request-Id tracking and TaggedLogging support!! Recently <a href="http://twitter.com/dhh">DHH</a> added this feature <a href="https://github.com/rails/rails/commit/afde6fdd5ef3e6b0693a7e330777e85ef4cffddb">here</a>!</strong>
+
+This makes it easy to trace requests from end-to-end in the stack and to identify individual requests in mixed logs.
+
+If you have application on SAS model. Where you have logs filled with mixed request for all your customers. May be you need to filter out requests start with some specific subdomain. TaggedLogging will help you in that.
+
+Where as the X-Request-Id feature will help you to track log with the same request. So in mixed logs you can easily find out the unique id logs for a request.
+
+It will tag the log with the unique id for that request in the log. So later you can easily trace them down.
+
+May be later on you can add more tags for your logs. If those methods are supported by the request object!
+
+I am showing here some logs here with X-Request-Id
+<pre>[2011-10-21 19:57:55] INFO  WEBrick 1.3.1
+[2011-10-21 19:57:55] INFO  ruby 2.0.0 (2011-10-19) [x86_64-darwin11.2.0]
+[2011-10-21 19:57:55] INFO  WEBrick::HTTPServer#start: pid=1585 port=3000
+<strong><em>[9fda80066583f52e695a089d8622439c]</em> </strong>
+
+Started GET "/blogs" for 127.0.0.1 at 2011-10-21 19:57:59 +0530
+<strong><em>[9fda80066583f52e695a089d8622439c]</em> </strong> Processing by BlogsController#index as HTML
+<strong><em>[9fda80066583f52e695a089d8622439c]</em> </strong>   Blog Load (0.2ms)  SELECT "blogs".* FROM "blogs"
+<strong><em>[9fda80066583f52e695a089d8622439c]</em> </strong>   Rendered blogs/index.html.erb within layouts/application (8.8ms)
+<strong><em>[9fda80066583f52e695a089d8622439c]</em> </strong> Completed 200 OK in 32ms (Views: 30.4ms | ActiveRecord: 0.3ms)
+[2011-10-21 19:57:59] WARN  Could not determine content-length of response body. Set content-length of the response or set Response#chunked = true
+[0962521e4215d645367b58fa41da9f0d] 
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2011-10-21 19:57:59 +0530
+[0962521e4215d645367b58fa41da9f0d] Served asset /application.css - 304 Not Modified (0ms)
+[2011-10-21 19:57:59] WARN  Could not determine content-length of response body. Set content-length of the response or set Response#chunked = true
+[a7204cec4d2b2e930ac05b41fa1a5c65] 
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-10-21 19:57:59 +0530
+[a7204cec4d2b2e930ac05b41fa1a5c65] Served asset /jquery_ujs.js - 304 Not Modified (1ms)
+[2011-10-21 19:57:59] WARN  Could not determine content-length of response body. Set content-length of the response or set Response#chunked = true
+[202eadd97820dfbf429f87f4725324c3] 
+
+Started GET "/assets/blogs.css?body=1" for 127.0.0.1 at 2011-10-21 19:57:59 +0530
+[202eadd97820dfbf429f87f4725324c3] Served asset /blogs.css - 304 Not Modified (2ms)
+[2011-10-21 19:57:59] WARN  Could not determine content-length of response body. Set content-length of the response or set Response#chunked = true
+[769a2752906bb0c2c5d1eae0a76ac328]</pre>
+Here I showed some logs in strong. They are the same request for the index page tagged with the same unique id.
+The same concept for the subdomain. The subdomain will also come as a tag.
+
+<strong>You can also log some of the custom events in log file with the tags!</strong>
+<pre>Logger.tagged("BCX") { Logger.info "Stuff" }                            # Logs "[BCX] Stuff"
+Logger.tagged("BCX", "Jason") { Logger.info "Stuff" }                   # Logs "[BCX] [Jason] Stuff"
+Logger.tagged("BCX") { Logger.tagged("Jason") { Logger.info "Stuff" } } # Logs "[BCX] [Jason] Stuff"</pre>
+How to configure it ??
+
+Open up your <code>production.rb </code> or your custom environment file, uncomment the line for <code>log_tags</code>
+<pre>config.log_tags = [ :subdomain, :uuid ]</pre>
+And you will get tagged logs with useful information.
+
+Useful links :
+
+Commit URL : <a href="https://github.com/rails/rails/commit/afde6fdd5ef3e6b0693a7e330777e85ef4cffddb">https://github.com/rails/rails/commit/afde6fdd5ef3e6b0693a7e330777e85ef4cffddb</a>
+Feature Branch : 3.2
+
+Cheers,
+<a href="http://twitter.com/arunagw">@arunagw</a>

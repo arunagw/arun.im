@@ -9,7 +9,7 @@
   <meta name="author" content="Arun Agrawal">
 
   
-  <meta name="description" content=" I have completed my certificate in Scrum Master. Completed&nbsp;training and&nbsp;evaluation. Now i am Certified Scrum Master. Cheers, Arun ">
+  <meta name="description" content="Rails 3.2 will come with X-Request-Id tracking and TaggedLogging support!! Recently DHH added this feature here! This makes it easy to trace requests &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -84,7 +84,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2011/certified-scrum-master/">Certified Scrum Master</a></h1>
+      <h1 class="entry-title"><a href="/2011/x-request-id-tracking-taggedlogging-rails/">X-Request-Id Tracking and TaggedLogging in Rails3.2</a></h1>
     
     
       <p class="meta">
@@ -100,34 +100,73 @@
   
 
 
-<time datetime="2011-01-14T00:00:00+01:00" pubdate data-updated="true">Jan 14<span>th</span>, 2011</time>
+<time datetime="2011-10-21T00:00:00+02:00" pubdate data-updated="true">Oct 21<span>st</span>, 2011</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><div class="entry">
+  <div class="entry-content"><strong>Rails 3.2 will come with X-Request-Id tracking and TaggedLogging support!! Recently <a href="http://twitter.com/dhh">DHH</a> added this feature <a href="https://github.com/rails/rails/commit/afde6fdd5ef3e6b0693a7e330777e85ef4cffddb">here</a>!</strong>
 
-  <p>I have completed my certificate in Scrum Master. Completed&nbsp;training and&nbsp;evaluation.</p>
+This makes it easy to trace requests from end-to-end in the stack and to identify individual requests in mixed logs.
 
-  <p>Now i am
-    <strong><a href="http://www.scrumalliance.org/profiles/118197-arun-agrawal">Certified Scrum Master</a></strong>.</p>
+If you have application on SAS model. Where you have logs filled with mixed request for all your customers. May be you need to filter out requests start with some specific subdomain. TaggedLogging will help you in that.
 
-  <p>
-    <a rel="attachment wp-att-259" href="http://www.scrumalliance.org/profiles/118197-arun-agrawal" target="_blank">
-      <img class="alignnone size-medium wp-image-259" title="ScrumMaster" src="/assets/images/ScrumMaster_Logo.png" alt="Scrum Master Arun Agrawal" width="300" height="101">
-    </a>
-  </p>
+Where as the X-Request-Id feature will help you to track log with the same request. So in mixed logs you can easily find out the unique id logs for a request.
 
-  <p>Cheers,</p>
+It will tag the log with the unique id for that request in the log. So later you can easily trace them down.
 
-  <p>Arun</p>
+May be later on you can add more tags for your logs. If those methods are supported by the request object!
 
+I am showing here some logs here with X-Request-Id
+<pre>[2011-10-21 19:57:55] INFO  WEBrick 1.3.1
+[2011-10-21 19:57:55] INFO  ruby 2.0.0 (2011-10-19) [x86_64-darwin11.2.0]
+[2011-10-21 19:57:55] INFO  WEBrick::HTTPServer#start: pid=1585 port=3000
+<strong><em>[9fda80066583f52e695a089d8622439c]</em> </strong>
 
+Started GET "/blogs" for 127.0.0.1 at 2011-10-21 19:57:59 +0530
+<strong><em>[9fda80066583f52e695a089d8622439c]</em> </strong> Processing by BlogsController#index as HTML
+<strong><em>[9fda80066583f52e695a089d8622439c]</em> </strong>   Blog Load (0.2ms)  SELECT "blogs".* FROM "blogs"
+<strong><em>[9fda80066583f52e695a089d8622439c]</em> </strong>   Rendered blogs/index.html.erb within layouts/application (8.8ms)
+<strong><em>[9fda80066583f52e695a089d8622439c]</em> </strong> Completed 200 OK in 32ms (Views: 30.4ms | ActiveRecord: 0.3ms)
+[2011-10-21 19:57:59] WARN  Could not determine content-length of response body. Set content-length of the response or set Response#chunked = true
+[0962521e4215d645367b58fa41da9f0d] 
 
-</div>
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2011-10-21 19:57:59 +0530
+[0962521e4215d645367b58fa41da9f0d] Served asset /application.css - 304 Not Modified (0ms)
+[2011-10-21 19:57:59] WARN  Could not determine content-length of response body. Set content-length of the response or set Response#chunked = true
+[a7204cec4d2b2e930ac05b41fa1a5c65] 
 
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-10-21 19:57:59 +0530
+[a7204cec4d2b2e930ac05b41fa1a5c65] Served asset /jquery_ujs.js - 304 Not Modified (1ms)
+[2011-10-21 19:57:59] WARN  Could not determine content-length of response body. Set content-length of the response or set Response#chunked = true
+[202eadd97820dfbf429f87f4725324c3] 
+
+Started GET "/assets/blogs.css?body=1" for 127.0.0.1 at 2011-10-21 19:57:59 +0530
+[202eadd97820dfbf429f87f4725324c3] Served asset /blogs.css - 304 Not Modified (2ms)
+[2011-10-21 19:57:59] WARN  Could not determine content-length of response body. Set content-length of the response or set Response#chunked = true
+[769a2752906bb0c2c5d1eae0a76ac328]</pre>
+Here I showed some logs in strong. They are the same request for the index page tagged with the same unique id.
+The same concept for the subdomain. The subdomain will also come as a tag.
+
+<strong>You can also log some of the custom events in log file with the tags!</strong>
+<pre>Logger.tagged("BCX") { Logger.info "Stuff" }                            # Logs "[BCX] Stuff"
+Logger.tagged("BCX", "Jason") { Logger.info "Stuff" }                   # Logs "[BCX] [Jason] Stuff"
+Logger.tagged("BCX") { Logger.tagged("Jason") { Logger.info "Stuff" } } # Logs "[BCX] [Jason] Stuff"</pre>
+How to configure it ??
+
+Open up your <code>production.rb </code> or your custom environment file, uncomment the line for <code>log_tags</code>
+<pre>config.log_tags = [ :subdomain, :uuid ]</pre>
+And you will get tagged logs with useful information.
+
+Useful links :
+
+Commit URL : <a href="https://github.com/rails/rails/commit/afde6fdd5ef3e6b0693a7e330777e85ef4cffddb">https://github.com/rails/rails/commit/afde6fdd5ef3e6b0693a7e330777e85ef4cffddb</a>
+Feature Branch : 3.2
+
+Cheers,
+<a href="http://twitter.com/arunagw">@arunagw</a>
 </div>
   
   
@@ -140,7 +179,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2010/creating-documents-mongodb/">Creating Documents, MongoDB — 2</a></h1>
+      <h1 class="entry-title"><a href="/2011/rails-3-1-jruby/">Rails 3.1 and JRuby</a></h1>
     
     
       <p class="meta">
@@ -156,28 +195,25 @@
   
 
 
-<time datetime="2010-11-22T00:00:00+01:00" pubdate data-updated="true">Nov 22<span>nd</span>, 2010</time>
+<time datetime="2011-10-10T00:00:00+02:00" pubdate data-updated="true">Oct 10<span>th</span>, 2011</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><div class="entry">
+  <div class="entry-content">Hi Folks,
 
-  <h3 id="-100000">
-    <span style="font-weight: normal; font-size: 13px;">Inserts are the basic method for adding data to MongoDB. To insert a document into a collection, use the collection’s&nbsp;<tt>insert</tt> method:</span>
-  </h3>
+If you are doing any application in which you required JRuby as a platform. You can use Rails3.1 with that. activerecord-jdbc-adapter 1.2.0 is ok with that!
 
-  <p><a name="I_indexterm3_d1e2289"></a></p>
-  <pre><code> > db.foo.insert({"bar" : "baz"})</code></pre>
+All the steps are same as for the normal Rails Application
 
+You can find more details here <a href="http://blog.jruby.org/2011/09/ar-jdbc-1-2-0-released/">http://blog.jruby.org/2011/09/ar-jdbc-1-2-0-released/</a>
 
-  <p>Tags: <a href="http://agrawalarun.com/blog/tag/mongodb/" rel="tag">mongodb</a></p>
+&nbsp;
 
-
-</div>
-
+Cheers,
+Arun
 </div>
   
   
@@ -190,7 +226,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2010/mongodb-1/">MongoDB — 1</a></h1>
+      <h1 class="entry-title"><a href="/2011/submit-patch-rails-github-fork-edit-button/">Submit a Patch for Rails on Github Using &#8220;Fork and Edit Button&#8221;</a></h1>
     
     
       <p class="meta">
@@ -206,25 +242,40 @@
   
 
 
-<time datetime="2010-11-19T00:00:00+01:00" pubdate data-updated="true">Nov 19<span>th</span>, 2010</time>
+<time datetime="2011-09-11T00:00:00+02:00" pubdate data-updated="true">Sep 11<span>th</span>, 2011</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><div class="entry">
+  <div class="entry-content">Hi Folks,
 
-  <p>Hi,</p>
+I have recently written about my Rails Contributions experience <a title="Arun Agrawal Rails" href="http://agrawalarun.com/2011/08/03/working-as-a-rails-contributor/" target="_blank">here</a>.
 
-  <p>I have started using MongoDB for my projects.</p>
+I see that now days contribution is Rails is increased. People love to contribute in Open Source projects. And the way should be easy not painful.
 
-  <p>MongoDB is a powerful, flexible, and scalable data store. It combines the ability to scale out with many of the
-    most useful features of relational databases, such as secondary indexes, range queries, and sorting. MongoDB has
-    built-in support for MapReduce-style aggregation and geospatial indexes</p>
+I found that some people are struggling in submitting Pull Requests in Rails on Github. So i thought of writing the same to help them.
 
-</div>
+Some people are new to git and they don&#8217;t know much about git&#8230; or sometime patch is very small and they want to use Github&#8217;s &#8220;fork and edit this file&#8221; feature to submit a patch.
 
+And some people who are good in Rails will do it in more easy manner. And easy to open multiple pull request at a time from the same branch.
+
+I am writing some steps to use Github&#8217;s fork and edit feature to open pull request.
+<p style="text-align: center;"><strong>Open up your project on Github open up file where you want to change</strong></p>
+<p style="text-align: center;"><a href="http://blog.rubyrockers.com/wp-content/uploads/2011/09/fork_and_edit.jpg"><img class="aligncenter size-full wp-image-239" title="fork_and_edit" src="http://blog.rubyrockers.com/wp-content/uploads/2011/09/fork_and_edit.jpg" alt="" width="975" height="270" /></a></p>
+<p style="text-align: center;"><strong>Change your desired things into the file. You can only change one file in one commit</strong></p>
+<p style="text-align: center;"><a href="http://blog.rubyrockers.com/wp-content/uploads/2011/09/make_changes.jpg"><img class="aligncenter size-full wp-image-240" title="make_changes" src="http://blog.rubyrockers.com/wp-content/uploads/2011/09/make_changes.jpg" alt="" width="972" height="781" /></a></p>
+<p style="text-align: center;"><strong>Propese your file changes! Here you can write about your changes. Give some references about issue. Can see the file changed. Can see the commits which you have made.</strong></p>
+<p style="text-align: center;"><a href="http://blog.rubyrockers.com/wp-content/uploads/2011/09/pr_discussion.jpg"><img class="aligncenter size-full wp-image-243" title="pr_discussion" src="http://blog.rubyrockers.com/wp-content/uploads/2011/09/pr_discussion.jpg" alt="" width="953" height="533" /></a></p>
+<p style="text-align: center;"><strong>Change commit is the most important part. The reason is when people are doing changes in specific branch. Let&#8217;s take a example of Rails. If you are going to submit a patch against Rails 3.0.X version then you must have to choose 3-0-stable branch instead of master in Base branch.</strong></p>
+<p style="text-align: center;"><strong>After updating the commit range you can submit the Pull Request and also must see the File Changed.</strong></p>
+<p style="text-align: left;"><a href="http://blog.rubyrockers.com/wp-content/uploads/2011/09/pr_change_commits.jpg"><img class="aligncenter size-full wp-image-241" title="pr_change_commits" src="http://blog.rubyrockers.com/wp-content/uploads/2011/09/pr_change_commits.jpg" alt="" width="956" height="397" /></a><strong></strong></p>
+<p style="text-align: left;"><em><strong>Use this feature when you are fixing any typos, updating any docs. For submitting any code changes you should be running tests. :-) </strong></em></p>
+<p style="text-align: left;"><strong>Feel free to ask me if you face any problem in doing these things. We want more contributions!</strong></p>
+<p style="text-align: left;"><strong>You can tweet me <a title="Arun Agrawal Twitter" href="http://twitter.com/arunagw" target="_blank">@arunagw</a> or catch me on my email any time.</strong></p>
+<p style="text-align: left;"><strong>Cheers!</strong></p>
+<p style="text-align: center;"></p>
 </div>
   
   
@@ -237,7 +288,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2010/using-dreamhost-now-for-blogs-and-hosting/">Using DreamHost Now for Blogs and Hosting</a></h1>
+      <h1 class="entry-title"><a href="/2011/serialized-attributes-rails-3/">Serialized Attributes Rails 3</a></h1>
     
     
       <p class="meta">
@@ -253,34 +304,97 @@
   
 
 
-<time datetime="2010-11-18T00:00:00+01:00" pubdate data-updated="true">Nov 18<span>th</span>, 2010</time>
+<time datetime="2011-08-27T00:00:00+02:00" pubdate data-updated="true">Aug 27<span>th</span>, 2011</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><div class="entry">
+  <div class="entry-content">This post will guide you how to do Serialization for your attributes in Rails.
 
-  <p>Hi,</p>
+Serialize means you want to save arbitrary Ruby data structure into the database.
 
-  <p>Just switch to <a title="Dreamhost" href="http://www.dreamhost.com/r.cgi?550551" target="_blank">Dreamhost</a> for
-    my new hosting provider. These guys are good if you are looking for a good hosting.</p>
+Let consider we have a User model in which we want to store preferences for user in a Ruby data structure format. Previously it was only YAML.
 
-  <p><a href="http://www.dreamhost.com/r.cgi?550551">Dreamhost</a> provides me to create unlimited shell accounts so my
-    friends also can use this for their blogs.</p>
+<pre>
+class User < ActiveRecord::Base
+  serialize :preferences 
+end
+</pre>
 
-  <p>Check this out..!!!</p>
+<pre>
+user = User.find 1
+user.preferences = {:foo =>  'bar'}
+user.save
+</pre>
 
-  <p>You can use my email address in refer page. it’s arunagw at gmail.com</p>
+So now we can pass a second parameter to serialize method to use that serialization method.
 
-  <p>Or you can follow this link
-    <strong><a href="http://www.dreamhost.com/r.cgi?550551">http://www.dreamhost.com/r.cgi?550551</a></strong></p>
+<pre>
+class User < ActiveRecord::Base
+  serialize :preferences, SomeCoolEncoder.new
+end
+</pre>
 
-</div>
+You need to implement this encoder! It can be a JSON, XML, Base64. Or what every encoding technique you like to use.
 
+A sample encoder look like this.
 
+<pre>
+class Base64Encoder
+  def load(value)
+    return unless value
+    value.unpack('m').last
+  end
 
+  def dump(text)
+    [text].pack('m')
+  end
+end
+</pre>
+
+This new encoder must have these methods in it!
+
+So now you attribute is serialized and you can store data in it in your given format.
+
+Ok so now we talk about ActiveModel::Serialization
+
+ActiveModel::Serialization will give you serialized attribute for your classes.
+
+A very simple example to use ActiveModel::Serialization
+<pre>
+class Post
+
+  include ActiveModel::Serialization
+
+  attr_accessor :title
+
+  def attributes
+    {'title' => title}
+  end
+
+end
+
+# So you can use like 
+
+post = Post.new
+post.serializable_hash   # => {"title"=>nil}
+post.name = "Rails is Cool!!"
+post.serializable_hash   # => {"name"=>"Rails is Cool!!"}
+
+</pre>
+
+Can use two inbuilt Serialization techniques 
+
+<pre>
+include ActiveModel::Serializers::JSON
+include ActiveModel::Serializers::Xml
+</pre>
+
+This is a very short intro for Serialization. Hope i will write more in detail soon!!
+
+I got this from <a href="http://github.com/tenderlove" target="_blank">@tenderlove</a> talk in <a href="http://www.youtube.com/watch?v=kWOAHIpmLAI" target="_blank">RailsConf2011</a>
 </div>
   
   
@@ -293,7 +407,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2010/method-visibility-public-protected-private.html/">Method Visibility Public, Protected, Private</a></h1>
+      <h1 class="entry-title"><a href="/2011/rails-3-0-10-jruby/">Rails 3.0.10 and JRuby</a></h1>
     
     
       <p class="meta">
@@ -309,55 +423,95 @@
   
 
 
-<time datetime="2010-10-25T00:00:00+02:00" pubdate data-updated="true">Oct 25<span>th</span>, 2010</time>
+<time datetime="2011-08-05T00:00:00+02:00" pubdate data-updated="true">Aug 5<span>th</span>, 2011</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><div class="entry">
+  <div class="entry-content">Finally, The Rails is coming with template support with JRuby platform. We used to use &#8220;-m&#8221; option to generate new Rails Application for JRuby platform. Which is no more need now.
 
-  <p class="docText"><strong>Instance<a name="ch07-methodsvisibility"></a><a name="I_indexterm7_d1e24327"></a>
-    methods<a name="ch07-publicmethod"></a><a name="ch07-private"></a><a name="ch07-protected"></a><a name="may be"></a>
-    may be&nbsp;<span class="docEmphasis">public</span>,&nbsp;<span class="docEmphasis">private</span>,
-    or&nbsp;<span class="docEmphasis">protected</span></strong><a name="other object"></a>.</p>
+Just set your platform to JRuby and create a new Rails Application as you do normally and it will generate a Application which is ready to go. No more tweaks required..!!
 
-  <p class="docText">
-  </p>
+This <a href="https://github.com/rails/rails/pull/1649" target="_blank">pull request</a> which get merged into Rails 3-0-stable branch and it&#8217;s shipped with Rails 3.0.10.rc1 and will come with Rails 3.0.10.
 
-  <p class="docText"><a name="public unless"></a>Methods are normally <strong>public</strong> unless they are explicitly
-    declared to be private or protected. One exception is the&nbsp;<tt>initialize</tt>
-    method<a name="I_indexterm7_d1e24354"></a><a name="any "></a>, which is always implicitly private. Another exception
-    is any “global” method<a name="I_indexterm7_d1e24360"></a><a name="class definition"></a> declared outside of a
-    class definition—those methods are defined as private instance methods
-    of&nbsp;<tt>Object</tt><a name="be invoked"></a>. A public method can be invoked from anywhere—there are no
-    restrictions on its use.</p>
+This feature is also coming with Rails 3.1.
 
-  <p class="docText"><a name="of a"></a>A <strong>private</strong> method is internal to the implementation of a class,
-    and it can only be called by other instance methods of the class (or, as we’ll see later, its subclasses). Private
-    methods are implicitly invoked on&nbsp;<tt>self</tt><a name="an object"></a>, and may not be explicitly invoked on
-    an object. If&nbsp;<tt>m</tt> is a private method, then you must invoke it in<a name="I_indexterm7_d1e24377"></a>
-    <span class="docEmphasis">functional style</span> as&nbsp;<tt>m</tt>. You cannot write&nbsp;<tt>o.m</tt> or even&nbsp;<tt>self.m</tt>.
-  </p>
+Showing here some of the example which will create Rails Application for JRuby platform. I have tested this on JRuby 1.6.3 version.
+<pre>rvm jruby-1.6.3
+# Will set your environment for JRuby 1.6.3 version.</pre>
+Time to create rails app. This will generate a rails app for JRuby platform. Things like database.yml, Gemfile will generated specifically for JRuby platform.
+<pre>rails new myapp</pre>
+database.yml
+<pre># SQLite version 3.x
+#   gem 'activerecord-jdbcsqlite3-adapter'
 
-  <p class="docText"><a name="in that"></a>A <strong>protected</strong> method is like a private method in that it can
-    only be invoked from within the implementation of a class or its subclasses. It differs from a private method in
-    that it may be explicitly invoked on any instance of the class, and it is not restricted to implicit invocation&nbsp;<a name="I_indexterm7_d1e24396"></a>on&nbsp;<tt>self</tt><a name="to define"></a>.
-    A protected method can be used, for example, to define an accessor that allows instances of a class to share
-    internal state with each other, but does not allow users of the class to access that state.</p>
+development:
+  adapter: sqlite3
+  database: db/development.sqlite3
 
-  <p class="docText">
-  </p>
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  adapter: sqlite3
+  database: db/test.sqlite3
 
-  <p class="docText">
+production:
+  adapter: sqlite3
+  database: db/production.sqlite3</pre>
+Gemfile
+<pre>source 'http://rubygems.org'
 
+gem 'rails', '3.0.10.rc1'
 
-  </p>
+gem 'jruby-openssl'
+# Bundle edge Rails instead:
+# gem 'rails', :git =&gt; 'git://github.com/rails/rails.git'
 
+gem 'activerecord-jdbcsqlite3-adapter'
 
-</div>
+# Use unicorn as the web server
+# gem 'unicorn'
 
+# Deploy with Capistrano
+# gem 'capistrano'
+
+# To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
+# gem 'ruby-debug'
+# gem 'ruby-debug19', :require =&gt; 'ruby-debug'
+
+# Bundle the extra gems:
+# gem 'bj'
+# gem 'nokogiri'
+# gem 'sqlite3-ruby', :require =&gt; 'sqlite3'
+# gem 'aws-s3', :require =&gt; 'aws/s3'
+
+# Bundle gems for the local environment. Make sure to
+# put test-only gems in this group so their generators
+# and rake tasks are available in development mode:
+# group :development, :test do
+#   gem 'webrat'
+# end</pre>
+<strong>You can see in Gemfile the changes. It requires <code> gem 'jruby-openssl' </code> gem and <code>gem 'activerecord-jdbcsqlite3-adapter' </code> gem</strong>. Which is required for JRuby platform.
+
+Same work to generate for mysql and postgres.
+<pre>rails new myapp -d mysql</pre>
+And that&#8217;s all.!!
+
+Your Application is ready to run. Just do <code>bundle install</code> and all set. wOOtt..!!
+
+Post comments and discuss things if you guys still facing any issue. You can also post issue on <a href="http://github.com/rails/rails/issues" target="_blank">Rails Issues</a> and ask me to look into that.
+
+Some Useful links related to post:
+<ol>
+	<li><a href="http://github.com/nicksieger/activerecord-jdbc-adapter" target="_blank">Activerecord-jdbc-adapter</a></li>
+	<li><a href="http://www.jruby.org/" target="_blank">Jruby.org</a></li>
+</ol>
+<div>Cheers,</div>
+<div><a href="http://twitter.com/arunagw" target="_blank">@arunagw</a></div>
+<br />
 </div>
   
   
@@ -408,11 +562,11 @@
       </li>
     
       <li class="post">
-        <a href="/2011/working-as-a-rails-contributor/">Working as a Rails Contributor</a>
+        <a href="/2011/oauth-omniauth-twitter/">OAuth With OmniAuth and Twitter</a>
       </li>
     
       <li class="post">
-        <a href="/2011/working-with-mongoid-team/">Working With Mongoid Team</a>
+        <a href="/2011/respond-custom-formats-rails/">Respond to Custom Formats in Rails</a>
       </li>
     
   </ul>

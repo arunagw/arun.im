@@ -1,0 +1,52 @@
+---
+layout: post
+title: Bundler Usage -- Manage Gemfile
+tags:
+- bundler
+- gemfile
+- rails
+- Technology
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  _su_rich_snippet_type: none
+  dsq_thread_id: '256202592'
+---
+In the previous post we posted about basic <a href="http://gembundler.com/">Bundler</a> usage. Here i am posting about some advance way of managing Gemfile.
+
+<a href="http://gembundler.com/">Bundler</a> requires a Gemfile. If you are creating a Rails application which is above to version 3, the Gemfile automatic gets created.
+
+Gemfile contains all your dependent gems.
+<pre>gem "rails", "~&gt; 3.0.5"
+
+gem "mysql2"</pre>
+The above Gemfile explains that we need Rails 3.0.5 and Mysql2 gems for our application.
+
+Gemfile can be manage in different ways.
+
+We can group things together which is only used in specific environment.
+<pre>group :test do 
+  gem "faker
+end
+group :development, :test do
+  gem 'ruby-debug'
+end</pre>
+We can specify the gem version as a second argument in gem. If there is no version then it will fetch the latest one.
+
+Some time gem name is different and the library needs to be loaded may be different. Then we need to specify specifically the lib name.
+<pre>gem 'sqlite3-ruby', :require =&gt; 'sqlite3'</pre>
+Loading gem from a git repository directly
+
+If our library or gem is hosted somewhere else then we can add more source at the top of Gemfile. But if we want to fetch Gem from a git repository then we need to something like below. But that library must contain a .gemspec file to consider as a Gem.
+<pre>gem 'nokogiri', :git =&gt; 'git://github.com/tenderlove/nokogiri.git'</pre>
+We can also specify a branch/tag/ref of git repository.
+<pre>gem 'nokogiri', :git =&gt; 'git://github.com/tenderlove/nokogiri.git',
+                                   :branch =&gt; 'stable-2'</pre>
+<pre>gem 'nokogiri', :git =&gt; 'git://github.com/tenderlove/nokogiri.git', 
+                                   :tag =&gt; 'tag-2'</pre>
+<pre>gem 'nokogiri', :git =&gt; 'git://github.com/tenderlove/nokogiri.git', 
+                                   :ref =&gt; '23456'</pre>
+We can load gems from our local path also.
+<pre>gem 'nokogiri', :path =&gt; '~/code/nokogiri'</pre>

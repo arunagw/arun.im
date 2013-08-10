@@ -1,0 +1,58 @@
+---
+layout: post
+title: Respond to Custom Formats in Rails
+tags:
+- rails
+- Solutions
+- Technology
+status: publish
+type: post
+published: true
+meta:
+dsq_thread_id: '452040377'
+_edit_last: '1'
+_su_rich_snippet_type: none
+---
+We usually respond some of the known formats in Rails Application like HTML, XML, JavaScript, RSS and some custom.
+
+Have you tried to use your own custom format for your Rails Application?
+
+Yes you can use your custom format in Rails Application.
+
+Here showing a simple Rails Application with responding custom formats.
+
+Get a new app
+<pre>rails new music_library </pre>
+
+Get a scaffold into App
+
+<pre>rails generate scaffold mp3 title:string url:string description:text </pre>
+
+Ok so you are ready to serve some music on your app with some formats!
+
+Now you have to register MIME types in the Rails Application.
+
+For that open up <code>Rails.root/config/initializers/mime_types.rb</code>
+
+<pre>
+Mime::Type.register 'audio/mpeg' , :mp3
+</pre>
+
+<strong>Now you can serve <code>.mp3</code> and content</strong>
+
+For that your respond block should look like
+<pre>
+def show
+  @mp3 = Mp3.find(params[:id])
+  respond_to do |format|
+    format.mp3 { redirect_to @mp3.url }
+  end
+end
+</pre>
+
+Now if you call this action with <code>.mp3</code>
+<pre>http://localhost:3000/mp3s/1.mp3</pre>
+
+You will redirect_to <code>@mp3</code> url.
+    
+    Happy adding custom formats!!

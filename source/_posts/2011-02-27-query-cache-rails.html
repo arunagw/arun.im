@@ -1,0 +1,29 @@
+---
+layout: post
+title: Query cache in Rails
+tags:
+- ruby
+- Technology
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  _su_rich_snippet_type: none
+  dsq_thread_id: '241192562'
+---
+By default Rails do Query cache. Whenever it execute <code>find</code> it enables the query cache.
+You can enable manually by wrapping up in <code>cache</code> block.
+<pre>Post.cache do
+  puts Post.first
+  puts Post.first
+  puts Post.first
+end
+</pre>
+
+Your development.log looks like:
+<pre>
+Post Load (1.0ms) SELECT * FROM posts LIMIT 1
+CACHE (0.0ms) SELECT * FROM posts LIMIT 1
+CACHE (0.0ms) SELECT * FROM posts LIMIT 1
+</pre>

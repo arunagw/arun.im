@@ -306,7 +306,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2011/working-as-a-rails-contributor/">Working as a Rails Contributor</a></h1>
+      <h1 class="entry-title"><a href="/2011/oauth-omniauth-twitter/">OAuth With OmniAuth and Twitter</a></h1>
     
     
       <p class="meta">
@@ -322,55 +322,63 @@
   
 
 
-<time datetime="2011-08-03T00:00:00+02:00" pubdate data-updated="true">Aug 3<span>rd</span>, 2011</time>
+<time datetime="2011-11-07T00:00:00+01:00" pubdate data-updated="true">Nov 7<span>th</span>, 2011</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><div class="entry">
+  <div class="entry-content">Hi Folks,
 
-  <p>Finally, I got the time to write something about my
-    <a href="http://contributors.rubyonrails.org/contributors/arun-agrawal/commits" target="_blank">Rails
-      Contributions</a>. I have started contributing in April 2011. In start i usually do some test cases fixes and some
-    updates.</p>
+If you want to have OAuth in your Rails Application with twitter. <a href="https://github.com/intridea/omniauth">OmniAuth</a> is the best gem to use.
 
-  <p>After sometime i found that if you are using JRuby as a platform then you need to customize your template after
-    generation. Or you need to use some custom template with -m option to customize your application.</p>
+OmniAuth provides list of  Strategies to use many OAuth for your application. Here is the<a href="https://github.com/intridea/omniauth/wiki/List-of-Strategies"> List of Strategies</a>.
 
-  <p>I started digging into the Rails code base and i found that it can be added easily. Then… I just added and my
-    <a href="https://github.com/rails/rails/pull/300" target="_blank">pull request</a> got accepted. wOOOttt!!</p>
+Showing here a <a href="https://github.com/arunagw/omniauth-twitter">Twitter Strategy</a> for OmniAuth. Twitter uses the OAuth 1.0a flow, you can read about it here: <a href="https://dev.twitter.com/docs/auth/oauth">https://dev.twitter.com/docs/auth/oauth</a>
 
-  <p>But that for master that means the feature will come in Rails 3.1 so after that i done some commits into 3-0-stable
-    branch and yeah.. that feature is coming in Rails 3.0.10.</p>
+For using Twitter OAuth you have to register a Application on Twitter (<a href="https://dev.twitter.com/apps/new">https://dev.twitter.com/apps/new</a>)
 
-  <p>It’s really great to talking those guys on github. Specially when they ask you to change something which you have
-    written wrong.</p>
+Once you done with the registration obtain the Consumer Key and Consumer Secret from the Twitter Application.
 
-  <p>After that i started contributing in Rails more and more. It helps me to understand internal code and the basics of
-    Ruby.</p>
+Be sure to put the callback URL in the application. Callback URL is the URL where user will land after successful authentication.
 
-  <p>In recent we organized two bugmashs and we were the part of global
-    <a href="http://weblog.rubyonrails.org/2011/7/14/rails-3-1-hackfest" target="_blank">Rails Hackfest</a>. It was
-    really very good. Enjoyed. Learnt a lot.</p>
+Showing an image here how to register an Application with Twitter.
 
-  <p>I am a part of <a href="http://bangaloreruby.org" target="_blank">BangaloreRubyUserGroup</a>&nbsp;which helps a
-    lot.</p>
+<img class="aligncenter size-full wp-image-319" title="twitter_omnauth" src="http://blog.rubyrockers.com/wp-content/uploads/2011/11/twitter_omnauth.jpg" alt="" width="805" height="741" />
 
-  <p>&nbsp;</p>
+&nbsp;
 
-  <p>Cheers,</p>
+Here showing some of the steps :
 
-  <p>Arun</p>
+Generate a new Rails Application:
+<pre>rails new TwitterAuth</pre>
+Update your gemfile add <a href="https://rubygems.org/gems/omniauth-twitter">omniauth-twitter</a> gem into that
+<pre>gem "omniauth-twitter"</pre>
+Create a <code>config/initializers/omniauth.rb</code> file.
+<strong>Paste your key instead of XXXX, and secret instead of YYYY</strong>
+<pre>Rails.application.config.middleware.use OmniAuth::Builder do
+  provider :twitter, 'XXXX', 'YYYY'
+end</pre>
+All Done!
 
-  <p><a href="http://twitter.com/arunagw">@arunagw</a></p>
+Just start the server
+<pre>bundle exec rails server</pre>
+And hit the URL
+<pre>http://localhost:3000/auth/twitter</pre>
+And you should be landing on the Twitter Authorize page!
 
+After success your app will redirect to your given callback URL with information and token!
 
-</div>
+At <a href="http://www.omniauth.org/">OmniAuth.org</a> you can try out different -2 Strategies.
 
+&nbsp;
 
-
+Useful links :
+<ul>
+	<li><a href="http://www.omniauth.org/">OmniAuth.org</a> One page for all you need.</li>
+	<li><a href="https://rubygems.org/gems/omniauth-twitter">omniauth-twitter</a> gem.</li>
+</ul>
 </div>
   
   
@@ -383,7 +391,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2011/working-with-mongoid-team/">Working With Mongoid Team</a></h1>
+      <h1 class="entry-title"><a href="/2011/respond-custom-formats-rails/">Respond to Custom Formats in Rails</a></h1>
     
     
       <p class="meta">
@@ -399,37 +407,56 @@
   
 
 
-<time datetime="2011-07-03T00:00:00+02:00" pubdate data-updated="true">Jul 3<span>rd</span>, 2011</time>
+<time datetime="2011-10-24T00:00:00+02:00" pubdate data-updated="true">Oct 24<span>th</span>, 2011</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><div class="entry">
+  <div class="entry-content">We usually respond some of the known formats in Rails Application like HTML, XML, JavaScript, RSS and some custom.
 
-  <p>It’s long time i am writing again Blog. I am very happy that i have started working with Mongoid dev team.</p>
+Have you tried to use your own custom format for your Rails Application?
 
-  <p><a href="http://mongoid.org" target="_blank">Mongoid</a> is a gem written in Ruby for
-    <a href="http://www.mongodb.org/" target="_blank">MongoDB</a> use.</p>
+Yes you can use your custom format in Rails Application.
 
-  <p><a href="http://www.mongodb.org/" target="_blank">MongoDB</a> is a NoSQL database.</p>
+Here showing a simple Rails Application with responding custom formats.
 
-  <p>It’s great to work with open source project as a core member.</p>
+Get a new app
+<pre>rails new music_library </pre>
 
-  <p>Mongoid
-    Organization&nbsp;<a title="Mongoid" href="http://github.com/mongoid" target="_blank">https://github.com/mongoid</a>
-  </p>
+Get a scaffold into App
 
-  <p>Mongoid Gem :
-    <a title="Mongoid Gem" href="https://github.com/mongoid/mongoid" target="_blank">https://github.com/mongoid/mongoid</a>
-  </p>
+<pre>rails generate scaffold mp3 title:string url:string description:text </pre>
 
-  <p>Mongoid Doc : <a title="Mongoid" href="http://mongoid.org" target="_blank">http://mongoid.org</a></p>
+Ok so you are ready to serve some music on your app with some formats!
 
+Now you have to register MIME types in the Rails Application.
 
-</div>
+For that open up <code>Rails.root/config/initializers/mime_types.rb</code>
 
+<pre>
+Mime::Type.register 'audio/mpeg' , :mp3
+</pre>
+
+<strong>Now you can serve <code>.mp3</code> and content</strong>
+
+For that your respond block should look like
+<pre>
+def show
+  @mp3 = Mp3.find(params[:id])
+  respond_to do |format|
+    format.mp3 { redirect_to @mp3.url }
+  end
+end
+</pre>
+
+Now if you call this action with <code>.mp3</code>
+<pre>http://localhost:3000/mp3s/1.mp3</pre>
+
+You will redirect_to <code>@mp3</code> url.
+    
+    Happy adding custom formats!!
 </div>
   
   
@@ -478,11 +505,11 @@
       </li>
     
       <li class="post">
-        <a href="/2011/working-as-a-rails-contributor/">Working as a Rails Contributor</a>
+        <a href="/2011/oauth-omniauth-twitter/">OAuth With OmniAuth and Twitter</a>
       </li>
     
       <li class="post">
-        <a href="/2011/working-with-mongoid-team/">Working With Mongoid Team</a>
+        <a href="/2011/respond-custom-formats-rails/">Respond to Custom Formats in Rails</a>
       </li>
     
   </ul>

@@ -1,0 +1,99 @@
+---
+layout: post
+title: Serialized Attributes Rails 3
+tags:
+- rails
+- Technology
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  _su_rich_snippet_type: none
+  dsq_thread_id: '397458799'
+  _wp_old_slug: serialized-attributes-rails-3-1
+---
+This post will guide you how to do Serialization for your attributes in Rails.
+
+Serialize means you want to save arbitrary Ruby data structure into the database.
+
+Let consider we have a User model in which we want to store preferences for user in a Ruby data structure format. Previously it was only YAML.
+
+<pre>
+class User < ActiveRecord::Base
+  serialize :preferences 
+end
+</pre>
+
+<pre>
+user = User.find 1
+user.preferences = {:foo =>  'bar'}
+user.save
+</pre>
+
+So now we can pass a second parameter to serialize method to use that serialization method.
+
+<pre>
+class User < ActiveRecord::Base
+  serialize :preferences, SomeCoolEncoder.new
+end
+</pre>
+
+You need to implement this encoder! It can be a JSON, XML, Base64. Or what every encoding technique you like to use.
+
+A sample encoder look like this.
+
+<pre>
+class Base64Encoder
+  def load(value)
+    return unless value
+    value.unpack('m').last
+  end
+
+  def dump(text)
+    [text].pack('m')
+  end
+end
+</pre>
+
+This new encoder must have these methods in it!
+
+So now you attribute is serialized and you can store data in it in your given format.
+
+Ok so now we talk about ActiveModel::Serialization
+
+ActiveModel::Serialization will give you serialized attribute for your classes.
+
+A very simple example to use ActiveModel::Serialization
+<pre>
+class Post
+
+  include ActiveModel::Serialization
+
+  attr_accessor :title
+
+  def attributes
+    {'title' => title}
+  end
+
+end
+
+# So you can use like 
+
+post = Post.new
+post.serializable_hash   # => {"title"=>nil}
+post.name = "Rails is Cool!!"
+post.serializable_hash   # => {"name"=>"Rails is Cool!!"}
+
+</pre>
+
+Can use two inbuilt Serialization techniques 
+
+<pre>
+include ActiveModel::Serializers::JSON
+include ActiveModel::Serializers::Xml
+</pre>
+
+This is a very short intro for Serialization. Hope i will write more in detail soon!!
+
+I got this from <a href="http://github.com/tenderlove" target="_blank">@tenderlove</a> talk in <a href="http://www.youtube.com/watch?v=kWOAHIpmLAI" target="_blank">RailsConf2011</a>
