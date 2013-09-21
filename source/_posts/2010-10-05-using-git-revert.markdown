@@ -4,6 +4,8 @@ title: Using git revert
 tags: Git
 date: 05/10/2010
 categories: git
+description: git revert
+keywords: git
 ---
 
 <div class="entry">

@@ -4,6 +4,8 @@ title: Rake Migration
 tags: Rake
 date: 01/10/2010
 categories: rake
+description: rake migration
+keywords: rails, rake, migration
 ---
 
 <div class="entry">
