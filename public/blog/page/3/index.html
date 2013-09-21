@@ -84,6 +84,242 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/2011/serialized-attributes-rails-3/">Serialized Attributes Rails 3</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-27T00:00:00+02:00" pubdate data-updated="true">Aug 27<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">This post will guide you how to do Serialization for your attributes in Rails.
+
+Serialize means you want to save arbitrary Ruby data structure into the database.
+
+Let consider we have a User model in which we want to store preferences for user in a Ruby data structure format. Previously it was only YAML.
+
+<pre>
+class User < ActiveRecord::Base
+  serialize :preferences 
+end
+</pre>
+
+<pre>
+user = User.find 1
+user.preferences = {:foo =>  'bar'}
+user.save
+</pre>
+
+So now we can pass a second parameter to serialize method to use that serialization method.
+
+<pre>
+class User < ActiveRecord::Base
+  serialize :preferences, SomeCoolEncoder.new
+end
+</pre>
+
+You need to implement this encoder! It can be a JSON, XML, Base64. Or what every encoding technique you like to use.
+
+A sample encoder look like this.
+
+<pre>
+class Base64Encoder
+  def load(value)
+    return unless value
+    value.unpack('m').last
+  end
+
+  def dump(text)
+    [text].pack('m')
+  end
+end
+</pre>
+
+This new encoder must have these methods in it!
+
+So now you attribute is serialized and you can store data in it in your given format.
+
+Ok so now we talk about ActiveModel::Serialization
+
+ActiveModel::Serialization will give you serialized attribute for your classes.
+
+A very simple example to use ActiveModel::Serialization
+<pre>
+class Post
+
+  include ActiveModel::Serialization
+
+  attr_accessor :title
+
+  def attributes
+    {'title' => title}
+  end
+
+end
+
+# So you can use like 
+
+post = Post.new
+post.serializable_hash   # => {"title"=>nil}
+post.name = "Rails is Cool!!"
+post.serializable_hash   # => {"name"=>"Rails is Cool!!"}
+
+</pre>
+
+Can use two inbuilt Serialization techniques 
+
+<pre>
+include ActiveModel::Serializers::JSON
+include ActiveModel::Serializers::Xml
+</pre>
+
+This is a very short intro for Serialization. Hope i will write more in detail soon!!
+
+I got this from <a href="http://github.com/tenderlove" target="_blank">@tenderlove</a> talk in <a href="http://www.youtube.com/watch?v=kWOAHIpmLAI" target="_blank">RailsConf2011</a>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/rails-3-0-10-jruby/">Rails 3.0.10 and JRuby</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-05T00:00:00+02:00" pubdate data-updated="true">Aug 5<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">Finally, The Rails is coming with template support with JRuby platform. We used to use &#8220;-m&#8221; option to generate new Rails Application for JRuby platform. Which is no more need now.
+
+Just set your platform to JRuby and create a new Rails Application as you do normally and it will generate a Application which is ready to go. No more tweaks required..!!
+
+This <a href="https://github.com/rails/rails/pull/1649" target="_blank">pull request</a> which get merged into Rails 3-0-stable branch and it&#8217;s shipped with Rails 3.0.10.rc1 and will come with Rails 3.0.10.
+
+This feature is also coming with Rails 3.1.
+
+Showing here some of the example which will create Rails Application for JRuby platform. I have tested this on JRuby 1.6.3 version.
+<pre>rvm jruby-1.6.3
+# Will set your environment for JRuby 1.6.3 version.</pre>
+Time to create rails app. This will generate a rails app for JRuby platform. Things like database.yml, Gemfile will generated specifically for JRuby platform.
+<pre>rails new myapp</pre>
+database.yml
+<pre># SQLite version 3.x
+#   gem 'activerecord-jdbcsqlite3-adapter'
+
+development:
+  adapter: sqlite3
+  database: db/development.sqlite3
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  adapter: sqlite3
+  database: db/test.sqlite3
+
+production:
+  adapter: sqlite3
+  database: db/production.sqlite3</pre>
+Gemfile
+<pre>source 'http://rubygems.org'
+
+gem 'rails', '3.0.10.rc1'
+
+gem 'jruby-openssl'
+# Bundle edge Rails instead:
+# gem 'rails', :git =&gt; 'git://github.com/rails/rails.git'
+
+gem 'activerecord-jdbcsqlite3-adapter'
+
+# Use unicorn as the web server
+# gem 'unicorn'
+
+# Deploy with Capistrano
+# gem 'capistrano'
+
+# To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
+# gem 'ruby-debug'
+# gem 'ruby-debug19', :require =&gt; 'ruby-debug'
+
+# Bundle the extra gems:
+# gem 'bj'
+# gem 'nokogiri'
+# gem 'sqlite3-ruby', :require =&gt; 'sqlite3'
+# gem 'aws-s3', :require =&gt; 'aws/s3'
+
+# Bundle gems for the local environment. Make sure to
+# put test-only gems in this group so their generators
+# and rake tasks are available in development mode:
+# group :development, :test do
+#   gem 'webrat'
+# end</pre>
+<strong>You can see in Gemfile the changes. It requires <code> gem 'jruby-openssl' </code> gem and <code>gem 'activerecord-jdbcsqlite3-adapter' </code> gem</strong>. Which is required for JRuby platform.
+
+Same work to generate for mysql and postgres.
+<pre>rails new myapp -d mysql</pre>
+And that&#8217;s all.!!
+
+Your Application is ready to run. Just do <code>bundle install</code> and all set. wOOtt..!!
+
+Post comments and discuss things if you guys still facing any issue. You can also post issue on <a href="http://github.com/rails/rails/issues" target="_blank">Rails Issues</a> and ask me to look into that.
+
+Some Useful links related to post:
+<ol>
+	<li><a href="http://github.com/nicksieger/activerecord-jdbc-adapter" target="_blank">Activerecord-jdbc-adapter</a></li>
+	<li><a href="http://www.jruby.org/" target="_blank">Jruby.org</a></li>
+</ol>
+<div>Cheers,</div>
+<div><a href="http://twitter.com/arunagw" target="_blank">@arunagw</a></div>
+<br />
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/2011/working-as-a-rails-contributor/">Working as a Rails Contributor</a></h1>
     
     
@@ -322,177 +558,6 @@ Arun
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/selenium-script/">Use Selenium as a Script</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-03-22T00:00:00+01:00" pubdate data-updated="true">Mar 22<span>nd</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">Hey All,
-
-I came with a situation where i need to test things from browser. It nothing to do with the different browsers. It just to check some validations, some messages with some existing data with me.
-
-I can&#8217;t touch the code base. It&#8217;s something like QA work.
-
-I am not very much aware about using of selenium IDE which is available in browsers.
-
-I look into the selenium world with ruby and found some interesting stuff that i can script my test and run for a browser.
-
-To run into the browser i need to setup selenium-rc server running.
-
-I have done it in my way. Just small code and using selenium-client gem which allows me to start and stop the selenium-rc server.
-
-Here is my code for selenium-rc server. It also includes the selenium-jar file.
-<a href="https://github.com/arunagw/selenium-server">https://github.com/arunagw/selenium-server</a>
-
-For running selenium-rc server. Just clone it. bundle install and then rake selenium:rc:start
-
-All set. Now you are ready to run selenium script from your local machine.
-
-To test things i am using hitting up google.com and validating stuff. A google example is also given on the selenium-client gems readme.
-
-<pre>
-#!/usr/bin/env ruby
-#
-# Sample Ruby script using the Selenium client API
-#
-require "rubygems"
-gem "selenium-client", ">=1.2.16"
-require "selenium/client"
-
-begin
-  @browser = Selenium::Client::Driver.new \
-      :host => "localhost", 
-      :port => 4444, 
-      :browser => "*firefox", 
-      :url => "http://www.google.com", 
-      :timeout_in_second => 60
-
-  @browser.start_new_browser_session
-    @browser.open "/"
-    @browser.type "q", "Selenium seleniumhq.org"
-    @browser.click "btnG", :wait_for => :page
-    puts @browser.text?("seleniumhq.org")
-ensure
-  @browser.close_current_browser_session    
-end
-</pre>
-
-You can just run above script after start the selenium-rc server and see the result yourself in the browser. 
-
-Some useful links for get up and running selenium with ruby.
-
-Selenium-client for ruby :- <a href="https://github.com/ph7/selenium-client">https://github.com/ph7/selenium-client</a> 
-All about selenium with ruby :- <a href="http://seleniumhq.org/projects/ruby/">http://seleniumhq.org/projects/ruby/</a>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/gem-1-5-rails-2-3/">Gem 1.5 With Rails 2.3</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-03-19T00:00:00+01:00" pubdate data-updated="true">Mar 19<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">You may fall down into the situation where you don&#8217;t have RVM and your system gem is upgraded for using latest things.
-
-And your old application is still running on older version of rails.
-
-This is just a workaround of using <code>Gem > 1.3.7</code> in Rails 2.3 Applications.
-
-I have tested this solution with Rails 2.3.5 and different version of gems.
-
-After upgrading gems to 1.6.2 i have got an error 
-<pre>
-/activesupport-2.3.5/lib/active_support/dependencies.rb:55: 
-uninitialized constant ActiveSupport::Dependencies::Mutex (NameError)
-</pre>
-
-To fix this error need to update </code>boot.rb</code> file. Place this at the top of <code>boot.rb</code>
-
-<pre>require 'thread'</pre>
-
-After adding this you should be getting this error 
-<pre> 
-/gem_dependency.rb:119:in
- `requirement': undefined local variable or method `version_requirements'
-</pre>
-
-To fix this error you need update your <code>environment.rb</code> file.
-Add this code above your <code>Rails::Initializer.run</code> block.
-
-<pre>
-if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.3.7')
- module Rails
-   class GemDependency
-     def requirement
-       r = super
-       (r == Gem::Requirement.default) ? nil : r
-     end
-   end
- end
-end
-</pre>
-
-Now your application should start running properly. Have fun ;)
-
-Now you can downgrade or upgrade your system gem version. Your application will still run. 
-
-Above workaround works for me very well. Any other ideas? 
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -532,15 +597,15 @@ Above workaround works for me very well. Any other ideas?
       </li>
     
       <li class="post">
+        <a href="/2012/action-mailer/">Action Mailer</a>
+      </li>
+    
+      <li class="post">
         <a href="/2012/slides-when-ruby-meets-java-the-power-of-torquebox/">Slides (When Ruby Meets Java - the Power of Torquebox)</a>
       </li>
     
       <li class="post">
         <a href="/2011/oauth-omniauth-twitter/">OAuth With OmniAuth and Twitter</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/respond-custom-formats-rails/">Respond to Custom Formats in Rails</a>
       </li>
     
   </ul>

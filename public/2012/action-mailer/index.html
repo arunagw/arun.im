@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: rails - Arun Agrawal's Blog</title>
+  <title>Action Mailer - Arun Agrawal's Blog</title>
   <meta name="author" content="Arun Agrawal">
 
   
-  <meta name="description" content="Category: rails">
+  <meta name="description" content="Action Mailer is a framework in Rails which provides facility to write email using template and provides feature to send out emails for your app. A &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://arun.imblog/categories/rails">
+  <link rel="canonical" href="http://arun.im/2012/action-mailer">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="http://feeds.feedburner.com/ArunAgrawal" rel="alternate" title="Arun Agrawal's Blog" type="application/atom+xml">
@@ -77,52 +77,107 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Rails</h1>
+    
+      <h1 class="entry-title">Action Mailer</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-15T00:00:00+01:00" pubdate data-updated="true">Dec 15<span>th</span>, 2012</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
+
+
+<div class="entry-content">Action Mailer is a framework in Rails which provides facility to write email using template and provides feature to send out emails for your app.
+
+A simple example for Action Mailer is when you do signup you get an email from app that you successfully signed up!
+
+Action Mailer uses  <a href="https://github.com/mikel/mail/"/>mail</a> gem.
+
+Action Mailer is in essence a wrapper around Action Controller and the Mail gem. It provides a way to make emails using templates in the same way that Action Controller renders views using templates.
+
+Action Mailer class can also be used to process incoming emails such as a support email which accept tickets using emails. We will talk about this later in this blog post.
+
+Let&#8217;s go through with the basic usage of Action Mailer and will together see how it works internally.
+
+<h3>Sending Emails</h3> 
+
+Taking an example of simple signup. We wanted to send out an email when somebody is signing up on site.
+
+What we want is to send out an email with some information which we have asked and stored with us may be username, first name, last name. 
+
+How the framework is that you can initialise   
 
 
 
-  
-  <h2>2013</h2>
-
-<article>
-  
-<h1><a href="/2013/rails4-app-on-heroku/">Rails4 app on heroku</a></h1>
-<time datetime="2013-06-15T21:43:00+02:00" pubdate><span class='month'>Jun</span> <span class='day'>15</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/fix/'>fix</a>, <a class='category' href='/blog/categories/heroku/'>heroku</a>, <a class='category' href='/blog/categories/rails/'>rails</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a></span>
-</footer>
-
-
-</article>
 
 
 
-  
-  <h2>2011</h2>
-
-<article>
-  
-<h1><a href="/2011/working-as-a-rails-contributor/">Working as a Rails Contributor</a></h1>
-<time datetime="2011-08-03T00:00:00+02:00" pubdate><span class='month'>Aug</span> <span class='day'>03</span> <span class='year'>2011</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/rails/'>rails</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a></span>
-</footer>
-
-
-</article>
 
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Arun Agrawal</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-15T00:00:00+01:00" pubdate data-updated="true">Dec 15<span>th</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://arun.im/2012/action-mailer/" data-via="arunagw" data-counturl="http://arun.im/2012/action-mailer/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2012/slides-when-ruby-meets-java-the-power-of-torquebox/" title="Previous Post: Slides (When Ruby Meets Java - The Power of Torquebox)">&laquo; Slides (When Ruby Meets Java - The Power of Torquebox)</a>
+      
+      
+        <a class="basic-alignment right" href="/2013/switched-to-heroku-and-octopress/" title="Next Post: Switched to Heroku and Octopress">Switched to Heroku and Octopress &raquo;</a>
+      
+    </p>
+  </footer>
 </article>
 
 </div>

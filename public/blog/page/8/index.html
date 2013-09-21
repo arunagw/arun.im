@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: rails - Arun Agrawal's Blog</title>
+  <title>Arun Agrawal's Blog</title>
   <meta name="author" content="Arun Agrawal">
 
   
-  <meta name="description" content="Category: rails">
-  
+  <meta name="description" content="ruby on rails contributor and developer">
+  <meta name="keywords" content="ruby, rubyonrails, rails, design, developer, rails contributor">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://arun.imblog/categories/rails">
+  <link rel="canonical" href="http://arun.im/blog/page/8">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="http://feeds.feedburner.com/ArunAgrawal" rel="alternate" title="Arun Agrawal's Blog" type="application/atom+xml">
@@ -76,57 +76,163 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div>
-<article role="article">
+      <div class="blog-index">
   
+  
+  
+    <article>
+      
   <header>
-    <h1 class="entry-title">Category: Rails</h1>
+    
+      <h1 class="entry-title"><a href="/2010/using-git-revert/">Using Git Revert</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-05T00:00:00+02:00" pubdate data-updated="true">Oct 5<span>th</span>, 2010</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+  <div class="entry-content"><div class="entry">
 
-  
-  <h2>2013</h2>
+  <p>Hi,</p>
 
-<article>
-  
-<h1><a href="/2013/rails4-app-on-heroku/">Rails4 app on heroku</a></h1>
-<time datetime="2013-06-15T21:43:00+02:00" pubdate><span class='month'>Jun</span> <span class='day'>15</span> <span class='year'>2013</span></time>
+  <p>We are doing revert our code in different different ways.</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/fix/'>fix</a>, <a class='category' href='/blog/categories/heroku/'>heroku</a>, <a class='category' href='/blog/categories/rails/'>rails</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a></span>
-</footer>
+  <p style="text-align: left;">The basic way of doing this using <em>git revert</em> command.</p>
 
+  <p>
+    <span class="Apple-style-span" style="border-collapse: separate; color: #000000; font-family: Times; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; font-size: medium;"><span class="Apple-style-span" style="font-family: verdana,sans-serif; font-size: 11px; text-align: left;"></span></span>
+  </p>
 
-</article>
+  <p>The
+    <em>git revert commit </em>command is substantially similar to the command <em>git cherry-pic commit </em>with one
+    important difference: it applies the <em>inverse </em>of the given <em>commit. </em>Thus, this command is used to
+    introduce a new commit that reverses the effects of a given commit.</p>
 
+  <p>My Current master status</p>
 
+  <pre>
+    <code>A => B => C => D => E</code>
+  </pre>
 
-  
-  <h2>2011</h2>
+  <p>If we are reverting commit D</p>
 
-<article>
-  
-<h1><a href="/2011/working-as-a-rails-contributor/">Working as a Rails Contributor</a></h1>
-<time datetime="2011-08-03T00:00:00+02:00" pubdate><span class='month'>Aug</span> <span class='day'>03</span> <span class='year'>2011</span></time>
+  <p>Then it will become</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/rails/'>rails</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a></span>
-</footer>
+  <pre>
+    <code>
+      A => B => C => D => E => D”
+    </code>
+    <code>Here D” is the commit reverse of D</code>
+  </pre>
 
-
-</article>
-
-</div>
-
-  
-</article>
+  <p>Arun</p>
 
 </div>
 
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/rake-migration.html/">Rake Migration</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-01T00:00:00+02:00" pubdate data-updated="true">Oct 1<span>st</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class="entry">
+
+  <p>Hi,</p>
+
+  <p>I have started working on a plugin which helps rails projects to maintain the list of rake tasks.</p>
+
+  <p>Here what i am doing is we are maintaining files using version numbers.</p>
+
+  <p>As one rake command will tell us what is left to be run in a team environment.</p>
+
+  <p>Suppose i have written a rake task or some ruby code to be execute on the db in a order.</p>
+
+  <p>Other team member also want’s to run that task on their DB and as well as on production environments.</p>
+
+  <p>What this plugin is doing is, when you want to add some ruby code or want’s to run some ruby code in a
+    sequence.</p>
+
+  <p>Just create an empty ruby file using rake migration generator and add ruby stuff there.</p>
+
+  <p>if you have migrate that file into the DB. Which means that you have applied that ruby code into your environments.
+    Other developer can take your changes and just migrate those things in their DB also.</p>
+
+  <p>Idea is same like as DB Migrations are working.</p>
+
+  <p>Here is the URL for plugin</p>
+
+  <p>
+    <a title="http://github.com/arunagw/rake_migration" href="http://github.com/arunagw/rake_migration" target="_blank">http://github.com/arunagw/rake_migration</a>
+  </p>
+
+  <p>This plugin is under development currently.</p>
+
+  <p>Cheers,</p>
+
+  <p>Arun Agrawal</p>
+
+</div>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/7/">Newer &rarr;</a>
+    
+  </div>
+</div>
 <aside class="sidebar">
   
     
@@ -180,7 +286,7 @@
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
+    <li class="loading">Status updating&#8230;</li>
   </ul>
   
   <a href="https://github.com/arunagw">@arunagw</a> on GitHub
@@ -228,7 +334,6 @@
 
   
 </aside>
-
 
     </div>
   </div>
