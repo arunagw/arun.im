@@ -4,6 +4,8 @@ title: Working as a Rails Contributor
 tags: Ruby, Rails
 date: 03/08/2011
 categories: rails ruby
+description: ruby on rails contributor
+keywords: rails, contributor
 ---
 
 <div class="entry">

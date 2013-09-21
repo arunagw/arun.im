@@ -4,6 +4,8 @@ title: Slides (When Ruby Meets Java - The Power of Torquebox)
 tags: Torquebox, JRuby
 date: 01/04/2012
 categories: jruby
+description: the power of torquebox
+keywords: jruby, torquebox, rubyconfindia
 ---
 
 <div class="entry">

@@ -4,6 +4,8 @@ title: "Rails4 app on heroku"
 date: 2013-06-15 21:43
 comments: true
 categories: fix heroku rails ruby
+description: rails4 app on heroku
+keywords: rails4, heroku
 ---
 
 Updated : [Heroku](https://blog.heroku.com/archives/2013/6/17/ruby-2-default-new-aps) has updated to use ruby2.0. by default.
