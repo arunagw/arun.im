@@ -84,100 +84,6 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2011/query-cache-rails/">Query Cache in Rails</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-02-27T00:00:00+01:00" pubdate data-updated="true">Feb 27<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">By default Rails do Query cache. Whenever it execute <code>find</code> it enables the query cache.
-You can enable manually by wrapping up in <code>cache</code> block.
-<pre>Post.cache do
-  puts Post.first
-  puts Post.first
-  puts Post.first
-end
-</pre>
-
-Your development.log looks like:
-<pre>
-Post Load (1.0ms) SELECT * FROM posts LIMIT 1
-CACHE (0.0ms) SELECT * FROM posts LIMIT 1
-CACHE (0.0ms) SELECT * FROM posts LIMIT 1
-</pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/refactoring-environment/">Refactoring Environment</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-02-24T00:00:00+01:00" pubdate data-updated="true">Feb 24<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">Just writing about refactoring environment which can be best when you are doing refactoring in your code base.
-
-Refactoring can be done at any time of your code. When you are refactoring code you can see follow things is a benefit for you.
-<ol>
-	<li>Have some good tests for which code you are going to refactor.</li>
-	<li>Let&#8217;s pair when you start refactoring. Having a pair while doing refactoring is a great idea.</li>
-	<li>Code must be under version control. GIT/SVN</li>
-</ol>
-&nbsp;
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
       <h1 class="entry-title"><a href="/2011/basicobject-introduced-ruby-1-9/">BasicObject Introduced in Ruby 1.9</a></h1>
     
     
@@ -342,6 +248,115 @@ NoSQL architectures often provide weak consistency guarantees, such  as eventual
 
     </article>
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/certified-scrum-master/">Certified Scrum Master</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-14T00:00:00+01:00" pubdate data-updated="true">Jan 14<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class="entry">
+
+  <p>I have completed my certificate in Scrum Master. Completed&nbsp;training and&nbsp;evaluation.</p>
+
+  <p>Now i am
+    <strong><a href="http://www.scrumalliance.org/profiles/118197-arun-agrawal">Certified Scrum Master</a></strong>.</p>
+
+  <p>
+    <a rel="attachment wp-att-259" href="http://www.scrumalliance.org/profiles/118197-arun-agrawal" target="_blank">
+      <img class="alignnone size-medium wp-image-259" title="ScrumMaster" src="/assets/images/ScrumMaster_Logo.png" alt="Scrum Master Arun Agrawal" width="300" height="101">
+    </a>
+  </p>
+
+  <p>Cheers,</p>
+
+  <p>Arun</p>
+
+
+
+</div>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/receiving-emails-rails3/">Receiving Emails in Rails3</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-12T00:00:00+01:00" pubdate data-updated="true">Jan 12<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">To receive email you have to write a method which needs to public in any subclass of <code>ActionMailer::Base</code>. The name should be <code> receive.</code>
+
+The method <code> receive.</code> will take a argument which is a <code>Mail::Message</code> obejct.
+
+An example here :
+<pre>class EmailReceiver  &lt; ActionMailer::Base
+
+  def receive(email)
+    person = Profile.find_by_email(email.to.first)
+    person.emails.create(
+      :subject =&gt; email.subject,
+      :body =&gt; email.body
+    )
+  end
+end</pre>
+You can invoke this method on Mailer class to handle incoming email.
+
+You don’t have to implement the <code>receive</code> class method yourself, it is inherited from <code>ActionMailer::Base</code>.
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -365,7 +380,7 @@ NoSQL architectures often provide weak consistency guarantees, such  as eventual
   <li class="github"><a href="https://github.com/arunagw?rel=author">Github</a></li>
   <li class="twitter"><a href="https://twitter.com/arunagw?rel=author">Twitter</a></li>
   <li class="google-plus"><a href="https://plus.google.com/103610296722452739457?rel=author">Google Plus</a></li>
-  <li class="Campfire"><a href="https://ohmygod.campfirenow.com/e57ab">Campfire</a></li>
+  <li class="Campfire"><a href="https://ohmygod.campfirenow.com/e57ab">Chat?</a></li>
   <li class="rss"><a href="http://feeds.feedburner.com/ArunAgrawal">RSS</a></li>
 </ol>
 <section>
@@ -381,15 +396,15 @@ NoSQL architectures often provide weak consistency guarantees, such  as eventual
       </li>
     
       <li class="post">
-        <a href="/2012/action-mailer/">Action Mailer</a>
-      </li>
-    
-      <li class="post">
         <a href="/2012/slides-when-ruby-meets-java-the-power-of-torquebox/">Slides (When Ruby Meets Java - the Power of Torquebox)</a>
       </li>
     
       <li class="post">
         <a href="/2011/oauth-omniauth-twitter/">OAuth With OmniAuth and Twitter</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/respond-custom-formats-rails/">Respond to Custom Formats in Rails</a>
       </li>
     
   </ul>

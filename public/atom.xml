@@ -4,7 +4,7 @@
   <title><![CDATA[Arun Agrawal's Blog]]></title>
   <link href="http://arun.im/atom.xml" rel="self"/>
   <link href="http://arun.im/"/>
-  <updated>2013-09-21T10:05:15+02:00</updated>
+  <updated>2013-12-01T10:40:05+01:00</updated>
   <id>http://arun.im/</id>
   <author>
     <name><![CDATA[Arun Agrawal]]></name>
@@ -122,40 +122,6 @@
 <p>At last I found octopress and a Heroku combination.</p>
 
 <p>And here is my blog! Using <a href="http://octopress.org/">Octopress</a> and <a href="http://octopress.org/">Heroku</a> and I love it. Simple and easy!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Action Mailer]]></title>
-    <link href="http://arun.im/2012/action-mailer/"/>
-    <updated>2012-12-15T00:00:00+01:00</updated>
-    <id>http://arun.im/2012/action-mailer</id>
-    <content type="html"><![CDATA[Action Mailer is a framework in Rails which provides facility to write email using template and provides feature to send out emails for your app.
-
-A simple example for Action Mailer is when you do signup you get an email from app that you successfully signed up!
-
-Action Mailer uses  <a href="https://github.com/mikel/mail/"/>mail</a> gem.
-
-Action Mailer is in essence a wrapper around Action Controller and the Mail gem. It provides a way to make emails using templates in the same way that Action Controller renders views using templates.
-
-Action Mailer class can also be used to process incoming emails such as a support email which accept tickets using emails. We will talk about this later in this blog post.
-
-Let&#8217;s go through with the basic usage of Action Mailer and will together see how it works internally.
-
-<h3>Sending Emails</h3> 
-
-Taking an example of simple signup. We wanted to send out an email when somebody is signing up on site.
-
-What we want is to send out an email with some information which we have asked and stored with us may be username, first name, last name. 
-
-How the framework is that you can initialise   
-
-
-
-
-
-
-
 ]]></content>
   </entry>
   
@@ -417,56 +383,6 @@ I am writing some steps to use Github&#8217;s fork and edit feature to open pull
 <p style="text-align: left;"><strong>You can tweet me <a title="Arun Agrawal Twitter" href="http://twitter.com/arunagw" target="_blank">@arunagw</a> or catch me on my email any time.</strong></p>
 <p style="text-align: left;"><strong>Cheers!</strong></p>
 <p style="text-align: center;"></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Rails 3.0 and Mongoid]]></title>
-    <link href="http://arun.im/2011/rails-3-0-mongoid/"/>
-    <updated>2011-09-08T00:00:00+02:00</updated>
-    <id>http://arun.im/2011/rails-3-0-mongoid</id>
-    <content type="html"><![CDATA[Hi Guys,
-
-Let&#8217;s talk about creating an Application with Rails and <a href="http://mongoid.org" target="_blank">Mongoid</a>.
-
-<a href="http://mongoid.org" target="_blank">Mongoid</a> is an Object-Document-Mapper for <a href="http://www.mongodb.org/" target="_blank">MongoDB</a> which is a NoSQL database.
-
-Showing here some steps to get started with a Rails Application with <a href="http://mongoid.org" target="_blank">Mongoid</a>.
-
-Before that setup MongoDB in your system. You can follow instructions here&#8230; <a href="http://www.mongodb.org/display/DOCS/Quickstart" target="_blank">MongoDB Start</a>
-
-Generate a Rails Application using rails new command and remember to skip activerecord framework. We are going to use Mongoid here.
-<pre>rails new mongoid_app --skip-active-record</pre>
-Change the Gemfile to look like this. Just need to gem Mongoid.!
-<pre>gem 'mongoid'
-gem 'bson_ext' # Add bson_ext for bson performance.</pre>
-All done.
-
-Generate Mongoid configuration file to connect with MongoDB.
-<pre>bundle exec rails generate mongoid:install</pre>
-Rails Application is ready to boot..
-<pre>bundle exec rails server</pre>
-Let&#8217;s create some scaffold for our Application.
-<pre>
-bundle exec rails generate scaffold Author name:string
-</pre>
-Author Model will look like
-<pre>
-class Author
-  include Mongoid::Document
-  field :name, :type => String
-end
-</pre>
-
-<pre>bundle exec rails generate scaffold Blog title:string body:text</pre>
-Blog Model will look like 
-<pre>
-class Blog
-  include Mongoid::Document
-  field :title, :type => String
-  field :body, :type => String
-end
-</pre>
 ]]></content>
   </entry>
   
@@ -1070,6 +986,46 @@ We can also specify a branch/tag/ref of git repository.
                                    :ref =&gt; '23456'</pre>
 We can load gems from our local path also.
 <pre>gem 'nokogiri', :path =&gt; '~/code/nokogiri'</pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Query cache in Rails]]></title>
+    <link href="http://arun.im/2011/query-cache-rails/"/>
+    <updated>2011-02-27T00:00:00+01:00</updated>
+    <id>http://arun.im/2011/query-cache-rails</id>
+    <content type="html"><![CDATA[By default Rails do Query cache. Whenever it execute <code>find</code> it enables the query cache.
+You can enable manually by wrapping up in <code>cache</code> block.
+<pre>Post.cache do
+  puts Post.first
+  puts Post.first
+  puts Post.first
+end
+</pre>
+
+Your development.log looks like:
+<pre>
+Post Load (1.0ms) SELECT * FROM posts LIMIT 1
+CACHE (0.0ms) SELECT * FROM posts LIMIT 1
+CACHE (0.0ms) SELECT * FROM posts LIMIT 1
+</pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Refactoring Environment]]></title>
+    <link href="http://arun.im/2011/refactoring-environment/"/>
+    <updated>2011-02-24T00:00:00+01:00</updated>
+    <id>http://arun.im/2011/refactoring-environment</id>
+    <content type="html"><![CDATA[Just writing about refactoring environment which can be best when you are doing refactoring in your code base.
+
+Refactoring can be done at any time of your code. When you are refactoring code you can see follow things is a benefit for you.
+<ol>
+	<li>Have some good tests for which code you are going to refactor.</li>
+	<li>Let&#8217;s pair when you start refactoring. Having a pair while doing refactoring is a great idea.</li>
+	<li>Code must be under version control. GIT/SVN</li>
+</ol>
+&nbsp;
 ]]></content>
   </entry>
   

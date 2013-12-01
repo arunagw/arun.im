@@ -84,84 +84,6 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2011/respond-custom-formats-rails/">Respond to Custom Formats in Rails</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-10-24T00:00:00+02:00" pubdate data-updated="true">Oct 24<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">We usually respond some of the known formats in Rails Application like HTML, XML, JavaScript, RSS and some custom.
-
-Have you tried to use your own custom format for your Rails Application?
-
-Yes you can use your custom format in Rails Application.
-
-Here showing a simple Rails Application with responding custom formats.
-
-Get a new app
-<pre>rails new music_library </pre>
-
-Get a scaffold into App
-
-<pre>rails generate scaffold mp3 title:string url:string description:text </pre>
-
-Ok so you are ready to serve some music on your app with some formats!
-
-Now you have to register MIME types in the Rails Application.
-
-For that open up <code>Rails.root/config/initializers/mime_types.rb</code>
-
-<pre>
-Mime::Type.register 'audio/mpeg' , :mp3
-</pre>
-
-<strong>Now you can serve <code>.mp3</code> and content</strong>
-
-For that your respond block should look like
-<pre>
-def show
-  @mp3 = Mp3.find(params[:id])
-  respond_to do |format|
-    format.mp3 { redirect_to @mp3.url }
-  end
-end
-</pre>
-
-Now if you call this action with <code>.mp3</code>
-<pre>http://localhost:3000/mp3s/1.mp3</pre>
-
-You will redirect_to <code>@mp3</code> url.
-    
-    Happy adding custom formats!!
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
       <h1 class="entry-title"><a href="/2011/x-request-id-tracking-taggedlogging-rails/">X-Request-Id Tracking and TaggedLogging in Rails3.2</a></h1>
     
     
@@ -366,7 +288,7 @@ I am writing some steps to use Github&#8217;s fork and edit feature to open pull
       
   <header>
     
-      <h1 class="entry-title"><a href="/2011/rails-3-0-mongoid/">Rails 3.0 and Mongoid</a></h1>
+      <h1 class="entry-title"><a href="/2011/serialized-attributes-rails-3/">Serialized Attributes Rails 3</a></h1>
     
     
       <p class="meta">
@@ -382,55 +304,214 @@ I am writing some steps to use Github&#8217;s fork and edit feature to open pull
   
 
 
-<time datetime="2011-09-08T00:00:00+02:00" pubdate data-updated="true">Sep 8<span>th</span>, 2011</time>
+<time datetime="2011-08-27T00:00:00+02:00" pubdate data-updated="true">Aug 27<span>th</span>, 2011</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content">Hi Guys,
+  <div class="entry-content">This post will guide you how to do Serialization for your attributes in Rails.
 
-Let&#8217;s talk about creating an Application with Rails and <a href="http://mongoid.org" target="_blank">Mongoid</a>.
+Serialize means you want to save arbitrary Ruby data structure into the database.
 
-<a href="http://mongoid.org" target="_blank">Mongoid</a> is an Object-Document-Mapper for <a href="http://www.mongodb.org/" target="_blank">MongoDB</a> which is a NoSQL database.
+Let consider we have a User model in which we want to store preferences for user in a Ruby data structure format. Previously it was only YAML.
 
-Showing here some steps to get started with a Rails Application with <a href="http://mongoid.org" target="_blank">Mongoid</a>.
-
-Before that setup MongoDB in your system. You can follow instructions here&#8230; <a href="http://www.mongodb.org/display/DOCS/Quickstart" target="_blank">MongoDB Start</a>
-
-Generate a Rails Application using rails new command and remember to skip activerecord framework. We are going to use Mongoid here.
-<pre>rails new mongoid_app --skip-active-record</pre>
-Change the Gemfile to look like this. Just need to gem Mongoid.!
-<pre>gem 'mongoid'
-gem 'bson_ext' # Add bson_ext for bson performance.</pre>
-All done.
-
-Generate Mongoid configuration file to connect with MongoDB.
-<pre>bundle exec rails generate mongoid:install</pre>
-Rails Application is ready to boot..
-<pre>bundle exec rails server</pre>
-Let&#8217;s create some scaffold for our Application.
 <pre>
-bundle exec rails generate scaffold Author name:string
-</pre>
-Author Model will look like
-<pre>
-class Author
-  include Mongoid::Document
-  field :name, :type => String
+class User < ActiveRecord::Base
+  serialize :preferences 
 end
 </pre>
 
-<pre>bundle exec rails generate scaffold Blog title:string body:text</pre>
-Blog Model will look like 
 <pre>
-class Blog
-  include Mongoid::Document
-  field :title, :type => String
-  field :body, :type => String
+user = User.find 1
+user.preferences = {:foo =>  'bar'}
+user.save
+</pre>
+
+So now we can pass a second parameter to serialize method to use that serialization method.
+
+<pre>
+class User < ActiveRecord::Base
+  serialize :preferences, SomeCoolEncoder.new
 end
 </pre>
+
+You need to implement this encoder! It can be a JSON, XML, Base64. Or what every encoding technique you like to use.
+
+A sample encoder look like this.
+
+<pre>
+class Base64Encoder
+  def load(value)
+    return unless value
+    value.unpack('m').last
+  end
+
+  def dump(text)
+    [text].pack('m')
+  end
+end
+</pre>
+
+This new encoder must have these methods in it!
+
+So now you attribute is serialized and you can store data in it in your given format.
+
+Ok so now we talk about ActiveModel::Serialization
+
+ActiveModel::Serialization will give you serialized attribute for your classes.
+
+A very simple example to use ActiveModel::Serialization
+<pre>
+class Post
+
+  include ActiveModel::Serialization
+
+  attr_accessor :title
+
+  def attributes
+    {'title' => title}
+  end
+
+end
+
+# So you can use like 
+
+post = Post.new
+post.serializable_hash   # => {"title"=>nil}
+post.name = "Rails is Cool!!"
+post.serializable_hash   # => {"name"=>"Rails is Cool!!"}
+
+</pre>
+
+Can use two inbuilt Serialization techniques 
+
+<pre>
+include ActiveModel::Serializers::JSON
+include ActiveModel::Serializers::Xml
+</pre>
+
+This is a very short intro for Serialization. Hope i will write more in detail soon!!
+
+I got this from <a href="http://github.com/tenderlove" target="_blank">@tenderlove</a> talk in <a href="http://www.youtube.com/watch?v=kWOAHIpmLAI" target="_blank">RailsConf2011</a>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/rails-3-0-10-jruby/">Rails 3.0.10 and JRuby</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-05T00:00:00+02:00" pubdate data-updated="true">Aug 5<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">Finally, The Rails is coming with template support with JRuby platform. We used to use &#8220;-m&#8221; option to generate new Rails Application for JRuby platform. Which is no more need now.
+
+Just set your platform to JRuby and create a new Rails Application as you do normally and it will generate a Application which is ready to go. No more tweaks required..!!
+
+This <a href="https://github.com/rails/rails/pull/1649" target="_blank">pull request</a> which get merged into Rails 3-0-stable branch and it&#8217;s shipped with Rails 3.0.10.rc1 and will come with Rails 3.0.10.
+
+This feature is also coming with Rails 3.1.
+
+Showing here some of the example which will create Rails Application for JRuby platform. I have tested this on JRuby 1.6.3 version.
+<pre>rvm jruby-1.6.3
+# Will set your environment for JRuby 1.6.3 version.</pre>
+Time to create rails app. This will generate a rails app for JRuby platform. Things like database.yml, Gemfile will generated specifically for JRuby platform.
+<pre>rails new myapp</pre>
+database.yml
+<pre># SQLite version 3.x
+#   gem 'activerecord-jdbcsqlite3-adapter'
+
+development:
+  adapter: sqlite3
+  database: db/development.sqlite3
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  adapter: sqlite3
+  database: db/test.sqlite3
+
+production:
+  adapter: sqlite3
+  database: db/production.sqlite3</pre>
+Gemfile
+<pre>source 'http://rubygems.org'
+
+gem 'rails', '3.0.10.rc1'
+
+gem 'jruby-openssl'
+# Bundle edge Rails instead:
+# gem 'rails', :git =&gt; 'git://github.com/rails/rails.git'
+
+gem 'activerecord-jdbcsqlite3-adapter'
+
+# Use unicorn as the web server
+# gem 'unicorn'
+
+# Deploy with Capistrano
+# gem 'capistrano'
+
+# To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
+# gem 'ruby-debug'
+# gem 'ruby-debug19', :require =&gt; 'ruby-debug'
+
+# Bundle the extra gems:
+# gem 'bj'
+# gem 'nokogiri'
+# gem 'sqlite3-ruby', :require =&gt; 'sqlite3'
+# gem 'aws-s3', :require =&gt; 'aws/s3'
+
+# Bundle gems for the local environment. Make sure to
+# put test-only gems in this group so their generators
+# and rake tasks are available in development mode:
+# group :development, :test do
+#   gem 'webrat'
+# end</pre>
+<strong>You can see in Gemfile the changes. It requires <code> gem 'jruby-openssl' </code> gem and <code>gem 'activerecord-jdbcsqlite3-adapter' </code> gem</strong>. Which is required for JRuby platform.
+
+Same work to generate for mysql and postgres.
+<pre>rails new myapp -d mysql</pre>
+And that&#8217;s all.!!
+
+Your Application is ready to run. Just do <code>bundle install</code> and all set. wOOtt..!!
+
+Post comments and discuss things if you guys still facing any issue. You can also post issue on <a href="http://github.com/rails/rails/issues" target="_blank">Rails Issues</a> and ask me to look into that.
+
+Some Useful links related to post:
+<ol>
+	<li><a href="http://github.com/nicksieger/activerecord-jdbc-adapter" target="_blank">Activerecord-jdbc-adapter</a></li>
+	<li><a href="http://www.jruby.org/" target="_blank">Jruby.org</a></li>
+</ol>
+<div>Cheers,</div>
+<div><a href="http://twitter.com/arunagw" target="_blank">@arunagw</a></div>
+<br />
 </div>
   
   
@@ -461,7 +542,7 @@ end
   <li class="github"><a href="https://github.com/arunagw?rel=author">Github</a></li>
   <li class="twitter"><a href="https://twitter.com/arunagw?rel=author">Twitter</a></li>
   <li class="google-plus"><a href="https://plus.google.com/103610296722452739457?rel=author">Google Plus</a></li>
-  <li class="Campfire"><a href="https://ohmygod.campfirenow.com/e57ab">Campfire</a></li>
+  <li class="Campfire"><a href="https://ohmygod.campfirenow.com/e57ab">Chat?</a></li>
   <li class="rss"><a href="http://feeds.feedburner.com/ArunAgrawal">RSS</a></li>
 </ol>
 <section>
@@ -477,15 +558,15 @@ end
       </li>
     
       <li class="post">
-        <a href="/2012/action-mailer/">Action Mailer</a>
-      </li>
-    
-      <li class="post">
         <a href="/2012/slides-when-ruby-meets-java-the-power-of-torquebox/">Slides (When Ruby Meets Java - the Power of Torquebox)</a>
       </li>
     
       <li class="post">
         <a href="/2011/oauth-omniauth-twitter/">OAuth With OmniAuth and Twitter</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/respond-custom-formats-rails/">Respond to Custom Formats in Rails</a>
       </li>
     
   </ul>
