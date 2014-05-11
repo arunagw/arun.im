@@ -109,6 +109,10 @@
         <lastmod>2013-08-10T12:16:06+02:00</lastmod>
     </url>
     <url>
+        <loc>http://arun.im/2011/rails-3-0-mongoid/</loc>
+        <lastmod>2013-08-10T12:16:06+02:00</lastmod>
+    </url>
+    <url>
         <loc>http://arun.im/2011/submit-patch-rails-github-fork-edit-button/</loc>
         <lastmod>2013-08-10T18:44:54+02:00</lastmod>
     </url>
@@ -131,6 +135,10 @@
     <url>
         <loc>http://arun.im/2012/slides-when-ruby-meets-java-the-power-of-torquebox/</loc>
         <lastmod>2013-09-21T09:45:39+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://arun.im/2012/action-mailer/</loc>
+        <lastmod>2013-08-10T12:16:06+02:00</lastmod>
     </url>
     <url>
         <loc>http://arun.im/2013/switched-to-heroku-and-octopress/</loc>
