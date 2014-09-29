@@ -4,7 +4,7 @@
   <title><![CDATA[Category: heroku | Arun Agrawal's Blog]]></title>
   <link href="http://arun.im/blog/categories/heroku/atom.xml" rel="self"/>
   <link href="http://arun.im/"/>
-  <updated>2014-09-28T13:52:55+02:00</updated>
+  <updated>2014-09-29T21:33:02+02:00</updated>
   <id>http://arun.im/</id>
   <author>
     <name><![CDATA[Arun Agrawal]]></name>
@@ -22,48 +22,42 @@
 
 <p>If you are deploying a new rails4 app on heroku that might fail. And you will get following error.</p>
 
-<p>```
-&mdash;&mdash;> Ruby/Rails app detected
-&mdash;&mdash;&ndash;> Installing dependencies using Bundler version 1.3.2</p>
-
-<pre><code>   Running: bundle install --without development:test --path vendor/bundle --binstubs vendor/bundle/bin --deployment
-   Fetching gem metadata from https://rubygems.org/..........
-   Fetching gem metadata from https://rubygems.org/..
-   Installing rake (10.0.4)
-   Installing i18n (0.6.4)
-   Installing minitest (4.7.4)
-   Installing multi_json (1.7.7)
-   Installing atomic (1.1.9)
-   Installing thread_safe (0.1.0)
-   Installing tzinfo (0.3.37)
-   Installing activesupport (4.0.0.rc1)
-   Gem::InstallError: activesupport requires Ruby version &gt;= 1.9.3.
-   An error occurred while installing activesupport (4.0.0.rc1), and Bundler cannot
-   continue.
-   Make sure that `gem install activesupport -v '4.0.0.rc1'` succeeds before
-   bundling.
-</code></pre>
-
-<p> !
+<pre><code>----&gt; Ruby/Rails app detected
+-----&gt; Installing dependencies using Bundler version 1.3.2
+       Running: bundle install --without development:test --path vendor/bundle --binstubs vendor/bundle/bin --deployment
+       Fetching gem metadata from https://rubygems.org/..........
+       Fetching gem metadata from https://rubygems.org/..
+       Installing rake (10.0.4)
+       Installing i18n (0.6.4)
+       Installing minitest (4.7.4)
+       Installing multi_json (1.7.7)
+       Installing atomic (1.1.9)
+       Installing thread_safe (0.1.0)
+       Installing tzinfo (0.3.37)
+       Installing activesupport (4.0.0.rc1)
+       Gem::InstallError: activesupport requires Ruby version &gt;= 1.9.3.
+       An error occurred while installing activesupport (4.0.0.rc1), and Bundler cannot
+       continue.
+       Make sure that `gem install activesupport -v '4.0.0.rc1'` succeeds before
+       bundling.
+ !
  !     Failed to install gems via Bundler.
- !</p>
+ !
 
-<p> !     Push rejected, failed to compile Ruby/Rails app
-```</p>
+ !     Push rejected, failed to compile Ruby/Rails app
+</code></pre>
 
 <p>In short, it says</p>
 
-<p><code>
-Gem::InstallError: activesupport requires Ruby version &gt;= 1.9.3.
-</code></p>
+<pre><code>Gem::InstallError: activesupport requires Ruby version &gt;= 1.9.3.
+</code></pre>
 
 <p>Problem is that heroku uses ruby 1.9.2 by default</p>
 
 <p>To check this run this command from your app</p>
 
-<p><code>
-heroku run ruby -v
-</code></p>
+<pre><code>heroku run ruby -v
+</code></pre>
 
 <p>The output will be
 <code>
@@ -74,9 +68,8 @@ ruby 1.9.2p290 (2011-07-09 revision 32553) [x86_64-linux]
 
 <p>Now add this following in your app Gemfile</p>
 
-<p><code>
-ruby '1.9.3'
-</code></p>
+<pre><code>ruby '1.9.3'
+</code></pre>
 
 <p>This will force heroku to use your desired ruby. Here we are using 1.9.3</p>
 
