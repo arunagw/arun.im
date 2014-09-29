@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: 
-
-Sitemap: http://arun.im/sitemap.xml 
