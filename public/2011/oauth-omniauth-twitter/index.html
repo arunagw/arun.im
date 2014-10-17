@@ -1,0 +1,353 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>OAuth with OmniAuth and Twitter - Arun Agrawal&#8217;s Blog</title>
+  <meta name="author" content="Arun Agrawal">
+
+  
+  <meta name="description" content="Hi Folks, If you want to have OAuth in your Rails Application with twitter. OmniAuth is the best gem to use. OmniAuth provides list of  Strategies to &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://arun.im/2011/oauth-omniauth-twitter">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="http://feeds.feedburner.com/ArunAgrawal" rel="alternate" title="Arun Agrawal's Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8185166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Arun Agrawal&#8217;s Blog</a></h1>
+  
+    <h2>Ruby on Rails Developer</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ArunAgrawal" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:arun.im" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">OAuth With OmniAuth and Twitter</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-07T00:00:00+01:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content">Hi Folks,
+
+If you want to have OAuth in your Rails Application with twitter. <a href="https://github.com/intridea/omniauth">OmniAuth</a> is the best gem to use.
+
+OmniAuth provides list of  Strategies to use many OAuth for your application. Here is the<a href="https://github.com/intridea/omniauth/wiki/List-of-Strategies"> List of Strategies</a>.
+
+Showing here a <a href="https://github.com/arunagw/omniauth-twitter">Twitter Strategy</a> for OmniAuth. Twitter uses the OAuth 1.0a flow, you can read about it here: <a href="https://dev.twitter.com/docs/auth/oauth">https://dev.twitter.com/docs/auth/oauth</a>
+
+For using Twitter OAuth you have to register a Application on Twitter (<a href="https://dev.twitter.com/apps/new">https://dev.twitter.com/apps/new</a>)
+
+Once you done with the registration obtain the Consumer Key and Consumer Secret from the Twitter Application.
+
+Be sure to put the callback URL in the application. Callback URL is the URL where user will land after successful authentication.
+
+Showing an image here how to register an Application with Twitter.
+
+<img class="aligncenter size-full wp-image-319" title="twitter_omnauth" src="/assets/images/twitter_omnauth.jpg" alt="" width="805" height="741" />
+
+&nbsp;
+
+Here showing some of the steps :
+
+Generate a new Rails Application:
+<pre>rails new TwitterAuth</pre>
+Update your gemfile add <a href="https://rubygems.org/gems/omniauth-twitter">omniauth-twitter</a> gem into that
+<pre>gem "omniauth-twitter"</pre>
+Create a <code>config/initializers/omniauth.rb</code> file.
+<strong>Paste your key instead of XXXX, and secret instead of YYYY</strong>
+<pre>Rails.application.config.middleware.use OmniAuth::Builder do
+  provider :twitter, 'XXXX', 'YYYY'
+end</pre>
+All Done!
+
+Just start the server
+<pre>bundle exec rails server</pre>
+And hit the URL
+<pre>http://localhost:3000/auth/twitter</pre>
+And you should be landing on the Twitter Authorize page!
+
+After success your app will redirect to your given callback URL with information and token!
+
+At <a href="http://www.omniauth.org/">OmniAuth.org</a> you can try out different -2 Strategies.
+
+&nbsp;
+
+Useful links :
+<ul>
+	<li><a href="http://www.omniauth.org/">OmniAuth.org</a> One page for all you need.</li>
+	<li><a href="https://rubygems.org/gems/omniauth-twitter">omniauth-twitter</a> gem.</li>
+</ul>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arun Agrawal</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-07T00:00:00+01:00" pubdate data-updated="true"></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://arun.im/2011/oauth-omniauth-twitter/" data-via="arunagw" data-counturl="http://arun.im/2011/oauth-omniauth-twitter/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2011/respond-custom-formats-rails/" title="Previous Post: Respond to Custom Formats in Rails">&laquo; Respond to Custom Formats in Rails</a>
+      
+      
+        <a class="basic-alignment right" href="/2012/slides-when-ruby-meets-java-the-power-of-torquebox/" title="Next Post: Slides (When Ruby Meets Java - The Power of Torquebox)">Slides (When Ruby Meets Java - The Power of Torquebox) &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    
+<section>
+	<span>
+		<img src="http://www.gravatar.com/avatar/ee85853909657f47c8a68e8a9bc7d992?s=150" alt="Gravatar of Arun Agrawal " title="Gravatar of Arun Agrawal" />
+	</span>
+</section>
+
+<ol id="social-media-links">
+  <li class="email"><a href="mailto:arun@arun.im">Email?</a></li>
+  <li class="github"><a href="https://github.com/arunagw?rel=author">Github</a></li>
+  <li class="twitter"><a href="https://twitter.com/arunagw?rel=author">Twitter</a></li>
+  <li class="likes"><a href="http://likes.arun.im/">likes</a></li>
+  <li class="google-plus"><a href="https://plus.google.com/103610296722452739457?rel=author">Google Plus</a></li>
+  <li class="rss"><a href="http://feeds.feedburner.com/ArunAgrawal">RSS</a></li>
+</ol>
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/rails4-app-on-heroku/">Rails4 App on Heroku</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/switched-to-heroku-and-octopress/">Switched to Heroku and Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/slides-when-ruby-meets-java-the-power-of-torquebox/">Slides (When Ruby Meets Java - the Power of Torquebox)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/oauth-omniauth-twitter/">OAuth With OmniAuth and Twitter</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/respond-custom-formats-rails/">Respond to Custom Formats in Rails</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <p><a class="twitter-timeline" href="https://twitter.com/arunagw" data-widget-id="336944437999566849">Tweets by @arunagw</a></p>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</section>
+
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/arunagw">@arunagw</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'arunagw',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <div id="delicious"></div>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/json/arunagw?count=3&amp;sort=date&amp;callback=renderDeliciousLinks"></script>
+  <p><a href="http://delicious.com/arunagw">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/103610296722452739457?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Arun Agrawal -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
