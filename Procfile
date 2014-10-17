@@ -1,1 +1,1 @@
-web: bundle exec unicorn -p $PORT -c ./unicorn.rb
+web: bundle exec middleman build && bin/start-nginx -f sleep infinity
