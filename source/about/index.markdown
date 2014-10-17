@@ -7,7 +7,7 @@ description: ruby on rails contributor and developer
 keywords: ruby, rubyonrails, rails, contributor, developer
 ---
 <h3>
-  I am working with Ruby and RubyonRails from last 5 years and I love open source!
+  Ruby Developer
 </h3>
 <p>
   &nbsp;
