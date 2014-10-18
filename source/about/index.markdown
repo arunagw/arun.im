@@ -16,4 +16,3 @@ keywords: ruby, rubyonrails, rails, contributor, developer
   I have contributed in
   <a href="http://contributors.rubyonrails.org/contributors/arun-agrawal/commits" target='_blank'>Rails Core Framework</a>.
 </h3>
-
