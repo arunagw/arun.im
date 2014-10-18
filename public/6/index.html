@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://arun.im/posts/5">
+  <link rel="canonical" href="http://arun.im/6">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="http://feeds.feedburner.com/ArunAgrawal" rel="alternate" title="Arun Agrawal's Blog" type="application/atom+xml">
@@ -85,232 +85,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2011/basicobject-introduced-ruby-1-9/">BasicObject Introduced in Ruby 1.9</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-02-24T00:00:00+01:00" pubdate data-updated="true"></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><strong>RUBY_VERSION &lt; 1.9</strong>
-<pre>class Parent
-end
-class Child &lt; Parent
-end
-
-puts Child.superclass   #=&gt; Parent
-puts Parent.superclass  #=&gt; Object
-puts Parent.superclass.superclass  #=&gt; nil</pre>
-<strong>RUBY_VERSION = 1.9</strong>
-<pre>class Parent
-end
-class Child &lt; Parent
-end 
-
-puts Child.superclass   #=&gt; Parent
-puts Parent.superclass  #=&gt; Object
-puts Parent.superclass.superclass  #=&gt; BasicObject
-puts Parent.superclass.superclass.superclass  #=&gt; nil</pre>
-<strong>So now given any class in Ruby, super class will be BasicObject for newer versions</strong>.
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/follow-deploy-early/">We Follow Deploy Early and Often</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-01-19T00:00:00+01:00" pubdate data-updated="true"></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">Deploy Early and Often
-
-—Steve Berczuk
-
-This process helps us to debug the deployment and installation process.
-
-In Scrum we follow needs review at the end of sprint. After that if we got potential shippable product then we deploy that so customer can use/review that feature more. 
-
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/nosql/">Why NoSQL?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-01-18T00:00:00+01:00" pubdate data-updated="true"></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div>
-
-<strong>Why NoSQL?</strong>
-
-<strong>NoSQL</strong> term is supposed to stand for “Not Only SQL.” .  This term is used to designated DBMS that differ from classic RDBMS in  some way. These DBMS may not require fixed table schemas, and usually  avoid join operations and typically scale horizontally.
-
-<strong>Architecture</strong>
-
-NOSQL databases tend to have two key attributes across the board. One  is that they’re non-relational, so they’re not doing joins on the  server. And second, they have light transactional semantics. So complex,  long-running, serialized transactions are not part of any of these  NoSQL products. Those two differences, put together, allow you to take a  very different approach to how databases are created, which means you  can make horizontally scalable databases — the kind that run across  large clusters of machines.
-
-RDBMS have shown poor performance on certain data-intensive  applications, including indexing a large number of documents, serving  pages on high-traffic websites, and delivering streaming media.  Typical  RDBMS implementations are tuned either for small but frequent  read/write transactions or for large batch transactions with rare write  accesses. NoSQL on the other hand, services heavy read/write workloads
-
-NoSQL architectures often provide weak consistency guarantees, such  as eventual consistency, or transactions restricted to single data  items. Some systems, however, provide full ACID guarantees, in some  instances by adding a supplementary middleware layer (e.g., CloudTPS).
-
-<strong>Core NoSQL Systems</strong>
-
-<strong>Wide Column Store/Column Families</strong>
-
-1.Cassandra
-2.Cloudera
-3.Amazon SimpleDB
-
-<strong>Document Store</strong>
-
-1. CouchDB
-2. MongoDB
-3. OrientDB
-
-<strong>Key Value/ Tuple Store</strong>
-
-1.Redis
-2.MemcacheDB
-3.Tokyo Cabibnet
-
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/certified-scrum-master/">Certified Scrum Master</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-01-14T00:00:00+01:00" pubdate data-updated="true"></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class="entry">
-
-  <p>I have completed my certificate in Scrum Master. Completed&nbsp;training and&nbsp;evaluation.</p>
-
-  <p>Now i am
-    <strong><a href="http://www.scrumalliance.org/profiles/118197-arun-agrawal">Certified Scrum Master</a></strong>.</p>
-
-  <p>
-    <a rel="attachment wp-att-259" href="http://www.scrumalliance.org/profiles/118197-arun-agrawal" target="_blank">
-      <img class="alignnone size-medium wp-image-259" title="ScrumMaster" src="/assets/images/ScrumMaster_Logo.png" alt="Scrum Master Arun Agrawal" width="300" height="101">
-    </a>
-  </p>
-
-  <p>Cheers,</p>
-
-  <p>Arun</p>
-
-
-
-</div>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/receiving-emails-rails3/">Receiving Emails in Rails3</a></h1>
+      <h1 class="entry-title"><a href="/2011/bundler/">Bundler</a></h1>
     
     
       <p class="meta">
@@ -333,24 +108,239 @@ NoSQL architectures often provide weak consistency guarantees, such  as eventual
   </header>
 
 
-  <div class="entry-content">To receive email you have to write a method which needs to public in any subclass of <code>ActionMailer::Base</code>. The name should be <code> receive.</code>
+  <div class="entry-content"><a href="http://gembundler.com">Bundler</a> is a preferred way to manage your Rails application gem decencies. In Rails3 the bundler comes by default.
 
-The method <code> receive.</code> will take a argument which is a <code>Mail::Message</code> obejct.
+Gemfile is the place where we need to tell about our gems.
 
-An example here :
-<pre>class EmailReceiver  &lt; ActionMailer::Base
+Example file looks like
 
-  def receive(email)
-    person = Profile.find_by_email(email.to.first)
-    person.emails.create(
-      :subject =&gt; email.subject,
-      :body =&gt; email.body
-    )
-  end
-end</pre>
-You can invoke this method on Mailer class to handle incoming email.
+<pre>
+<div id="_mcePaste">gem "rails", "~&gt; 3.0.1"</div>
+<div id="_mcePaste">gem "mongo", "1.1.5"</div>
+<div id="_mcePaste">gem "bson", "1.1.5"</div>
+<div id="_mcePaste">gem "bson_ext", "1.1.5"</div>
+<div id="_mcePaste">gem "mongoid", :git =&gt; "http://github.com/mongoid/mongoid.git"</div>
+<div id="_mcePaste">gem "devise"</div>
+<div id="_mcePaste">gem "haml"</div>
+<div>
+<div>group [:test, :development] do</div>
+<div>&nbsp;gem 'ruby-debug'</div>
+<div>end</div>
+<div>group :test do</div>
+<div>&nbsp;gem "rspec", "~&gt; 2.0.0"</div>
+<div>&nbsp;gem "rspec-rails", "~&gt; 2.0.0"</div>
+<div>&nbsp;gem "shoulda"</div>
+<div>&nbsp;gem "factory_girl"</div>
+<div>&nbsp;gem "faker"</div>
+<div>end</div>
+</div>
+</pre>
 
-You don’t have to implement the <code>receive</code> class method yourself, it is inherited from <code>ActionMailer::Base</code>.
+Here we can define number of groups according to our environments.
+
+As you can see above example &#8216;ruby-debug&#8217; will only get loaded when you are in development and test environment.
+
+&#8216;rspec&#8217;, &#8216;faker&#8217; will gets loaded in test environment only. So this is a cool way to manage your gem dependencies.
+
+And &#8216;rails&#8217;, &#8216;mongo&#8217;, &#8216;bson&#8217; all other ungrouped gems gets loaded in all environment.
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/active-record/">Active Record</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-12T00:00:00+01:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">An object that wraps a row in a database table or view, encapsulate the database access, and add domain logic on that data called Active Record.
+
+Active record object carries both data and behavior.
+
+The data structure of the Active Record should exactly match that of the database: one field in the class for each column in the table.
+
+In Rails Active record comes by default as in terms of models.
+
+Active Record class contain some method which perform like :
+<ul>
+	<li>Implement some pieces of business logic</li>
+	<li>Construct an instance of the Active Record from a SQL result set row</li>
+	<li>Update the database and insert into it the data in the Active Record</li>
+	<li>Get and set the field values</li>
+</ul>
+Active Record works very well when domain logic is not too complex.
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/praise-for-agile-product-management-with-scrum/">Praise for Agile Product Management With Scrum</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-10T00:00:00+01:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">“Product owners have had few places to turn to for advice, despite having the hardest role on an agile project. This book rectifies that. Roman Pichler’s insights into the duties of the product owner are powerful and practical. Correctly applied, his advice will benefit any product owner and agile team.”
+
+—Mike Cohn, Author of <a name="Estimating and"></a>Succeeding with Agile, Agile Estimating and Planning, and User Stories Applied
+
+“Scrum is silent on how a product owner can maximize value. Most product managers and marketers don’t know how to use the iterative, incremental nature of Scrum to do so. Roman has filled this hole nicely with his new book, Agile Product Management with Scrum.”
+
+—Ken Schwaber, codeveloper of the Scrum process
+
+<a name="agile methods"></a>“With so little written on the intersections of agile methods and product management, Roman makes a significant contribution to the field. The book provides clear guidance and rich examples on how to become an agile product manager and a successful product owner, and, further, how to lead with a strong vision. This book is a must read for product managers new to Scrum, product owners new to product management, and any product manager who wants to get the most out of Agile.”
+
+<a name="Valley Product"></a>—Greg Cohen, Principal Consultant, 280 Group and Director, Silicon Valley Product Management Association
+
+<a name="what Roman"></a>“I’m always happy to hear what Roman is thinking. What I really like about this book is that he not only shares his experience (“Common Mistakes” is a great section), but he also brings in the wisdom of others in the field. This powerful combination allows him to see farther ahead and share that vision with us. Thanks, Roman!”
+
+—Linda Rising, Independent Consultant and coauthor of Fearless Change: Patterns for Introducing New Ideas
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/creating-documents-mongodb/">Creating Documents, MongoDB — 2</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-11-22T00:00:00+01:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class="entry">
+
+  <h3 id="-100000">
+    <span style="font-weight: normal; font-size: 13px;">Inserts are the basic method for adding data to MongoDB. To insert a document into a collection, use the collection’s&nbsp;<tt>insert</tt> method:</span>
+  </h3>
+
+  <p><a name="I_indexterm3_d1e2289"></a></p>
+  <pre><code> > db.foo.insert({"bar" : "baz"})</code></pre>
+
+
+  <p>Tags: <a href="http://agrawalarun.com/blog/tag/mongodb/" rel="tag">mongodb</a></p>
+
+
+</div>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/mongodb-1/">MongoDB — 1</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-11-19T00:00:00+01:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class="entry">
+
+  <p>Hi,</p>
+
+  <p>I have started using MongoDB for my projects.</p>
+
+  <p>MongoDB is a powerful, flexible, and scalable data store. It combines the ability to scale out with many of the
+    most useful features of relational databases, such as secondary indexes, range queries, and sorting. MongoDB has
+    built-in support for MapReduce-style aggregation and geospatial indexes</p>
+
+</div>
+
 </div>
   
   
@@ -360,11 +350,11 @@ You don’t have to implement the <code>receive</code> class method yourself, i
   
   <div class="pagination">
     
-      <a class="prev" href="6">&larr; Older</a>
+      <a class="prev" href="7">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
-    <a class="next" href="4">Newer &rarr;</a>
+    <a class="next" href="5">Newer &rarr;</a>
     
   </div>
 </div>
