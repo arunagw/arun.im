@@ -1,1 +1,1 @@
-web: bundle exec unicorn -p $PORT -c ./unicorn.rb
+web: bin/start-nginx bundle exec unicorn -c config/unicorn.rb
