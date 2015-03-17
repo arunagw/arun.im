@@ -85,6 +85,50 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/2011/refactoring-environment/">Refactoring Environment</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-24T00:00:00+01:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">Just writing about refactoring environment which can be best when you are doing refactoring in your code base.
+
+Refactoring can be done at any time of your code. When you are refactoring code you can see follow things is a benefit for you.
+<ol>
+	<li>Have some good tests for which code you are going to refactor.</li>
+	<li>Let&#8217;s pair when you start refactoring. Having a pair while doing refactoring is a great idea.</li>
+	<li>Code must be under version control. GIT/SVN</li>
+</ol>
+&nbsp;
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/2011/basicobject-introduced-ruby-1-9/">BasicObject Introduced in Ruby 1.9</a></h1>
     
     
@@ -305,59 +349,6 @@ NoSQL architectures often provide weak consistency guarantees, such  as eventual
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/receiving-emails-rails3/">Receiving Emails in Rails3</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-01-12T00:00:00+01:00" pubdate data-updated="true"></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">To receive email you have to write a method which needs to public in any subclass of <code>ActionMailer::Base</code>. The name should be <code> receive.</code>
-
-The method <code> receive.</code> will take a argument which is a <code>Mail::Message</code> obejct.
-
-An example here :
-<pre>class EmailReceiver  &lt; ActionMailer::Base
-
-  def receive(email)
-    person = Profile.find_by_email(email.to.first)
-    person.emails.create(
-      :subject =&gt; email.subject,
-      :body =&gt; email.body
-    )
-  end
-end</pre>
-You can invoke this method on Mailer class to handle incoming email.
-
-You don’t have to implement the <code>receive</code> class method yourself, it is inherited from <code>ActionMailer::Base</code>.
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="6">&larr; Older</a>
@@ -391,6 +382,10 @@ You don’t have to implement the <code>receive</code> class method yourself, i
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2015/interview-on-rubyindia-podcast/">Interview on RubyIndia Podcast</a>
+      </li>
+    
+      <li class="post">
         <a href="/2013/rails4-app-on-heroku/">Rails4 App on Heroku</a>
       </li>
     
@@ -404,10 +399,6 @@ You don’t have to implement the <code>receive</code> class method yourself, i
     
       <li class="post">
         <a href="/2011/oauth-omniauth-twitter/">OAuth With OmniAuth and Twitter</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/respond-custom-formats-rails/">Respond to Custom Formats in Rails</a>
       </li>
     
   </ul>
@@ -475,7 +466,7 @@ You don’t have to implement the <code>receive</code> class method yourself, i
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - Arun Agrawal -
+  Copyright &copy; 2015 - Arun Agrawal -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

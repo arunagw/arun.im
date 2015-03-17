@@ -4,7 +4,7 @@
   <title><![CDATA[Arun Agrawal's Blog]]></title>
   <link href="http://arun.im/atom.xml" rel="self"/>
   <link href="http://arun.im/"/>
-  <updated>2014-10-18T12:35:43+02:00</updated>
+  <updated>2015-03-17T10:03:14+01:00</updated>
   <id>http://arun.im/</id>
   <author>
     <name><![CDATA[Arun Agrawal]]></name>
@@ -12,6 +12,32 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Interview on RubyIndia Podcast]]></title>
+    <link href="http://arun.im/2015/interview-on-rubyindia-podcast/"/>
+    <updated>2015-03-17T09:21:50+01:00</updated>
+    <id>http://arun.im/2015/interview-on-rubyindia-podcast</id>
+    <content type="html"><![CDATA[<p>Recently I had an interview on <a href="http://podcast.rubyindia.org/rubyindia/10">RubyIndia Podcast</a> and we talked about my early experiences with Ruby, starting my contributions to <a href="https://github.com/arunagw/">Open Source Projects</a> and currently <a href="https://github.com/rails/rails">Ruby on Rails</a>, work and culture at <a href="http://playbook.thoughtbot.com/">thoughtbot</a>.</p>
+
+<p>If you are interested in listening to me make sure to check this out.</p>
+
+<p><a href="http://podcast.rubyindia.org/rubyindia/10">http://podcast.rubyindia.org/rubyindia/10</a></p>
+
+<p>This event was recorded on Hangout on Air and raw version is available here.</p>
+
+<p><a href="https://www.youtube.com/watch?v=Hgm1SlEdKG8">https://www.youtube.com/watch?v=Hgm1SlEdKG8</a></p>
+
+<p>I would like to give credits for few people about this</p>
+
+<ul>
+<li><a href="https://twitter.com/vipulnsward">@vipulnsward</a> ( For the interview )</li>
+<li><a href="https://twitter.com/_cha1tanya">@_cha1tanya</a> ( For Running RubyIndia podcast with Vipul)</li>
+<li><a href="https://twitter.com/raysrashmi">@raysrashmi</a> ( For encouraging me about this interview)</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Rails4 app on heroku]]></title>
@@ -1009,23 +1035,6 @@ Post Load (1.0ms) SELECT * FROM posts LIMIT 1
 CACHE (0.0ms) SELECT * FROM posts LIMIT 1
 CACHE (0.0ms) SELECT * FROM posts LIMIT 1
 </pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Refactoring Environment]]></title>
-    <link href="http://arun.im/2011/refactoring-environment/"/>
-    <updated>2011-02-24T00:00:00+01:00</updated>
-    <id>http://arun.im/2011/refactoring-environment</id>
-    <content type="html"><![CDATA[Just writing about refactoring environment which can be best when you are doing refactoring in your code base.
-
-Refactoring can be done at any time of your code. When you are refactoring code you can see follow things is a benefit for you.
-<ol>
-	<li>Have some good tests for which code you are going to refactor.</li>
-	<li>Let&#8217;s pair when you start refactoring. Having a pair while doing refactoring is a great idea.</li>
-	<li>Code must be under version control. GIT/SVN</li>
-</ol>
-&nbsp;
 ]]></content>
   </entry>
   

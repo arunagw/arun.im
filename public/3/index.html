@@ -85,6 +85,123 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/2011/rails-3-0-10-jruby/">Rails 3.0.10 and JRuby</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-05T00:00:00+02:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">Finally, The Rails is coming with template support with JRuby platform. We used to use &#8220;-m&#8221; option to generate new Rails Application for JRuby platform. Which is no more need now.
+
+Just set your platform to JRuby and create a new Rails Application as you do normally and it will generate a Application which is ready to go. No more tweaks required..!!
+
+This <a href="https://github.com/rails/rails/pull/1649" target="_blank">pull request</a> which get merged into Rails 3-0-stable branch and it&#8217;s shipped with Rails 3.0.10.rc1 and will come with Rails 3.0.10.
+
+This feature is also coming with Rails 3.1.
+
+Showing here some of the example which will create Rails Application for JRuby platform. I have tested this on JRuby 1.6.3 version.
+<pre>rvm jruby-1.6.3
+# Will set your environment for JRuby 1.6.3 version.</pre>
+Time to create rails app. This will generate a rails app for JRuby platform. Things like database.yml, Gemfile will generated specifically for JRuby platform.
+<pre>rails new myapp</pre>
+database.yml
+<pre># SQLite version 3.x
+#   gem 'activerecord-jdbcsqlite3-adapter'
+
+development:
+  adapter: sqlite3
+  database: db/development.sqlite3
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  adapter: sqlite3
+  database: db/test.sqlite3
+
+production:
+  adapter: sqlite3
+  database: db/production.sqlite3</pre>
+Gemfile
+<pre>source 'http://rubygems.org'
+
+gem 'rails', '3.0.10.rc1'
+
+gem 'jruby-openssl'
+# Bundle edge Rails instead:
+# gem 'rails', :git =&gt; 'git://github.com/rails/rails.git'
+
+gem 'activerecord-jdbcsqlite3-adapter'
+
+# Use unicorn as the web server
+# gem 'unicorn'
+
+# Deploy with Capistrano
+# gem 'capistrano'
+
+# To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
+# gem 'ruby-debug'
+# gem 'ruby-debug19', :require =&gt; 'ruby-debug'
+
+# Bundle the extra gems:
+# gem 'bj'
+# gem 'nokogiri'
+# gem 'sqlite3-ruby', :require =&gt; 'sqlite3'
+# gem 'aws-s3', :require =&gt; 'aws/s3'
+
+# Bundle gems for the local environment. Make sure to
+# put test-only gems in this group so their generators
+# and rake tasks are available in development mode:
+# group :development, :test do
+#   gem 'webrat'
+# end</pre>
+<strong>You can see in Gemfile the changes. It requires <code> gem 'jruby-openssl' </code> gem and <code>gem 'activerecord-jdbcsqlite3-adapter' </code> gem</strong>. Which is required for JRuby platform.
+
+Same work to generate for mysql and postgres.
+<pre>rails new myapp -d mysql</pre>
+And that&#8217;s all.!!
+
+Your Application is ready to run. Just do <code>bundle install</code> and all set. wOOtt..!!
+
+Post comments and discuss things if you guys still facing any issue. You can also post issue on <a href="http://github.com/rails/rails/issues" target="_blank">Rails Issues</a> and ask me to look into that.
+
+Some Useful links related to post:
+<ol>
+	<li><a href="http://github.com/nicksieger/activerecord-jdbc-adapter" target="_blank">Activerecord-jdbc-adapter</a></li>
+	<li><a href="http://www.jruby.org/" target="_blank">Jruby.org</a></li>
+</ol>
+<div>Cheers,</div>
+<div><a href="http://twitter.com/arunagw" target="_blank">@arunagw</a></div>
+<br />
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/2011/working-as-a-rails-contributor/">Working as a Rails Contributor</a></h1>
     
     
@@ -414,86 +531,6 @@ All about selenium with ruby :- <a href="http://seleniumhq.org/projects/ruby/">h
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/gem-1-5-rails-2-3/">Gem 1.5 With Rails 2.3</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-03-19T00:00:00+01:00" pubdate data-updated="true"></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">You may fall down into the situation where you don&#8217;t have RVM and your system gem is upgraded for using latest things.
-
-And your old application is still running on older version of rails.
-
-This is just a workaround of using <code>Gem > 1.3.7</code> in Rails 2.3 Applications.
-
-I have tested this solution with Rails 2.3.5 and different version of gems.
-
-After upgrading gems to 1.6.2 i have got an error 
-<pre>
-/activesupport-2.3.5/lib/active_support/dependencies.rb:55: 
-uninitialized constant ActiveSupport::Dependencies::Mutex (NameError)
-</pre>
-
-To fix this error need to update </code>boot.rb</code> file. Place this at the top of <code>boot.rb</code>
-
-<pre>require 'thread'</pre>
-
-After adding this you should be getting this error 
-<pre> 
-/gem_dependency.rb:119:in
- `requirement': undefined local variable or method `version_requirements'
-</pre>
-
-To fix this error you need update your <code>environment.rb</code> file.
-Add this code above your <code>Rails::Initializer.run</code> block.
-
-<pre>
-if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.3.7')
- module Rails
-   class GemDependency
-     def requirement
-       r = super
-       (r == Gem::Requirement.default) ? nil : r
-     end
-   end
- end
-end
-</pre>
-
-Now your application should start running properly. Have fun ;)
-
-Now you can downgrade or upgrade your system gem version. Your application will still run. 
-
-Above workaround works for me very well. Any other ideas? 
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="4">&larr; Older</a>
@@ -527,6 +564,10 @@ Above workaround works for me very well. Any other ideas?
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2015/interview-on-rubyindia-podcast/">Interview on RubyIndia Podcast</a>
+      </li>
+    
+      <li class="post">
         <a href="/2013/rails4-app-on-heroku/">Rails4 App on Heroku</a>
       </li>
     
@@ -540,10 +581,6 @@ Above workaround works for me very well. Any other ideas?
     
       <li class="post">
         <a href="/2011/oauth-omniauth-twitter/">OAuth With OmniAuth and Twitter</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/respond-custom-formats-rails/">Respond to Custom Formats in Rails</a>
       </li>
     
   </ul>
@@ -611,7 +648,7 @@ Above workaround works for me very well. Any other ideas?
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - Arun Agrawal -
+  Copyright &copy; 2015 - Arun Agrawal -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

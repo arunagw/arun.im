@@ -85,6 +85,59 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/2015/interview-on-rubyindia-podcast/">Interview on RubyIndia Podcast</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-17T09:21:50+01:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Recently I had an interview on <a href="http://podcast.rubyindia.org/rubyindia/10">RubyIndia Podcast</a> and we talked about my early experiences with Ruby, starting my contributions to <a href="https://github.com/arunagw/">Open Source Projects</a> and currently <a href="https://github.com/rails/rails">Ruby on Rails</a>, work and culture at <a href="http://playbook.thoughtbot.com/">thoughtbot</a>.</p>
+
+<p>If you are interested in listening to me make sure to check this out.</p>
+
+<p><a href="http://podcast.rubyindia.org/rubyindia/10">http://podcast.rubyindia.org/rubyindia/10</a></p>
+
+<p>This event was recorded on Hangout on Air and raw version is available here.</p>
+
+<p><a href="https://www.youtube.com/watch?v=Hgm1SlEdKG8">https://www.youtube.com/watch?v=Hgm1SlEdKG8</a></p>
+
+<p>I would like to give credits for few people about this</p>
+
+<ul>
+<li><a href="https://twitter.com/vipulnsward">@vipulnsward</a> ( For the interview )</li>
+<li><a href="https://twitter.com/_cha1tanya">@_cha1tanya</a> ( For Running RubyIndia podcast with Vipul)</li>
+<li><a href="https://twitter.com/raysrashmi">@raysrashmi</a> ( For encouraging me about this interview)</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/2013/rails4-app-on-heroku/">Rails4 App on Heroku</a></h1>
     
     
@@ -387,84 +440,6 @@ Useful links :
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/respond-custom-formats-rails/">Respond to Custom Formats in Rails</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-10-24T00:00:00+02:00" pubdate data-updated="true"></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">We usually respond some of the known formats in Rails Application like HTML, XML, JavaScript, RSS and some custom.
-
-Have you tried to use your own custom format for your Rails Application?
-
-Yes you can use your custom format in Rails Application.
-
-Here showing a simple Rails Application with responding custom formats.
-
-Get a new app
-<pre>rails new music_library </pre>
-
-Get a scaffold into App
-
-<pre>rails generate scaffold mp3 title:string url:string description:text </pre>
-
-Ok so you are ready to serve some music on your app with some formats!
-
-Now you have to register MIME types in the Rails Application.
-
-For that open up <code>Rails.root/config/initializers/mime_types.rb</code>
-
-<pre>
-Mime::Type.register 'audio/mpeg' , :mp3
-</pre>
-
-<strong>Now you can serve <code>.mp3</code> and content</strong>
-
-For that your respond block should look like
-<pre>
-def show
-  @mp3 = Mp3.find(params[:id])
-  respond_to do |format|
-    format.mp3 { redirect_to @mp3.url }
-  end
-end
-</pre>
-
-Now if you call this action with <code>.mp3</code>
-<pre>http://localhost:3000/mp3s/1.mp3</pre>
-
-You will redirect_to <code>@mp3</code> url.
-    
-    Happy adding custom formats!!
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="2">&larr; Older</a>
@@ -496,6 +471,10 @@ You will redirect_to <code>@mp3</code> url.
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2015/interview-on-rubyindia-podcast/">Interview on RubyIndia Podcast</a>
+      </li>
+    
+      <li class="post">
         <a href="/2013/rails4-app-on-heroku/">Rails4 App on Heroku</a>
       </li>
     
@@ -509,10 +488,6 @@ You will redirect_to <code>@mp3</code> url.
     
       <li class="post">
         <a href="/2011/oauth-omniauth-twitter/">OAuth With OmniAuth and Twitter</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/respond-custom-formats-rails/">Respond to Custom Formats in Rails</a>
       </li>
     
   </ul>
@@ -580,7 +555,7 @@ You will redirect_to <code>@mp3</code> url.
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - Arun Agrawal -
+  Copyright &copy; 2015 - Arun Agrawal -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

@@ -85,6 +85,59 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/2011/receiving-emails-rails3/">Receiving Emails in Rails3</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-12T00:00:00+01:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">To receive email you have to write a method which needs to public in any subclass of <code>ActionMailer::Base</code>. The name should be <code> receive.</code>
+
+The method <code> receive.</code> will take a argument which is a <code>Mail::Message</code> obejct.
+
+An example here :
+<pre>class EmailReceiver  &lt; ActionMailer::Base
+
+  def receive(email)
+    person = Profile.find_by_email(email.to.first)
+    person.emails.create(
+      :subject =&gt; email.subject,
+      :body =&gt; email.body
+    )
+  end
+end</pre>
+You can invoke this method on Mailer class to handle incoming email.
+
+You don’t have to implement the <code>receive</code> class method yourself, it is inherited from <code>ActionMailer::Base</code>.
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/2011/bundler/">Bundler</a></h1>
     
     
@@ -301,53 +354,6 @@ Active Record works very well when domain logic is not too complex.
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/mongodb-1/">MongoDB — 1</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-11-19T00:00:00+01:00" pubdate data-updated="true"></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class="entry">
-
-  <p>Hi,</p>
-
-  <p>I have started using MongoDB for my projects.</p>
-
-  <p>MongoDB is a powerful, flexible, and scalable data store. It combines the ability to scale out with many of the
-    most useful features of relational databases, such as secondary indexes, range queries, and sorting. MongoDB has
-    built-in support for MapReduce-style aggregation and geospatial indexes</p>
-
-</div>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="7">&larr; Older</a>
@@ -381,6 +387,10 @@ Active Record works very well when domain logic is not too complex.
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2015/interview-on-rubyindia-podcast/">Interview on RubyIndia Podcast</a>
+      </li>
+    
+      <li class="post">
         <a href="/2013/rails4-app-on-heroku/">Rails4 App on Heroku</a>
       </li>
     
@@ -394,10 +404,6 @@ Active Record works very well when domain logic is not too complex.
     
       <li class="post">
         <a href="/2011/oauth-omniauth-twitter/">OAuth With OmniAuth and Twitter</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/respond-custom-formats-rails/">Respond to Custom Formats in Rails</a>
       </li>
     
   </ul>
@@ -465,7 +471,7 @@ Active Record works very well when domain logic is not too complex.
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - Arun Agrawal -
+  Copyright &copy; 2015 - Arun Agrawal -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
