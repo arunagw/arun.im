@@ -1,0 +1,53 @@
+---
+layout: post
+title: Rails 3.0 and Mongoid
+tags: []
+status: draft
+type: post
+published: false
+meta:
+  _edit_last: '1'
+  _su_rich_snippet_type: none
+---
+Hi Guys,
+
+Let's talk about creating an Application with Rails and <a href="http://mongoid.org" target="_blank">Mongoid</a>.
+
+<a href="http://mongoid.org" target="_blank">Mongoid</a> is an Object-Document-Mapper for <a href="http://www.mongodb.org/" target="_blank">MongoDB</a> which is a NoSQL database.
+
+Showing here some steps to get started with a Rails Application with <a href="http://mongoid.org" target="_blank">Mongoid</a>.
+
+Before that setup MongoDB in your system. You can follow instructions here... <a href="http://www.mongodb.org/display/DOCS/Quickstart" target="_blank">MongoDB Start</a>
+
+Generate a Rails Application using rails new command and remember to skip activerecord framework. We are going to use Mongoid here.
+<pre>rails new mongoid_app --skip-active-record</pre>
+Change the Gemfile to look like this. Just need to gem Mongoid.!
+<pre>gem 'mongoid'
+gem 'bson_ext' # Add bson_ext for bson performance.</pre>
+All done.
+
+Generate Mongoid configuration file to connect with MongoDB.
+<pre>bundle exec rails generate mongoid:install</pre>
+Rails Application is ready to boot..
+<pre>bundle exec rails server</pre>
+Let's create some scaffold for our Application.
+<pre>
+bundle exec rails generate scaffold Author name:string
+</pre>
+Author Model will look like
+<pre>
+class Author
+  include Mongoid::Document
+  field :name, :type => String
+end
+</pre>
+
+<pre>bundle exec rails generate scaffold Blog title:string body:text</pre>
+Blog Model will look like 
+<pre>
+class Blog
+  include Mongoid::Document
+  field :title, :type => String
+  field :body, :type => String
+end
+</pre>

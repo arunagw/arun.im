@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: mongodb | Arun Agrawal's Blog]]></title>
+  <link href="http://arun.im/blog/categories/mongodb/atom.xml" rel="self"/>
+  <link href="http://arun.im/"/>
+  <updated>2015-03-17T10:03:14+01:00</updated>
+  <id>http://arun.im/</id>
+  <author>
+    <name><![CDATA[Arun Agrawal]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Working With Mongoid Team]]></title>
+    <link href="http://arun.im/2011/working-with-mongoid-team/"/>
+    <updated>2011-07-03T00:00:00+02:00</updated>
+    <id>http://arun.im/2011/working-with-mongoid-team</id>
+    <content type="html"><![CDATA[<div class="entry">
+
+  <p>It’s long time i am writing again Blog. I am very happy that i have started working with Mongoid dev team.</p>
+
+  <p><a href="http://mongoid.org" target="_blank">Mongoid</a> is a gem written in Ruby for
+    <a href="http://www.mongodb.org/" target="_blank">MongoDB</a> use.</p>
+
+  <p><a href="http://www.mongodb.org/" target="_blank">MongoDB</a> is a NoSQL database.</p>
+
+  <p>It’s great to work with open source project as a core member.</p>
+
+  <p>Mongoid
+    Organization&nbsp;<a title="Mongoid" href="http://github.com/mongoid" target="_blank">https://github.com/mongoid</a>
+  </p>
+
+  <p>Mongoid Gem :
+    <a title="Mongoid Gem" href="https://github.com/mongoid/mongoid" target="_blank">https://github.com/mongoid/mongoid</a>
+  </p>
+
+  <p>Mongoid Doc : <a title="Mongoid" href="http://mongoid.org" target="_blank">http://mongoid.org</a></p>
+
+
+</div>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Creating Documents, MongoDB — 2]]></title>
+    <link href="http://arun.im/2010/creating-documents-mongodb/"/>
+    <updated>2010-11-22T00:00:00+01:00</updated>
+    <id>http://arun.im/2010/creating-documents-mongodb</id>
+    <content type="html"><![CDATA[<div class="entry">
+
+  <h3 id="-100000">
+    <span style="font-weight: normal; font-size: 13px;">Inserts are the basic method for adding data to MongoDB. To insert a document into a collection, use the collection’s&nbsp;<tt>insert</tt> method:</span>
+  </h3>
+
+  <p><a name="I_indexterm3_d1e2289"></a></p>
+  <pre><code> > db.foo.insert({"bar" : "baz"})</code></pre>
+
+
+  <p>Tags: <a href="http://agrawalarun.com/blog/tag/mongodb/" rel="tag">mongodb</a></p>
+
+
+</div>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[MongoDB — 1]]></title>
+    <link href="http://arun.im/2010/mongodb-1/"/>
+    <updated>2010-11-19T00:00:00+01:00</updated>
+    <id>http://arun.im/2010/mongodb-1</id>
+    <content type="html"><![CDATA[<div class="entry">
+
+  <p>Hi,</p>
+
+  <p>I have started using MongoDB for my projects.</p>
+
+  <p>MongoDB is a powerful, flexible, and scalable data store. It combines the ability to scale out with many of the
+    most useful features of relational databases, such as secondary indexes, range queries, and sorting. MongoDB has
+    built-in support for MapReduce-style aggregation and geospatial indexes</p>
+
+</div>
+
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,63 @@
+---
+layout: post
+title: Bundler Usage -- Installing Gems
+tags:
+- bundler
+- rails
+- ruby
+- ruby on rails
+status: publish
+type: post
+published: true
+meta:
+  dsq_thread_id: '257743597'
+  _edit_last: '1'
+  _su_rich_snippet_type: none
+---
+Every time you change your Gemfile then you might adding/removing any dependancies in your application.
+
+Just <code> bundle install </code> will install gems for you. 
+
+The output may look like 
+
+<pre>
+$ bundle install 
+Fetching git://github.com/rails/rails.git
+Fetching source index for http://rubygems.org/ 
+Using rake (0.8.7) 
+Installing abstract (1.0.0)
+Your bundle is complete! Use `bundle show [gemname]` to see where a
+bundled gem is installed.
+</pre>
+
+You can specify groups for special environments 
+
+<pre> 
+$ bundle install --without development test
+</pre>
+<pre>
+$ bundle install --without test
+</pre>
+
+You can specify installation directory for your gems. 
+This will install all the gems into tmp/bundle folder
+<pre>
+$ bundle install --path tmp/bundle
+</pre>
+
+You can check your applications bundler config. 
+
+<pre> 
+$ bundle config 
+
+Settings are listed in order of priority. The top value will be used.
+
+disable_shared_gems
+  Set for your local app (/Users/arunagw/foobar/.bundle/config): "1"
+
+path
+  Set for your local app (/Users/arunagw/foobar/.bundle/config): "tmp/bundle"
+</pre>
+
+For more details about bundler you can checkout <a href="http://gembundler.com/">http://gembundler.com/</a>
+And also <a href="http://railscasts.com/episodes/201-bundler"> http://railscasts.com/episodes/201-bundler</a>

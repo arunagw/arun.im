@@ -1,0 +1,31 @@
+---
+layout: post
+title: Receiving Emails in Rails3
+tags:
+- rails
+status: publish
+type: post
+published: true
+meta:
+  _su_rich_snippet_type: none
+  _edit_last: '1'
+  dsq_thread_id: '211664351'
+---
+To receive email you have to write a method which needs to public in any subclass of <code>ActionMailer::Base</code>. The name should be <code> receive.</code>
+
+The method <code> receive.</code> will take a argument which is a <code>Mail::Message</code> obejct.
+
+An example here :
+<pre>class EmailReceiver  &lt; ActionMailer::Base
+
+  def receive(email)
+    person = Profile.find_by_email(email.to.first)
+    person.emails.create(
+      :subject =&gt; email.subject,
+      :body =&gt; email.body
+    )
+  end
+end</pre>
+You can invoke this method on Mailer class to handle incoming email.
+
+You don’t have to implement the <code>receive</code> class method yourself, it is inherited from <code>ActionMailer::Base</code>.

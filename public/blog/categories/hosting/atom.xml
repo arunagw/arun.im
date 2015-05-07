@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: hosting | Arun Agrawal's Blog]]></title>
+  <link href="http://arun.im/blog/categories/hosting/atom.xml" rel="self"/>
+  <link href="http://arun.im/"/>
+  <updated>2015-03-17T10:03:14+01:00</updated>
+  <id>http://arun.im/</id>
+  <author>
+    <name><![CDATA[Arun Agrawal]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Using DreamHost now for blogs and hosting]]></title>
+    <link href="http://arun.im/2010/using-dreamhost-now-for-blogs-and-hosting/"/>
+    <updated>2010-11-18T00:00:00+01:00</updated>
+    <id>http://arun.im/2010/using-dreamhost-now-for-blogs-and-hosting</id>
+    <content type="html"><![CDATA[<div class="entry">
+
+  <p>Hi,</p>
+
+  <p>Just switch to <a title="Dreamhost" href="http://www.dreamhost.com/r.cgi?550551" target="_blank">Dreamhost</a> for
+    my new hosting provider. These guys are good if you are looking for a good hosting.</p>
+
+  <p><a href="http://www.dreamhost.com/r.cgi?550551">Dreamhost</a> provides me to create unlimited shell accounts so my
+    friends also can use this for their blogs.</p>
+
+  <p>Check this out..!!!</p>
+
+  <p>You can use my email address in refer page. it’s arunagw at gmail.com</p>
+
+  <p>Or you can follow this link
+    <strong><a href="http://www.dreamhost.com/r.cgi?550551">http://www.dreamhost.com/r.cgi?550551</a></strong></p>
+
+</div>
+
+
+
+]]></content>
+  </entry>
+  
+</feed>

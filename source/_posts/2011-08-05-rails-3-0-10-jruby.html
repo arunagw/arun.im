@@ -1,0 +1,96 @@
+---
+layout: post
+title: Rails 3.0.10 and JRuby
+tags:
+- jruby
+- rails
+- Solutions
+status: publish
+type: post
+published: true
+description: rails3 and jruby
+keywords: rails, jruby
+---
+
+Finally, The Rails is coming with template support with JRuby platform. We used to use "-m" option to generate new Rails Application for JRuby platform. Which is no more need now.
+
+Just set your platform to JRuby and create a new Rails Application as you do normally and it will generate a Application which is ready to go. No more tweaks required..!!
+
+This <a href="https://github.com/rails/rails/pull/1649" target="_blank">pull request</a> which get merged into Rails 3-0-stable branch and it's shipped with Rails 3.0.10.rc1 and will come with Rails 3.0.10.
+
+This feature is also coming with Rails 3.1.
+
+Showing here some of the example which will create Rails Application for JRuby platform. I have tested this on JRuby 1.6.3 version.
+<pre>rvm jruby-1.6.3
+# Will set your environment for JRuby 1.6.3 version.</pre>
+Time to create rails app. This will generate a rails app for JRuby platform. Things like database.yml, Gemfile will generated specifically for JRuby platform.
+<pre>rails new myapp</pre>
+database.yml
+<pre># SQLite version 3.x
+#   gem 'activerecord-jdbcsqlite3-adapter'
+
+development:
+  adapter: sqlite3
+  database: db/development.sqlite3
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  adapter: sqlite3
+  database: db/test.sqlite3
+
+production:
+  adapter: sqlite3
+  database: db/production.sqlite3</pre>
+Gemfile
+<pre>source 'http://rubygems.org'
+
+gem 'rails', '3.0.10.rc1'
+
+gem 'jruby-openssl'
+# Bundle edge Rails instead:
+# gem 'rails', :git =&gt; 'git://github.com/rails/rails.git'
+
+gem 'activerecord-jdbcsqlite3-adapter'
+
+# Use unicorn as the web server
+# gem 'unicorn'
+
+# Deploy with Capistrano
+# gem 'capistrano'
+
+# To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
+# gem 'ruby-debug'
+# gem 'ruby-debug19', :require =&gt; 'ruby-debug'
+
+# Bundle the extra gems:
+# gem 'bj'
+# gem 'nokogiri'
+# gem 'sqlite3-ruby', :require =&gt; 'sqlite3'
+# gem 'aws-s3', :require =&gt; 'aws/s3'
+
+# Bundle gems for the local environment. Make sure to
+# put test-only gems in this group so their generators
+# and rake tasks are available in development mode:
+# group :development, :test do
+#   gem 'webrat'
+# end</pre>
+<strong>You can see in Gemfile the changes. It requires <code> gem 'jruby-openssl' </code> gem and <code>gem 'activerecord-jdbcsqlite3-adapter' </code> gem</strong>. Which is required for JRuby platform.
+
+Same work to generate for mysql and postgres.
+<pre>rails new myapp -d mysql</pre>
+And that's all.!!
+
+Your Application is ready to run. Just do <code>bundle install</code> and all set. wOOtt..!!
+
+Post comments and discuss things if you guys still facing any issue. You can also post issue on <a href="http://github.com/rails/rails/issues" target="_blank">Rails Issues</a> and ask me to look into that.
+
+Some Useful links related to post:
+<ol>
+	<li><a href="http://github.com/nicksieger/activerecord-jdbc-adapter" target="_blank">Activerecord-jdbc-adapter</a></li>
+	<li><a href="http://www.jruby.org/" target="_blank">Jruby.org</a></li>
+</ol>
+<div>Cheers,</div>
+<div><a href="http://twitter.com/arunagw" target="_blank">@arunagw</a></div>
+<br />

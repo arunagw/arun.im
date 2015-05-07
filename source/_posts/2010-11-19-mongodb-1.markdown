@@ -1,0 +1,19 @@
+---
+layout: post
+title: MongoDB — 1
+tags: Mongo
+date: 19/11/2010
+categories: mongodb
+---
+
+<div class="entry">
+
+  <p>Hi,</p>
+
+  <p>I have started using MongoDB for my projects.</p>
+
+  <p>MongoDB is a powerful, flexible, and scalable data store. It combines the ability to scale out with many of the
+    most useful features of relational databases, such as secondary indexes, range queries, and sorting. MongoDB has
+    built-in support for MapReduce-style aggregation and geospatial indexes</p>
+
+</div>

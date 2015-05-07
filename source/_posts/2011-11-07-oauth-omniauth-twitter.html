@@ -1,0 +1,66 @@
+---
+layout: post
+title: OAuth with OmniAuth and Twitter
+tags:
+- oauth
+- omniauth
+- rails
+- Solutions
+status: publish
+type: post
+published: true
+meta:
+  _su_rich_snippet_type: none
+  _edit_last: '1'
+  dsq_thread_id: '463977164'
+---
+Hi Folks,
+
+If you want to have OAuth in your Rails Application with twitter. <a href="https://github.com/intridea/omniauth">OmniAuth</a> is the best gem to use.
+
+OmniAuth provides list of  Strategies to use many OAuth for your application. Here is the<a href="https://github.com/intridea/omniauth/wiki/List-of-Strategies"> List of Strategies</a>.
+
+Showing here a <a href="https://github.com/arunagw/omniauth-twitter">Twitter Strategy</a> for OmniAuth. Twitter uses the OAuth 1.0a flow, you can read about it here: <a href="https://dev.twitter.com/docs/auth/oauth">https://dev.twitter.com/docs/auth/oauth</a>
+
+For using Twitter OAuth you have to register a Application on Twitter (<a href="https://dev.twitter.com/apps/new">https://dev.twitter.com/apps/new</a>)
+
+Once you done with the registration obtain the Consumer Key and Consumer Secret from the Twitter Application.
+
+Be sure to put the callback URL in the application. Callback URL is the URL where user will land after successful authentication.
+
+Showing an image here how to register an Application with Twitter.
+
+<img class="aligncenter size-full wp-image-319" title="twitter_omnauth" src="/assets/images/twitter_omnauth.jpg" alt="" width="805" height="741" />
+
+&nbsp;
+
+Here showing some of the steps :
+
+Generate a new Rails Application:
+<pre>rails new TwitterAuth</pre>
+Update your gemfile add <a href="https://rubygems.org/gems/omniauth-twitter">omniauth-twitter</a> gem into that
+<pre>gem "omniauth-twitter"</pre>
+Create a <code>config/initializers/omniauth.rb</code> file.
+<strong>Paste your key instead of XXXX, and secret instead of YYYY</strong>
+<pre>Rails.application.config.middleware.use OmniAuth::Builder do
+  provider :twitter, 'XXXX', 'YYYY'
+end</pre>
+All Done!
+
+Just start the server
+<pre>bundle exec rails server</pre>
+And hit the URL
+<pre>http://localhost:3000/auth/twitter</pre>
+And you should be landing on the Twitter Authorize page!
+
+After success your app will redirect to your given callback URL with information and token!
+
+At <a href="http://www.omniauth.org/">OmniAuth.org</a> you can try out different -2 Strategies.
+
+&nbsp;
+
+Useful links :
+<ul>
+	<li><a href="http://www.omniauth.org/">OmniAuth.org</a> One page for all you need.</li>
+	<li><a href="https://rubygems.org/gems/omniauth-twitter">omniauth-twitter</a> gem.</li>
+</ul>

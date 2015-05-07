@@ -1,0 +1,91 @@
+---
+layout: post
+title: Rails3 application with Jruby
+tags:
+- jruby
+- rails
+- Solutions
+- Technology
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  _su_rich_snippet_type: none
+  dsq_thread_id: '264820960'
+
+description: rails3 application with jruby
+keywords: rails, jruby, application
+---
+<strong>If you are living on edge and you are using Rails3 then you need follow this.<a href="/2011/rails-3-0-10-jruby/"> Rails3 With JRuby</a></strong>
+
+&nbsp;
+
+Hi All,
+
+Recently i have started a Rails3 application which will use Jruby.
+
+I have gone through some of the steps for that application up and running.
+
+If you are using <a href="http://rvm.beginrescueend.com/">RVM</a> then it's easy to install Jruby. In the latest <a href="http://rvm.beginrescueend.com/">RVM</a> version Jruby-1.6.0 is the default one. So my recommendation is first update the RVM itself then install Jruby.
+
+To update RVM and get the Jruby-1.6.0 installed
+<pre>rvm update 
+# But if you are already on the latest RVM then you will get message the "rvm update has been removed".
+
+#To install Jruby
+
+rvm install jruby</pre>
+After installing Jruby you need to switch your environment to Jruby
+<pre> 
+rvm use jruby
+#Using /Users/arunagw/.rvm/gems/jruby-1.6.0</pre>
+Can check by using
+<pre>~~&gt;jruby -v                                                                                                                                                                          
+jruby 1.6.0 (ruby 1.8.7 patchlevel 330) (2011-03-15 f3b6154) (Java HotSpot(TM) 64-Bit Server VM 1.6.0_22) [darwin-x86_64-java]
+~~&gt;ruby -v                                                                                                                                                                           
+jruby 1.6.0 (ruby 1.8.7 patchlevel 330) (2011-03-15 f3b6154) (Java HotSpot(TM) 64-Bit Server VM 1.6.0_22) [darwin-x86_64-java]</pre>
+Now you are ready to play with Jruby stuff.
+
+You can do some basic stuff like irb to test things
+<pre>irb
+#IRB will also work
+jirb
+# JIRB will also work</pre>
+Time to install Rails in Jruby environment
+<pre>gem install rails 
+
+#Will also work
+
+jruby -S gem install rails</pre>
+All set. Create your Rails application.
+<pre>rails new my_app</pre>
+Above command will create a rails application but not useful for Jruby platform.
+
+For all setting just run
+<pre>rails new my_app -m http://jruby.org/rails3.rb</pre>
+This will do all setup for you for a rails3 app in Jruby.
+
+You may need to change/update your Gemfile for your gems.
+
+Problems i faced.
+
+<code> rake db:create</code> will give you an error if you are using Mysql with Jruby.
+<pre>uninitialized constant Mysql::Error</pre>
+Here is the <a href="https://rails.lighthouseapp.com/projects/8994/tickets/6628-uninitialized-constant-mysqlerror">ticket</a> information about this.
+
+Solution for this problem right now is to create database manually.
+
+After that all will work. No more hurdles i found.
+
+If you got in any problem let me know. We will try to solve that together.
+
+Links may be useful to find stuff
+
+1. <a href="http://jruby-extras.rubyforge.org/activerecord-jdbc-adapter/">Jruby Activerecord adaptor</a>.
+2. <a href="https://github.com/arunagw/my_jruby_sampleapp">My Sample Application</a>
+3. <a href="http://rvm.beginrescueend.com/">RVM</a>
+
+-----
+
+Arun

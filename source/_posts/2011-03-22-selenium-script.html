@@ -1,0 +1,72 @@
+---
+layout: post
+title: Use selenium as a script
+tags:
+- ruby
+- selenium
+- Solutions
+- Technology
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  _su_rich_snippet_type: none
+  dsq_thread_id: '260549542'
+---
+Hey All,
+
+I came with a situation where i need to test things from browser. It nothing to do with the different browsers. It just to check some validations, some messages with some existing data with me.
+
+I can't touch the code base. It's something like QA work.
+
+I am not very much aware about using of selenium IDE which is available in browsers.
+
+I look into the selenium world with ruby and found some interesting stuff that i can script my test and run for a browser.
+
+To run into the browser i need to setup selenium-rc server running.
+
+I have done it in my way. Just small code and using selenium-client gem which allows me to start and stop the selenium-rc server.
+
+Here is my code for selenium-rc server. It also includes the selenium-jar file.
+<a href="https://github.com/arunagw/selenium-server">https://github.com/arunagw/selenium-server</a>
+
+For running selenium-rc server. Just clone it. bundle install and then rake selenium:rc:start
+
+All set. Now you are ready to run selenium script from your local machine.
+
+To test things i am using hitting up google.com and validating stuff. A google example is also given on the selenium-client gems readme.
+
+<pre>
+#!/usr/bin/env ruby
+#
+# Sample Ruby script using the Selenium client API
+#
+require "rubygems"
+gem "selenium-client", ">=1.2.16"
+require "selenium/client"
+
+begin
+  @browser = Selenium::Client::Driver.new \
+      :host => "localhost", 
+      :port => 4444, 
+      :browser => "*firefox", 
+      :url => "http://www.google.com", 
+      :timeout_in_second => 60
+
+  @browser.start_new_browser_session
+    @browser.open "/"
+    @browser.type "q", "Selenium seleniumhq.org"
+    @browser.click "btnG", :wait_for => :page
+    puts @browser.text?("seleniumhq.org")
+ensure
+  @browser.close_current_browser_session    
+end
+</pre>
+
+You can just run above script after start the selenium-rc server and see the result yourself in the browser. 
+
+Some useful links for get up and running selenium with ruby.
+
+Selenium-client for ruby :- <a href="https://github.com/ph7/selenium-client">https://github.com/ph7/selenium-client</a> 
+All about selenium with ruby :- <a href="http://seleniumhq.org/projects/ruby/">http://seleniumhq.org/projects/ruby/</a>
